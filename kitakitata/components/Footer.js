@@ -9,7 +9,7 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react"
 import { useContext } from "react"
-import { FaLink } from "react-icons/fa"
+import { FaLink, FaGithub } from "react-icons/fa"
 import { AppContext } from "@/context/AppContext"
 
 const Logo = (props) => {
@@ -73,6 +73,12 @@ export default function Footer() {
         <Logo />
         <Text>© 2023 Kitakitata. All rights reserved</Text>
         <Stack direction={"row"} spacing={6}>
+          <SocialButton
+            label="Github"
+            href={"https://github.com/drumfeet/kitakitata"}
+          >
+            <FaGithub />
+          </SocialButton>
           <SocialButton
             label="Transactions"
             href={`https://sonar.warp.cc/?#/app/contract/${contractTxId}`}
