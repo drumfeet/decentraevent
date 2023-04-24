@@ -1,0 +1,33 @@
+{
+  "name": "kitakitata",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "go": "next build && next start"
+  },
+  "dependencies": {
+    "next": "13.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@lit-protocol/sdk-browser": "^1.1.250",
+    "@rainbow-me/rainbowkit": "^0.12.1",
+    "buffer": "^6.0.3",
+    "ethers": "^5.7.2",
+    "framer-motion": "^10.3.1",
+    "localforage": "^1.10.0",
+    "nanoid": "^4.0.2",
+    "ramda": "^0.28.0",
+    "react-icons": "^4.8.0",
+    "react-toastify": "^9.1.1",
+    "wagmi": "^0.12.2",
+    "weavedb-sdk": "^0.26.10"
+  }
+}
