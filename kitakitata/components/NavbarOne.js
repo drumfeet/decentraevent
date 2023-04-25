@@ -33,8 +33,16 @@ export default function NavbarOne() {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <Box bg="brand.light" mt="45px">
-      <Container as={Flex} maxW={"6xl"} py={4} align={"center"}>
+    <Box mt="45px">
+      <Container
+        as={Flex}
+        maxW={"6xl"}
+        py="16px"
+        px="40px"
+        align={"center"}
+        bg="brand.light"
+        borderRadius="16px"
+      >
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
@@ -52,9 +60,12 @@ export default function NavbarOne() {
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Box display="flex" alignItems="center">
             <Link href="/">
-              <Box h={6} w={6} as={FaHome} />
+              <Text fontWeight="bold" fontSize="large" color="brand.dark">
+                Kitakitata
+              </Text>
             </Link>
           </Box>
+
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
