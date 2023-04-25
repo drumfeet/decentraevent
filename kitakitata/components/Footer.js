@@ -56,35 +56,28 @@ export default function Footer() {
   const { contractTxId } = useContext(AppContext)
 
   return (
-    <Box
-      marginTop={28}
-      bg={useColorModeValue("gray.50", "gray.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
-    >
+    <Box marginTop={28} bg="brand.deepPurple" color="whiteAlpha.900">
       <Container
         as={Stack}
         maxW={"6xl"}
-        py={4}
+        py="48px"
         direction={{ base: "column", md: "row" }}
         spacing={4}
         justify={{ base: "center", md: "space-between" }}
         align={{ base: "center", md: "center" }}
       >
-        <Logo />
-        <Text>© 2023 Kitakitata. All rights reserved</Text>
+        <Text>Kitakitata</Text>
         <Stack direction={"row"} spacing={6}>
-          <SocialButton
-            label="Github"
-            href={"https://github.com/drumfeet/kitakitata"}
-          >
-            <FaGithub />
-          </SocialButton>
-          <SocialButton
-            label="Transactions"
-            href={`https://sonar.warp.cc/?#/app/contract/${contractTxId}`}
-          >
-            <FaLink />
-          </SocialButton>
+          <Text>
+            Powered by{" "}
+            <Link
+              href="https://weavedb.dev"
+              isExternal
+              textDecoration="underline"
+            >
+              WeaveDB
+            </Link>
+          </Text>
         </Stack>
       </Container>
     </Box>
