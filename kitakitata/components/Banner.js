@@ -11,46 +11,27 @@ import Link from "next/link"
 
 export default function Banner() {
   return (
-    <Container maxW={"5xl"}>
-      <Stack
-        textAlign={"center"}
-        align={"center"}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
-      >
-        <Heading
-          fontWeight={600}
-          fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
-          lineHeight={"110%"}
-        >
-          Events, Meetups,{" "}
-          <Text as={"span"} color={"orange.400"}>
-            Conferences, etc....
+    <Container maxW={"6xl"} my={28}>
+      <Stack direction={{ base: "column", md: "row" }}>
+        <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
+          <Heading>Unleash Your Social Side with Kitakitata</Heading>
+
+          <Text color={"gray.500"}>
+            Keep track of your meetings and receive smart reminders in
+            appropriate times. Read your smart “Daily Agenda” every morning.
           </Text>
-        </Heading>
-        <Text color={"gray.500"} maxW={"3xl"}>
-          Never miss a meeting. Never be late for one too. Keep track of your
-          meetings and receive smart reminders in appropriate times. Read your
-          smart “Daily Agenda” every morning.
-        </Text>
-        <Stack spacing={6} direction={"row"}>
-          <Link href={"/show-events"}>
-            <Button
-              rounded={"full"}
-              px={6}
-              colorScheme={"orange"}
-              bg={"orange.400"}
-              _hover={{ bg: "orange.500" }}
-            >
-              Get started
-            </Button>
-          </Link>
-        </Stack>
-        <Flex w={"full"}>
-          <Illustration
-            height={{ sm: "24rem", lg: "28rem" }}
-            mt={{ base: 12, sm: 16 }}
-          />
+
+          <Stack spacing={6} direction={"row"}>
+            <Link href={"/create-event"}>
+              <Button py="10px" px="18px" mt={8}>
+                Create Event
+              </Button>
+            </Link>
+          </Stack>
+        </Flex>
+
+        <Flex position="relative" alignItems={"flex-end"} flex={1}>
+          <Illustration style={{ position: "absolute", bottom: 0, right: 0 }} />
         </Flex>
       </Stack>
     </Container>

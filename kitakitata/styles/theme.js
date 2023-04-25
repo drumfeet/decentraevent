@@ -14,7 +14,7 @@ const overrides = {
     Button: {
       variants: {
         solid: {
-          bg: "brand.dark",
+          bg: "brand.purple",
           color: "whiteAlpha.900",
           _hover: {
             bg: "brand.deepPurple",
