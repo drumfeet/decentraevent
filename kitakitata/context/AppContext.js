@@ -19,7 +19,7 @@ export const AppContextProvider = ({ children }) => {
   const [initDB, setInitDB] = useState(false)
   const [user, setUser] = useState(null)
   const [eventData, setEventData] = useState({})
-  const [events, setEvents] = useState()
+  const [events, setEvents] = useState([])
   const [userRsvp, setUserRsvp] = useState()
   const router = useRouter()
   const [dryWriteTx, setDryWriteTx] = useState(null)
