@@ -16,6 +16,7 @@ import {
   HStack,
   Container,
   Wrap,
+  Divider,
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 
@@ -109,46 +110,51 @@ export default function CardSmall() {
             )
           })}
         </Wrap>
+
+        <Flex justifyContent="space-between" alignItems="center" mt="8">
+          {numPages > 1 && (
+            <HStack spacing={4} width="100%">
+              <Button
+                leftIcon={<ArrowBackIcon />}
+                variant="ghost"
+                disabled={page === 1}
+                onClick={handlePreviousPage}
+                flexShrink="0"
+              >
+                Previous
+              </Button>
+
+              <HStack flexGrow="1" justifyContent="center">
+                {[...Array(numPages)].map((_, idx) => {
+                  const pageNum = idx + 1
+                  const isSelected = pageNum === page
+
+                  return (
+                    <Button
+                      key={pageNum}
+                      variant={isSelected ? "solid" : "ghost"}
+                      onClick={() => handlePageSelect(pageNum)}
+                    >
+                      {pageNum}
+                    </Button>
+                  )
+                })}
+              </HStack>
+
+              <Button
+                rightIcon={<ArrowForwardIcon />}
+                variant="ghost"
+                disabled={page === numPages}
+                onClick={handleNextPage}
+                marginLeft="auto"
+                flexShrink="0"
+              >
+                Next
+              </Button>
+            </HStack>
+          )}
+        </Flex>
       </Container>
-
-      <Flex justifyContent="center" alignItems="center">
-        {numPages > 1 && (
-          <HStack spacing={4}>
-            <Button
-              leftIcon={<ArrowBackIcon />}
-              variant="ghost"
-              disabled={page === 1}
-              onClick={handlePreviousPage}
-            >
-              Previous
-            </Button>
-
-            {[...Array(numPages)].map((_, idx) => {
-              const pageNum = idx + 1
-              const isSelected = pageNum === page
-
-              return (
-                <Button
-                  key={pageNum}
-                  variant={isSelected ? "solid" : "ghost"}
-                  onClick={() => handlePageSelect(pageNum)}
-                >
-                  {pageNum}
-                </Button>
-              )
-            })}
-
-            <Button
-              rightIcon={<ArrowForwardIcon />}
-              variant="ghost"
-              disabled={page === numPages}
-              onClick={handleNextPage}
-            >
-              Next
-            </Button>
-          </HStack>
-        )}
-      </Flex>
     </>
   )
 }
