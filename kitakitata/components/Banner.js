@@ -30,9 +30,7 @@ export default function Banner() {
           </Stack>
         </Flex>
 
-        <Flex position="relative" alignItems={"flex-end"} flex={1}>
-          <Illustration style={{ position: "absolute", bottom: 0, right: 0 }} />
-        </Flex>
+        <Illustration style={{ position: "absolute", bottom: 0, right: 0 }} />
       </Stack>
     </Container>
   )
