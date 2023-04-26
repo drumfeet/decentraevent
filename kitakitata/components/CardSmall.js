@@ -53,7 +53,7 @@ export default function CardSmall() {
   return (
     <>
       <Container maxW="6xl">
-        <Wrap mx="-4">
+        <Wrap mx="-4" justify="space-around">
           {take(numCardsToShow, events).map((event) => {
             return (
               <Box
