@@ -8,6 +8,7 @@ import {
   Heading,
   Box,
   HStack,
+  Container,
 } from "@chakra-ui/react"
 import { take } from "ramda"
 import { useContext, useState } from "react"
@@ -49,10 +50,10 @@ export default function CardSmall() {
 
   return (
     <>
-      <Flex justifyContent="flex-start" alignItems="center" flexWrap="wrap">
+      <Container maxW="6xl">
         {take(numCardsToShow, events).map((v) => {
           return (
-            <Box boxShadow="base" borderRadius="12px">
+            <Box boxShadow="base" borderRadius="12px" maxW="293px">
               <Image
                 borderTopRadius="12px"
                 src="#"
@@ -78,7 +79,7 @@ export default function CardSmall() {
             </Box>
           )
         })}
-      </Flex>
+      </Container>
 
       <Flex justifyContent="center" alignItems="center">
         {events.length > numCardsToShow && (
