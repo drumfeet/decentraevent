@@ -1,5 +1,11 @@
 import { AppContext } from "@/context/AppContext"
-import { CalendarIcon, ExternalLinkIcon, TimeIcon } from "@chakra-ui/icons"
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  CalendarIcon,
+  ExternalLinkIcon,
+  TimeIcon,
+} from "@chakra-ui/icons"
 import {
   Flex,
   Text,
@@ -11,12 +17,11 @@ import {
   Container,
   Wrap,
 } from "@chakra-ui/react"
-import { take } from "ramda"
 import { useContext, useState } from "react"
 
+const EVENTS_PER_PAGE = 3
 const CARD_RADIUS = "12px"
 const MILLISECONDS = 1000
-const NUM_OF_CARDS = 8
 const IMG_FALLBACK = "https://via.placeholder.com/293x160"
 
 const getDateString = (timestamp) => {
@@ -44,17 +49,30 @@ const getTimeString = (timestamp) => {
 
 export default function CardSmall() {
   const { events } = useContext(AppContext)
-  const [numCardsToShow, setNumCardsToShow] = useState(NUM_OF_CARDS)
+  const [page, setPage] = useState(1)
 
-  const handleSeeMore = async () => {
-    setNumCardsToShow(numCardsToShow + NUM_OF_CARDS)
+  const handlePreviousPage = () => {
+    setPage((prevPage) => prevPage - 1)
   }
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1)
+  }
+
+  const handlePageSelect = (newPage) => {
+    setPage(newPage)
+  }
+
+  const numPages = Math.ceil(events.length / EVENTS_PER_PAGE)
+  const startIdx = (page - 1) * EVENTS_PER_PAGE
+  const endIdx = startIdx + EVENTS_PER_PAGE
+  const eventsToShow = events.slice(startIdx, endIdx)
 
   return (
     <>
       <Container maxW="6xl">
         <Wrap mx="-4" justify="space-around">
-          {take(numCardsToShow, events).map((event) => {
+          {eventsToShow.map((event) => {
             return (
               <Box
                 key={event.id}
@@ -92,10 +110,41 @@ export default function CardSmall() {
       </Container>
 
       <Flex justifyContent="center" alignItems="center">
-        {events.length > numCardsToShow && (
-          <Button variant="outline" mb={28} onClick={handleSeeMore}>
-            See More
-          </Button>
+        {numPages > 1 && (
+          <HStack spacing={4}>
+            <Button
+              leftIcon={<ArrowBackIcon />}
+              variant="ghost"
+              disabled={page === 1}
+              onClick={handlePreviousPage}
+            >
+              Previous
+            </Button>
+
+            {[...Array(numPages)].map((_, idx) => {
+              const pageNum = idx + 1
+              const isSelected = pageNum === page
+
+              return (
+                <Button
+                  key={pageNum}
+                  variant={isSelected ? "solid" : "ghost"}
+                  onClick={() => handlePageSelect(pageNum)}
+                >
+                  {pageNum}
+                </Button>
+              )
+            })}
+
+            <Button
+              rightIcon={<ArrowForwardIcon />}
+              variant="ghost"
+              disabled={page === numPages}
+              onClick={handleNextPage}
+            >
+              Next
+            </Button>
+          </HStack>
         )}
       </Flex>
     </>
