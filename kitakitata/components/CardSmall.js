@@ -4,6 +4,7 @@ import {
   ArrowForwardIcon,
   CalendarIcon,
   ExternalLinkIcon,
+  SearchIcon,
   TimeIcon,
 } from "@chakra-ui/icons"
 import {
@@ -17,8 +18,13 @@ import {
   Container,
   Wrap,
   Divider,
+  InputGroup,
+  Input,
+  InputRightElement,
+  InputLeftElement,
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
+import { toast } from "react-toastify"
 
 const EVENTS_PER_PAGE = 3
 const CARD_RADIUS = "12px"
@@ -74,6 +80,31 @@ export default function CardSmall() {
   return (
     <>
       <Container maxW="6xl">
+        <Flex flexDirection="column" my={4}>
+          <Heading size="md" mb={4}>
+            Find Events
+          </Heading>
+          <Flex justifyContent="flex-start" alignItems="center">
+            <InputGroup width="auto" mr="4">
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.300" />}
+              />
+              <Input placeholder="Event name" />
+            </InputGroup>
+            <InputGroup width="auto" mr="4">
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.300" />}
+              />
+              <Input placeholder="Location" />
+            </InputGroup>
+            <Button onClick={() => toast("Feature coming soon!")}>
+              Search
+            </Button>
+          </Flex>
+        </Flex>
+
         <Wrap mx="-4" justify="space-around">
           {eventsToShow.map((event) => {
             return (

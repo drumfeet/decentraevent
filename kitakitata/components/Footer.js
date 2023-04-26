@@ -69,7 +69,6 @@ export default function Footer() {
       <Box
         bg="brand.deepPurple"
         color="whiteAlpha.900"
-        id="footerMain"
         position="relative"
       >
         <Container
