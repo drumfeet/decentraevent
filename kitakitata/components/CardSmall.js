@@ -9,10 +9,12 @@ import {
   Box,
   HStack,
   Container,
+  Wrap,
 } from "@chakra-ui/react"
 import { take } from "ramda"
 import { useContext, useState } from "react"
 
+const CARD_RADIUS = "12px"
 const MILLISECONDS = 1000
 const NUM_OF_CARDS = 8
 const IMG_FALLBACK = "https://via.placeholder.com/293x160"
@@ -51,34 +53,42 @@ export default function CardSmall() {
   return (
     <>
       <Container maxW="6xl">
-        {take(numCardsToShow, events).map((v) => {
-          return (
-            <Box boxShadow="base" borderRadius="12px" maxW="293px">
-              <Image
-                borderTopRadius="12px"
-                src="#"
-                fallbackSrc={IMG_FALLBACK}
-              />
+        <Wrap mx="-4">
+          {take(numCardsToShow, events).map((event) => {
+            return (
+              <Box
+                key={event.id}
+                borderWidth="1px"
+                borderColor="#EAECF0"
+                borderRadius={CARD_RADIUS}
+                maxW="293px"
+              >
+                <Image
+                  borderTopRadius={CARD_RADIUS}
+                  src="#"
+                  fallbackSrc={IMG_FALLBACK}
+                />
 
-              <Box p="4">
-                <Heading size="md" noOfLines={1}>
-                  {v?.data?.title}
-                </Heading>
-                <HStack fontSize="sm" color="gray.500">
-                  <CalendarIcon />
-                  <Text>{getDateString(v?.data?.start_time)}</Text>
-                  <HStack flex="1" ml="auto" justifyContent="flex-end">
-                    <TimeIcon />
-                    <Text>{getTimeString(v?.data?.start_time)}</Text>
+                <Box p="12px">
+                  <Heading size="md" noOfLines={1}>
+                    {event?.data?.title}
+                  </Heading>
+                  <HStack fontSize="sm" color="gray.500">
+                    <CalendarIcon />
+                    <Text>{getDateString(event?.data?.start_time)}</Text>
+                    <HStack flex="1" ml="auto" justifyContent="flex-end">
+                      <TimeIcon />
+                      <Text>{getTimeString(event?.data?.start_time)}</Text>
+                    </HStack>
                   </HStack>
-                </HStack>
-                <Flex justifyContent="flex-end">
-                  <ExternalLinkIcon />
-                </Flex>
+                  <Flex justifyContent="flex-end">
+                    <ExternalLinkIcon />
+                  </Flex>
+                </Box>
               </Box>
-            </Box>
-          )
-        })}
+            )
+          })}
+        </Wrap>
       </Container>
 
       <Flex justifyContent="center" alignItems="center">
