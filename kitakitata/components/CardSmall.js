@@ -132,7 +132,7 @@ export default function CardSmall() {
                   <Heading size="md" noOfLines={1}>
                     {event?.data?.title}
                   </Heading>
-                  <HStack fontSize="sm" color="gray.500">
+                  <HStack fontSize="xs" color="gray.500">
                     <CalendarIcon />
                     <Text>{getDateString(event?.data?.start_time)}</Text>
                     <HStack flex="1" ml="auto" justifyContent="flex-end">
@@ -229,7 +229,7 @@ export default function CardSmall() {
                   <Heading size="md" noOfLines={1}>
                     {event?.data?.title}
                   </Heading>
-                  <HStack fontSize="sm" color="gray.500">
+                  <HStack fontSize="xs" color="gray.500">
                     <CalendarIcon />
                     <Text>{getDateString(event?.data?.start_time)}</Text>
                     <HStack flex="1" ml="auto" justifyContent="flex-end">
