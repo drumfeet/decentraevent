@@ -16,17 +16,16 @@ import {
   Box,
   HStack,
   Container,
-  Wrap,
-  Divider,
   InputGroup,
   Input,
-  InputRightElement,
   InputLeftElement,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { toast } from "react-toastify"
 
-const EVENTS_PER_PAGE = 3
+const EVENTS_PER_PAGE = 4
 const CARD_RADIUS = "12px"
 const MILLISECONDS = 1000
 const IMG_FALLBACK = "https://via.placeholder.com/293x160"
@@ -105,15 +104,23 @@ export default function CardSmall() {
           </Flex>
         </Flex>
 
-        <Wrap mx="-4" justify="space-around">
+        <Grid
+          templateColumns={[
+            "repeat(1, 1fr)",
+            "repeat(2, 1fr)",
+            "repeat(4, 1fr)",
+          ]}
+          gap={6}
+        >
           {eventsToShow.map((event) => {
             return (
-              <Box
+              <GridItem
+                w="100%"
+                maxW="293px"
                 key={event.id}
                 borderWidth="1px"
                 borderColor="#EAECF0"
                 borderRadius={CARD_RADIUS}
-                maxW="293px"
               >
                 <Image
                   borderTopRadius={CARD_RADIUS}
@@ -137,12 +144,12 @@ export default function CardSmall() {
                     <ExternalLinkIcon />
                   </Flex>
                 </Box>
-              </Box>
+              </GridItem>
             )
           })}
-        </Wrap>
+        </Grid>
 
-        <Flex justifyContent="space-between" alignItems="center" mt="8">
+        {/* <Flex justifyContent="space-between" alignItems="center" mt="8">
           {numPages > 1 && (
             <HStack spacing={4} width="100%">
               <Button
@@ -184,7 +191,104 @@ export default function CardSmall() {
               </Button>
             </HStack>
           )}
+        </Flex> */}
+      </Container>
+
+      <Container maxW="6xl" mt={16}>
+        <Flex flexDirection="column" my={4}>
+          <Heading size="md" mb={4}>
+            Popular Events
+          </Heading>
         </Flex>
+
+        <Grid
+          templateColumns={[
+            "repeat(1, 1fr)",
+            "repeat(2, 1fr)",
+            "repeat(4, 1fr)",
+          ]}
+          gap={6}
+        >
+          {eventsToShow.map((event) => {
+            return (
+              <GridItem
+                w="100%"
+                maxW="293px"
+                key={event.id}
+                borderWidth="1px"
+                borderColor="#EAECF0"
+                borderRadius={CARD_RADIUS}
+              >
+                <Image
+                  borderTopRadius={CARD_RADIUS}
+                  src="#"
+                  fallbackSrc={IMG_FALLBACK}
+                />
+
+                <Box p="12px">
+                  <Heading size="md" noOfLines={1}>
+                    {event?.data?.title}
+                  </Heading>
+                  <HStack fontSize="sm" color="gray.500">
+                    <CalendarIcon />
+                    <Text>{getDateString(event?.data?.start_time)}</Text>
+                    <HStack flex="1" ml="auto" justifyContent="flex-end">
+                      <TimeIcon />
+                      <Text>{getTimeString(event?.data?.start_time)}</Text>
+                    </HStack>
+                  </HStack>
+                  <Flex justifyContent="flex-end">
+                    <ExternalLinkIcon />
+                  </Flex>
+                </Box>
+              </GridItem>
+            )
+          })}
+        </Grid>
+
+        {/* <Flex justifyContent="space-between" alignItems="center" mt="8">
+          {numPages > 1 && (
+            <HStack spacing={4} width="100%">
+              <Button
+                leftIcon={<ArrowBackIcon />}
+                variant="ghost"
+                disabled={page === 1}
+                onClick={handlePreviousPage}
+                flexShrink="0"
+              >
+                Previous
+              </Button>
+
+              <HStack flexGrow="1" justifyContent="center">
+                {[...Array(numPages)].map((_, idx) => {
+                  const pageNum = idx + 1
+                  const isSelected = pageNum === page
+
+                  return (
+                    <Button
+                      key={pageNum}
+                      variant={isSelected ? "solid" : "ghost"}
+                      onClick={() => handlePageSelect(pageNum)}
+                    >
+                      {pageNum}
+                    </Button>
+                  )
+                })}
+              </HStack>
+
+              <Button
+                rightIcon={<ArrowForwardIcon />}
+                variant="ghost"
+                disabled={page === numPages}
+                onClick={handleNextPage}
+                marginLeft="auto"
+                flexShrink="0"
+              >
+                Next
+              </Button>
+            </HStack>
+          )}
+        </Flex> */}
       </Container>
     </>
   )
