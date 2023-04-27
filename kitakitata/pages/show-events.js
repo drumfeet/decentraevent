@@ -1,4 +1,5 @@
 import Events from "@/components/Events"
+import EventsNew from "@/components/EventsNew"
 import Layout from "@/components/Layout"
 import { AppContext } from "@/context/AppContext"
 import { Box, Flex } from "@chakra-ui/react"
@@ -49,8 +50,8 @@ export default function ShowEvents() {
   return (
     <>
       <Layout>
-        <Tabs />
-        {isNil(events) ? null : <Events />}
+        {/* <Tabs /> */}
+        {isNil(events) ? null : <EventsNew />}
       </Layout>
     </>
   )
