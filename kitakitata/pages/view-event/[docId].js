@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
+import Layout from "@/components/Layout"
 
 export default function ViewEvent() {
   const {} = useContext(AppContext)
@@ -9,6 +10,8 @@ export default function ViewEvent() {
   const jsonMetadata = metadata ? JSON.parse(metadata) : null
 
   return (
-  <>ViewEvent Page</>
+    <>
+      <Layout>ViewEvent Page</Layout>
+    </>
   )
 }

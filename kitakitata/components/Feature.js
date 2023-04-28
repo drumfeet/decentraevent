@@ -53,7 +53,7 @@ const getTimeString = (timestamp) => {
   return `${timeString}`
 }
 
-export default function CardSmall() {
+export default function Feature() {
   const { events } = useContext(AppContext)
   const [page, setPage] = useState(1)
 
