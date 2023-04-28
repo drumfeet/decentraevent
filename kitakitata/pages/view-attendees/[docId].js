@@ -28,7 +28,7 @@ import { isNil } from "ramda"
 import { toast } from "react-toastify"
 import { DownloadIcon } from "@chakra-ui/icons"
 
-export default function ViewEvent() {
+export default function ViewAttendees() {
   const {
     updateEvent,
     eventData,
@@ -97,7 +97,7 @@ export default function ViewEvent() {
         }
       } catch (e) {
         toast(e.message)
-        console.error("useEffect view-event catch()", e)
+        console.error("useEffect view-attendees catch()", e)
       }
     })()
   }, [docId, metadata])

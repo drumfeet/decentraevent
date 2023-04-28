@@ -147,7 +147,7 @@ export default function Events() {
     await getEventAttendees(metadata)
 
     await router.push({
-      pathname: `/view-event/${metadata.id}`,
+      pathname: `/view-attendees/${metadata.id}`,
       query: { metadata: JSON.stringify(metadata) },
     })
   }
