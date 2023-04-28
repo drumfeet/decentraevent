@@ -13,11 +13,21 @@ import {
   Textarea,
   Tooltip,
 } from "@chakra-ui/react"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
+import { isNil } from "ramda"
 
 export default function CreateEvent() {
-  const { addEvent, eventData, setEventData } = useContext(AppContext)
+  const { addEvent, eventData, setEventData, user, setIsLoginModalOpen } =
+    useContext(AppContext)
+
+  const handleCreateEvent = () => {
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+    } else {
+      addEvent()
+    }
+  }
 
   const handleInputChange = (event) => {
     setEventData({
@@ -112,7 +122,7 @@ export default function CreateEvent() {
                       bg: "blue.500",
                     }}
                     onClick={() => {
-                      addEvent()
+                      handleCreateEvent()
                     }}
                   >
                     Create Event

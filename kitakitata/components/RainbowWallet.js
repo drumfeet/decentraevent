@@ -7,15 +7,27 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
+import LoginOption from "./LoginOption"
 
 export default function RainbowWallet() {
-  const { login, logout, db, handleLensLogin } = useContext(AppContext)
+  const { login, logout, db, isLoginModalOpen, setIsLoginModalOpen } =
+    useContext(AppContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
+
+  const handleLoginModalOpen = () => {
+    console.log("handleLoginModalOpen")
+    setIsLoginModalOpen(true)
+  }
+
+  const handleLoginModalClose = () => {
+    console.log("handleLoginModalClose")
+    setIsLoginModalOpen(false)
+  }
 
   return (
     <>
@@ -51,79 +63,74 @@ export default function RainbowWallet() {
           }, [account])
 
           return (
-            <div
-              {...(!ready && {
-                "aria-hidden": true,
-                style: {
-                  opacity: 0,
-                  pointerEvents: "none",
-                  userSelect: "none",
-                },
-              })}
-            >
-              {(() => {
-                if (!connected) {
+            <>
+              <LoginOption
+                isOpen={isLoginModalOpen}
+                onClose={handleLoginModalClose}
+                openConnectModal={openConnectModal}
+              />
+
+              <div
+                {...(!ready && {
+                  "aria-hidden": true,
+                  style: {
+                    opacity: 0,
+                    pointerEvents: "none",
+                    userSelect: "none",
+                  },
+                })}
+              >
+                {(() => {
+                  if (!connected) {
+                    return (
+                      <>
+                        <Text
+                          onClick={() => {
+                            handleLoginModalOpen()
+                          }}
+                        >
+                          Login
+                        </Text>
+                      </>
+                    )
+                  }
+                  if (chain?.unsupported) {
+                    return (
+                      <button onClick={openChainModal} type="button">
+                        Wrong network
+                      </button>
+                    )
+                  }
                   return (
-                    <>
-                      <Menu isOpen={isOpen} onClose={onClose}>
-                        <MenuButton onClick={onOpen}>Login</MenuButton>
-                        <MenuList>
-                          <MenuItem
-                            onClick={() => {
-                              openConnectModal()
-                            }}
-                          >
-                            EVM
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              handleLensLogin()
-                            }}
-                          >
-                            Lens
-                          </MenuItem>
-                        </MenuList>
-                      </Menu>
-                    </>
+                    <div style={{ display: "flex", gap: 12 }}>
+                      <>
+                        <Menu isOpen={isOpen} onClose={onClose}>
+                          <MenuButton onClick={onOpen}>
+                            {account?.address.slice(0, 8)}
+                          </MenuButton>
+                          <MenuList>
+                            <MenuItem
+                              onClick={async () => {
+                                await router.push("/user-profile")
+                              }}
+                            >
+                              Profile
+                            </MenuItem>
+                            <MenuItem
+                              onClick={() => {
+                                openAccountModal()
+                              }}
+                            >
+                              Logout
+                            </MenuItem>
+                          </MenuList>
+                        </Menu>
+                      </>
+                    </div>
                   )
-                } else {
-                }
-                if (chain?.unsupported) {
-                  return (
-                    <button onClick={openChainModal} type="button">
-                      Wrong network
-                    </button>
-                  )
-                }
-                return (
-                  <div style={{ display: "flex", gap: 12 }}>
-                    <>
-                      <Menu isOpen={isOpen} onClose={onClose}>
-                        <MenuButton onClick={onOpen}>
-                          {account?.address.slice(0, 8)}
-                        </MenuButton>
-                        <MenuList>
-                          <MenuItem
-                            onClick={async () => {
-                              await router.push("/user-profile")
-                            }}
-                          >
-                            Profile
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              openAccountModal()
-                            }}
-                          >
-                            Logout
-                          </MenuItem>
-                        </MenuList>
-                      </Menu>
-                    </>
-                  </div>
-                )
-              })()}
-            </div>
+                })()}
+              </div>
+            </>
           )
         }}
       </ConnectButton.Custom>

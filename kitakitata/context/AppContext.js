@@ -26,6 +26,7 @@ export const AppContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [eventAttendees, setEventAttendees] = useState({})
   const [userProfile, setUserProfile] = useState(null)
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   const setupWeaveDB = async () => {
     try {
@@ -691,6 +692,8 @@ export const AppContextProvider = ({ children }) => {
         userProfile,
         setUserProfile,
         contractTxId,
+        isLoginModalOpen,
+        setIsLoginModalOpen,
       }}
     >
       {children}
