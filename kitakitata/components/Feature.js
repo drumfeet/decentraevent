@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { toast } from "react-toastify"
+import CardSmall from "./CardSmall"
 
 const EVENTS_PER_PAGE = 4
 const CARD_RADIUS = "12px"
@@ -122,28 +123,7 @@ export default function Feature() {
                 borderColor="#EAECF0"
                 borderRadius={CARD_RADIUS}
               >
-                <Image
-                  borderTopRadius={CARD_RADIUS}
-                  src="#"
-                  fallbackSrc={IMG_FALLBACK}
-                />
-
-                <Box p="12px">
-                  <Heading size="md" noOfLines={1}>
-                    {event?.data?.title}
-                  </Heading>
-                  <HStack fontSize="xs" color="gray.500">
-                    <CalendarIcon />
-                    <Text>{getDateString(event?.data?.start_time)}</Text>
-                    <HStack flex="1" ml="auto" justifyContent="flex-end">
-                      <TimeIcon />
-                      <Text>{getTimeString(event?.data?.start_time)}</Text>
-                    </HStack>
-                  </HStack>
-                  <Flex justifyContent="flex-end">
-                    <ExternalLinkIcon />
-                  </Flex>
-                </Box>
+                <CardSmall event={event} />
               </GridItem>
             )
           })}
@@ -219,28 +199,7 @@ export default function Feature() {
                 borderColor="#EAECF0"
                 borderRadius={CARD_RADIUS}
               >
-                <Image
-                  borderTopRadius={CARD_RADIUS}
-                  src="#"
-                  fallbackSrc={IMG_FALLBACK}
-                />
-
-                <Box p="12px">
-                  <Heading size="md" noOfLines={1}>
-                    {event?.data?.title}
-                  </Heading>
-                  <HStack fontSize="xs" color="gray.500">
-                    <CalendarIcon />
-                    <Text>{getDateString(event?.data?.start_time)}</Text>
-                    <HStack flex="1" ml="auto" justifyContent="flex-end">
-                      <TimeIcon />
-                      <Text>{getTimeString(event?.data?.start_time)}</Text>
-                    </HStack>
-                  </HStack>
-                  <Flex justifyContent="flex-end">
-                    <ExternalLinkIcon />
-                  </Flex>
-                </Box>
+                <CardSmall event={event} />
               </GridItem>
             )
           })}
