@@ -73,7 +73,7 @@ export default function CreateEvent() {
                 <FormControl id="location">
                   <FormLabel>Location</FormLabel>
                   <Input
-                    placeholder="Location"
+                    placeholder="Virtual [Link] or Physical [Address]"
                     onChange={handleInputChange}
                     maxLength={"100"}
                   />
