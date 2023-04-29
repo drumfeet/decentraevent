@@ -30,7 +30,9 @@ export default function Banner() {
           </Stack>
         </Flex>
 
-        <Illustration style={{ position: "absolute", bottom: 0, right: 0 }} />
+        <Illustration
+        //  style={{ position: "absolute", bottom: 0, right: 0 }} 
+        />
       </Stack>
     </Container>
   )
@@ -49,34 +51,34 @@ export const Illustration = (props) => {
         d="M367.798 23.14H143.728C137.658 23.14 132.738 28.0604 132.738 34.13V187.28C132.738 193.35 137.658 198.27 143.728 198.27H367.798C373.867 198.27 378.788 193.35 378.788 187.28V34.13C378.788 28.0604 373.867 23.14 367.798 23.14Z"
         fill="white"
         stroke="#D8D7E2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M370.188 23.14H141.338C136.588 23.14 132.738 27.48 132.738 32.84V37.69H378.788V32.84C378.788 27.48 374.938 23.14 370.188 23.14Z"
         fill="#D8D7E2"
         stroke="#D8D7E2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M145.028 30.41C145.028 32.1 143.668 33.47 141.988 33.47C140.308 33.47 138.948 32.1 138.948 30.41C138.948 28.72 140.308 27.35 141.988 27.35C143.668 27.35 145.028 28.72 145.028 30.41Z"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M153.448 33.47C155.127 33.47 156.488 32.1 156.488 30.41C156.488 28.72 155.127 27.35 153.448 27.35C151.769 27.35 150.408 28.72 150.408 30.41C150.408 32.1 151.769 33.47 153.448 33.47Z"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M167.938 30.41C167.938 32.1 166.578 33.47 164.898 33.47C163.218 33.47 161.858 32.1 161.858 30.41C161.858 28.72 163.218 27.35 164.898 27.35C166.578 27.35 167.938 28.72 167.938 30.41Z"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M152.588 52.72H269.538C270.768 52.72 271.758 51.72 271.758 50.5C271.758 49.27 270.758 48.28 269.538 48.28H152.588C151.358 48.28 150.368 49.28 150.368 50.5C150.368 51.73 151.368 52.72 152.588 52.72Z"
@@ -103,9 +105,9 @@ export const Illustration = (props) => {
       <path
         d="M136.508 183.16H348.348"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M110.058 318.97C97.0076 312.72 76.7376 352.18 76.7376 352.18C76.7376 352.18 99.8476 304.27 87.2376 299.15C74.6276 294.03 60.5176 353.12 60.5176 353.12C60.5176 353.12 75.1776 288.53 64.8076 285.89C54.4376 283.25 50.1476 353.12 50.1476 353.12C50.1476 353.12 46.2176 282.81 32.9876 288.39C19.7576 293.97 38.9176 353.12 38.9176 353.12C38.9176 353.12 15.4676 289.25 7.59756 299.15C2.70756 305.31 17.2276 333.5 25.4276 349.81C17.3376 342.07 3.91756 330.26 0.627562 335.24C-4.59244 343.14 24.4676 361.93 24.4676 361.93L36.7276 361.77L84.8476 361.53C84.8476 361.53 123.128 325.22 110.078 318.97H110.058Z"
@@ -114,44 +116,44 @@ export const Illustration = (props) => {
       <path
         d="M62.4376 304.03L53.8576 361.23"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M63.8676 361.23L78.6476 321.15"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M76.7375 361.57C77.5675 360.92 95.5676 338.07 95.5676 338.07"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M34.7776 300.25L44.9176 361.81"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M20.9576 325.99L36.7176 361.77"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M11.6976 344.86L28.8376 361.93"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M28.3976 368.29L35.4476 414.39H50.0275H60.1376H74.7176L81.7576 368.29H28.3976Z"
@@ -164,48 +166,48 @@ export const Illustration = (props) => {
       <path
         d="M25.4176 370.13H83.8376"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M295.768 130.94C295.768 130.94 272.058 103.95 268.968 98.83C265.878 93.72 272.088 82.49 280.078 84.41C288.068 86.33 301.918 101.4 310.548 113.75L295.768 130.93V130.94Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M264.968 95.21C264.968 95.21 261.878 93.72 261.078 91.11C260.278 88.5 262.248 86.78 266.668 88.97C271.088 91.16 264.968 95.21 264.968 95.21Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M262.648 88.97C262.648 88.97 260.678 87.45 260.908 85.26C261.138 83.07 263.208 81.58 267.478 85.04C271.738 88.5 267.798 92.46 267.798 92.46L262.658 88.97H262.648Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M276.288 74.69H274.328H262.138L265.448 106.29H274.328H276.288H285.168L288.468 74.69H276.288Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M264.518 97.44H286.088L287.788 81.23H262.828L264.518 97.44Z"
         fill="#7F56D9"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M285.958 65.82H264.888C264.076 65.82 263.418 66.4781 263.418 67.29V70.06C263.418 70.8719 264.076 71.53 264.888 71.53H285.958C286.769 71.53 287.428 70.8719 287.428 70.06V67.29C287.428 66.4781 286.769 65.82 285.958 65.82Z"
@@ -222,9 +224,9 @@ export const Illustration = (props) => {
       <path
         d="M295.768 95.87C295.768 95.87 286.868 86.29 284.628 85.41C282.388 84.53 280.318 87.53 282.788 91.56C286.748 98.03 282.548 101.08 290.698 107.31"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M372.728 95.53L324.858 123.64L309.188 105.84L283.158 127.13C283.158 127.13 296.848 174.06 329.638 176.71C362.428 179.36 382.678 140.03 382.678 140.03L372.738 95.54L372.728 95.53Z"
@@ -233,23 +235,23 @@ export const Illustration = (props) => {
       <path
         d="M314.488 111.86L286.298 134.19"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M335.058 117.24L324.928 123.07"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M329.628 129.06L309.178 105.83L283.148 127.12C283.148 127.12 296.838 174.05 329.628 176.7C362.418 179.35 382.668 140.02 382.668 140.02"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M376.528 128.52C376.528 128.52 374.388 110.59 375.278 105.38C376.168 100.18 379.018 94.12 383.568 93.85C388.108 93.58 399.518 93.94 401.658 96.88C403.798 99.82 407.988 103.83 406.468 114.35C404.958 124.87 398.448 163.34 398.448 163.34L393.788 174.6H385.528L376.518 128.53L376.528 128.52Z"
@@ -258,25 +260,25 @@ export const Illustration = (props) => {
       <path
         d="M388.738 91.51V159.55"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M388.738 96.71L381.217 108.18L375.068 94.81C375.068 94.81 380.967 88.7 383.247 88.29C385.527 87.88 395.348 87.77 395.348 87.77C395.348 87.77 400.618 91.89 402.728 94.11C404.838 96.33 395.978 108.98 395.978 108.98L388.738 96.7V96.71Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M346.788 369.33L353.318 222.82L387.378 220.11L375.948 370.4L346.788 369.33Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M376.288 367.7L375.468 414.89L368.428 415.05L368.218 401L346.788 415.55L325.678 415.74C322.968 415.94 321.558 412.59 323.598 410.8L342.838 393.85L346.358 368.19L376.308 367.7H376.288Z"
@@ -285,38 +287,38 @@ export const Illustration = (props) => {
       <path
         d="M345.818 373.88L376.188 373.43"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M338.748 397.48L344.588 399.27"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M334.968 401L341.148 403.27"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M330.868 404.38L336.268 406.65"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M387.348 368.89L393.888 222.38L427.938 219.67L416.508 369.96L387.348 368.89Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M416.848 367.26L415.578 415.36L408.998 415.55L408.778 401.05L386.788 415.13L366.218 415.31C363.508 415.51 362.098 412.16 364.138 410.37L383.378 393.42L386.898 367.76L416.848 367.27V367.26Z"
@@ -325,30 +327,30 @@ export const Illustration = (props) => {
       <path
         d="M386.388 373.44L416.748 372.99"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M379.318 397.04L385.148 398.83"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M375.538 400.56L381.708 402.83"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M371.438 403.94L376.828 406.21"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M349.418 201.75L348.018 284.93L426.778 287.09L435.548 201.78L349.418 201.75Z"
@@ -361,23 +363,23 @@ export const Illustration = (props) => {
       <path
         d="M387.418 168.56L388.048 222.9C388.048 222.9 390.248 236.88 412.948 242.25C435.648 247.62 441.988 240.95 441.988 240.95C441.988 240.95 434.178 148.27 435.018 143.49"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M433.468 208.57C427.338 205.68 421.318 202.59 415.438 199.31"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M411.078 104.21C417.508 116.3 418.608 121.63 418.608 121.63H407.098L412.748 135.67L388.038 168.56"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M377.358 92.51L346.438 112.67V160.43L339.888 240.96C339.888 240.96 345.888 245.53 358.038 243.93C361.968 243.41 366.808 242.87 371.948 240.51C392.968 230.85 389.378 218.05 389.378 218.05L389.328 145.62C389.328 145.62 373.538 106.43 377.368 92.51H377.358Z"
@@ -386,67 +388,67 @@ export const Illustration = (props) => {
       <path
         d="M385.658 170.23C385.658 171.36 384.808 172.27 383.758 172.27C382.708 172.27 381.858 171.36 381.858 170.23C381.858 169.1 382.708 168.19 383.758 168.19C384.808 168.19 385.658 169.1 385.658 170.23Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M385.658 185.24C385.658 186.37 384.808 187.28 383.758 187.28C382.708 187.28 381.858 186.37 381.858 185.24C381.858 184.11 382.708 183.2 383.758 183.2C384.808 183.2 385.658 184.11 385.658 185.24Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M385.658 200.26C385.658 201.39 384.808 202.3 383.758 202.3C382.708 202.3 381.858 201.39 381.858 200.26C381.858 199.13 382.708 198.22 383.758 198.22C384.808 198.22 385.658 199.13 385.658 200.26Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M346.218 157.6C346.998 162.38 339.888 240.96 339.888 240.96C339.888 240.96 345.698 247.62 366.498 242.26C387.308 236.89 389.318 222.91 389.318 222.91L388.728 144.02"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M347.278 208.57C352.898 205.68 358.408 202.59 363.798 199.31"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M368.198 104.21C362.298 116.3 361.298 121.63 361.298 121.63H372.498L366.668 135.67L388.908 167.03"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M401.088 92.51C404.778 104.78 391.828 136.67 388.708 144.07C385.848 136.67 373.978 104.78 377.358 92.51"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M404.308 50.67C401.408 47.21 399.178 45.87 395.398 43.84L395.718 49.64C387.948 49.11 376.648 49.14 372.328 53.15C365.458 59.53 363.788 80.05 368.898 83.82C372.468 86.46 404.698 89.77 410.828 80.92C417.968 70.62 407.188 53.65 404.318 50.66L404.308 50.67Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M398.568 64.45C397.298 64.45 396.118 64.85 395.158 65.53C395.808 52.76 389.738 51.25 378.988 51.86C368.268 52.15 370.088 65.77 370.028 73.32C370.208 81.5 376.308 84.26 383.108 83.47C383.148 87.2 381.978 94.16 387.638 94.19C390.968 94.56 395.108 93.79 395.138 89.65C395.128 85.8 395.228 78.84 395.168 74.99C403.878 80.26 408.778 65.2 398.558 64.45H398.568Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M398.758 45.66C396.078 43.53 392.658 42.37 388.748 42.72C361.648 34.1 359.968 70.97 385.208 57.07C385.988 60.62 389.438 64.48 392.608 65.8L394.698 69.82L395.088 66.01C396.578 64.33 400.128 63.82 402.258 65.75C406.738 57.35 398.758 45.65 398.758 45.65V45.66Z"
@@ -455,42 +457,42 @@ export const Illustration = (props) => {
       <path
         d="M395.768 71.02C395.768 71.02 395.528 67.08 399.568 67.53"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M399.458 46.2C396.778 44.07 392.668 42.38 388.748 42.73C361.648 34.11 359.968 70.98 385.208 57.08C385.988 60.63 389.438 64.49 392.608 65.81L394.698 69.83L395.088 66.02C396.578 64.34 400.128 63.83 402.258 65.76"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M404.978 43.84C410.638 43.84 415.228 39.4613 415.228 34.06C415.228 28.6587 410.638 24.28 404.978 24.28C399.317 24.28 394.728 28.6587 394.728 34.06C394.728 39.4613 399.317 43.84 404.978 43.84Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M377.428 70.6L374.388 68.73L377.068 64.21"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M385.618 63.58L382.668 62.38"
         stroke="#020046"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M373.018 62.52L370.188 62.93"
         stroke="#020046"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M384.258 66.15C384.258 66.9 383.648 67.51 382.898 67.51C382.148 67.51 381.538 66.9 381.538 66.15C381.538 65.4 382.148 64.79 382.898 64.79C383.648 64.79 384.258 65.4 384.258 66.15Z"
@@ -503,9 +505,9 @@ export const Illustration = (props) => {
       <path
         d="M374.148 74.86C374.148 76.32 375.328 77.51 376.788 77.52C378.248 77.52 379.438 76.34 379.448 74.88L374.148 74.86Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M403 95L425.15 141.63L425.27 141.76L410.92 143.53C410.92 143.53 409.09 162.61 412.25 182.78C413.95 193.64 437.01 210.68 452.43 186.99C467.85 163.3 452.39 107.71 403 95Z"
@@ -514,40 +516,40 @@ export const Illustration = (props) => {
       <path
         d="M410.45 152.77L441.68 148.21"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M448.157 167.18L439.627 141L411.527 144.47C411.527 144.47 409.697 163.55 412.857 183.72C414.557 194.58 437.617 211.62 453.037 187.93C458.597 179.39 460.137 166.7 457.527 153.38"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M410.628 108.13C410.628 108.13 407.648 104.64 405.538 105.35C403.428 106.06 403.528 109.73 407.188 113.5C410.858 117.27 410.628 108.14 410.628 108.14V108.13Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M419.428 101.37L417.538 101.29L405.768 100.82L407.738 131.46L416.308 131.81L418.198 131.88L426.768 132.23L431.198 101.84L419.428 101.37Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M407.188 122.88L428.008 123.72L430.278 108.13L406.178 107.16L407.188 122.88Z"
         fill="#7F56D9"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M429.125 93.1503L408.782 92.3332C407.998 92.3018 407.337 92.9115 407.306 93.6951L407.198 96.3729C407.167 97.1566 407.777 97.8173 408.56 97.8488L428.904 98.6659C429.688 98.6973 430.348 98.0876 430.38 97.304L430.487 94.6262C430.519 93.8425 429.909 93.1818 429.125 93.1503Z"
@@ -561,9 +563,9 @@ export const Illustration = (props) => {
         d="M432.348 119.22C432.348 119.22 432.838 109.62 430.978 107.57C429.128 105.51 421.128 103.51 419.378 105.07C417.628 106.64 418.798 109.61 421.848 110.13C424.898 110.65 425.108 111.03 425.108 111.03L425.918 116.8L432.338 119.23L432.348 119.22Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M409.368 118.23C409.698 117.19 410.248 116.15 413.568 116.3L413.538 116.21C410.628 114.61 411.208 112.38 412.398 111.33C414.248 109.69 421.248 111.39 424.708 112.2C428.168 113.01 432.728 117.95 432.728 117.95C432.728 117.95 435.298 119.94 435.788 135.03L435.608 141.28L421.638 142.9C421.638 142.9 421.148 139.16 420.138 137.34C419.118 135.51 418.748 132.44 418.708 131.05L418.658 130.92C413.438 129.08 409.608 126.27 410.148 124.08C410.458 122.8 411.018 122.11 412.858 122.22H412.828C409.758 120.82 408.958 119.61 409.378 118.25L409.368 118.23Z"
@@ -572,30 +574,30 @@ export const Illustration = (props) => {
       <path
         d="M413.538 116.2C410.628 114.6 411.208 112.37 412.398 111.32C414.248 109.68 421.248 111.38 424.708 112.19C428.168 113 432.728 117.94 432.728 117.94C432.728 117.94 435.298 119.93 435.788 135.02L435.608 141.27L421.638 142.89C421.638 142.89 421.148 139.15 420.138 137.33C419.118 135.5 418.748 132.43 418.708 131.04"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M427.488 120.71C427.488 120.71 424.468 118.13 417.528 116.81C410.588 115.49 409.788 116.87 409.368 118.23C408.938 119.59 409.748 120.8 412.818 122.19"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M425.188 126.12C425.188 126.12 419.248 123.69 416.028 122.81C411.508 121.59 410.588 122.23 410.138 124.06C409.468 126.79 415.568 130.49 422.718 132.06"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M549.988 374.21H559.248V314.06H549.988V374.21Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M551.768 393.41H557.458C559.827 393.41 561.748 391.489 561.748 389.12V346.33C561.748 343.961 559.827 342.04 557.458 342.04H551.768C549.398 342.04 547.478 343.961 547.478 346.33V389.12C547.478 391.489 549.398 393.41 551.768 393.41Z"
@@ -609,8 +611,8 @@ export const Illustration = (props) => {
         d="M509.308 406.8C509.308 411.37 513.008 415.07 517.578 415.07C522.148 415.07 525.848 411.37 525.848 406.8C525.848 402.23 522.148 398.53 517.578 398.53C513.008 398.53 509.308 402.23 509.308 406.8Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M514.408 406.8C514.408 408.55 515.828 409.97 517.578 409.97C519.328 409.97 520.748 408.55 520.748 406.8C520.748 405.05 519.328 403.63 517.578 403.63C515.828 403.63 514.408 405.05 514.408 406.8Z"
@@ -620,8 +622,8 @@ export const Illustration = (props) => {
         d="M583.608 406.8C583.608 411.37 587.308 415.07 591.878 415.07C596.448 415.07 600.148 411.37 600.148 406.8C600.148 402.23 596.448 398.53 591.878 398.53C587.308 398.53 583.608 402.23 583.608 406.8Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M588.708 406.8C588.708 408.55 590.128 409.97 591.878 409.97C593.628 409.97 595.048 408.55 595.048 406.8C595.048 405.05 593.628 403.63 591.878 403.63C590.128 403.63 588.708 405.05 588.708 406.8Z"
@@ -631,167 +633,167 @@ export const Illustration = (props) => {
         d="M554.258 207.78L604.288 208.04C609.758 208.07 614.058 212.73 613.658 218.19L606.168 318.42C605.798 323.43 601.568 327.26 596.548 327.16L482.368 324.73C476.898 324.61 472.668 319.88 473.168 314.43C473.608 309.57 477.688 305.84 482.568 305.84L529.268 304.71C534.628 304.71 543.608 301.49 543.398 296.13L544.768 217.58C544.558 212.21 548.878 207.74 554.248 207.77L554.258 207.78Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M599.428 218.75L587.938 303.46"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M540.018 302.82C540.148 302.66 572.988 302.82 572.988 302.82"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M427.058 352.94L423.588 387.97L447.978 390.39L451.598 355.37L427.058 352.94Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M430.428 353.27L426.958 388.31"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M434.588 353.68L432.098 388.81"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M438.808 354.1L436.418 388.91"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M443.128 354.53L440.288 389.29"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M447.618 354.97L444.738 390.67"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M381.598 415.04L454.728 415.36L452.908 381.93L418.358 383.33L414.328 396.1L381.598 415.04Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M401.668 400.46L405.598 407.9"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M407.468 397.71L411.388 405.15"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M392.638 412.19H445.958"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M468.868 353.9V389.11H493.368L493.528 353.9H468.868Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M472.258 353.9V389.11"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M476.438 353.9L477.418 389.11"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M480.668 353.9L481.718 388.77"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M485.018 353.9L485.618 388.77"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M489.528 353.9L490.178 389.71"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M429.838 415.04L502.968 415.36L499.418 382L466.588 383.33L462.558 396.1L429.838 415.04Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M449.908 400.46L453.828 407.9"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M455.708 397.71L459.628 405.15"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M440.868 412.19H494.198"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M475.128 363.09H415.188C415.188 363.09 420.888 266.02 444.738 264.81C473.508 263.36 487.318 264.81 487.318 264.81L475.128 363.09Z"
@@ -800,9 +802,9 @@ export const Illustration = (props) => {
       <path
         d="M416.518 351.59L476.717 350.28"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M568.238 261.25H527.298C476.998 257.67 457.038 269.79 457.038 288.62C457.038 301.35 459.618 368.59 459.618 368.59L504.308 367.27L501.418 306.23C501.418 306.23 533.638 310.58 553.688 304.84C573.738 299.1 568.248 261.25 568.248 261.25H568.238Z"
@@ -811,20 +813,20 @@ export const Illustration = (props) => {
       <path
         d="M563.088 297.83C560.858 301.12 557.808 303.66 553.688 304.84C533.638 310.58 501.418 306.23 501.418 306.23"
         stroke="#6FBBEF"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M504.298 367.26L459.608 368.58C459.608 368.58 457.028 301.35 457.028 288.61C457.028 269.78 476.988 257.66 527.288 261.24"
         stroke="#6FBBEF"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M501.008 297.83L502.048 319.67"
         stroke="#6FBBEF"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M529.488 259.2L569.378 259.44C569.378 259.44 574.218 298.23 559.238 304.71C544.258 311.19 501.408 306.23 501.408 306.23"
@@ -837,23 +839,23 @@ export const Illustration = (props) => {
       <path
         d="M453.858 356.6L505.808 355.63"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M506.678 367.72L501.408 306.23L501.008 297.83"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M529.488 259.2C465.378 256.67 458.897 266.67 453.687 280.57C448.477 294.47 454.777 368.58 454.777 368.58"
         stroke="white"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M453.138 178.27C460.108 184.6 478.507 204.44 478.507 204.44L493.818 189.67C493.818 189.67 473.238 164.2 469.828 161.21C466.778 158.54 464.818 160.46 465.358 163.78C464.438 163.02 458.408 158.08 455.178 157.22C451.768 156.32 450.838 158.77 451.448 159.52L452.037 159.72L451.948 159.74C451.598 159.58 451.278 159.44 450.988 159.35C447.698 158.28 446.487 160.79 448.097 162.08L448.247 162.13C447.797 162.1 447.407 162.16 447.117 162.37C445.647 163.42 446.028 165.15 447.268 165.95C445.878 165.49 445.117 165.81 444.647 166.48C443.587 167.99 444.218 170.19 453.138 178.29V178.27ZM447.747 166.09L447.728 166.11C447.568 166.05 447.417 165.99 447.277 165.94L447.747 166.09Z"
@@ -862,30 +864,30 @@ export const Illustration = (props) => {
       <path
         d="M456.408 172.49C448.338 165.22 445.818 165.05 444.638 166.47C442.938 168.5 446.458 171.64 453.128 178.28C459.798 184.92 478.498 204.45 478.498 204.45L493.808 189.68C493.808 189.68 473.228 164.21 469.818 161.22C466.398 158.23 464.418 161.51 465.698 165.42C466.978 169.33 467.738 171.09 467.738 171.09C467.738 171.09 466.498 175.9 470.148 180.39"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M460.847 170.18C460.847 170.18 449.817 160.44 447.107 162.37C445.637 163.42 446.017 165.15 447.257 165.95"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M462.958 166.98C462.958 166.98 454.398 160.46 450.968 159.34C447.678 158.27 446.468 160.78 448.078 162.07"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M465.198 163.65C465.198 163.65 458.668 157.92 455.168 157C451.758 156.1 450.828 158.77 451.438 159.52"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M537.278 213.21L491.678 178.54L467.588 201.07L501.288 251.61L537.278 213.21Z"
@@ -894,9 +896,9 @@ export const Illustration = (props) => {
       <path
         d="M537.278 213.21L491.678 178.54L467.588 201.07L501.288 251.61L537.278 213.21Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <mask
         id="mask0_7_14"
@@ -917,31 +919,31 @@ export const Illustration = (props) => {
         <path
           d="M513.068 192.5C511.978 191.02 510.348 190.08 508.538 189.91C505.028 189.57 501.938 192.24 501.638 195.85C501.338 199.46 503.958 202.67 507.468 203.01C509.458 203.2 511.388 202.43 512.728 200.93C513.818 202.41 515.448 203.35 517.258 203.52C520.768 203.86 523.858 201.19 524.158 197.58C524.458 193.97 521.838 190.76 518.328 190.42C516.338 190.23 514.408 191 513.068 192.5Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M487.487 205.97C486.397 204.49 484.767 203.55 482.957 203.38C479.447 203.04 476.357 205.71 476.057 209.32C475.757 212.93 478.377 216.14 481.887 216.48C483.877 216.67 485.807 215.9 487.147 214.4C488.237 215.88 489.867 216.82 491.677 216.99C495.187 217.33 498.277 214.66 498.577 211.05C498.877 207.44 496.257 204.23 492.747 203.89C490.757 203.7 488.827 204.47 487.487 205.97Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M480.897 186.99C479.807 185.51 478.177 184.57 476.367 184.4C472.857 184.06 469.767 186.73 469.467 190.34C469.167 193.95 471.788 197.16 475.298 197.5C477.288 197.69 479.217 196.92 480.557 195.42C481.647 196.9 483.277 197.84 485.087 198.01C488.597 198.35 491.688 195.68 491.988 192.07C492.288 188.46 489.667 185.25 486.157 184.91C484.167 184.72 482.237 185.49 480.897 186.99Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <path
         d="M493.438 187.15L474.368 204.55"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M505.308 262.97C505.308 262.97 509.068 208.49 527.188 185.7C538.608 171.33 547.898 167.9 555.718 168.5C555.718 168.5 576.458 195.33 580.368 230.59C584.278 265.85 582.978 275.72 548.278 274.61C513.578 273.5 505.308 262.97 505.308 262.97Z"
@@ -966,46 +968,46 @@ export const Illustration = (props) => {
         <path
           d="M530.638 184.07C529.548 182.59 527.918 181.65 526.108 181.48C522.598 181.14 519.508 183.81 519.208 187.42C518.908 191.03 521.528 194.24 525.038 194.58C527.028 194.77 528.958 194 530.298 192.5C531.388 193.98 533.018 194.92 534.828 195.09C538.338 195.43 541.428 192.76 541.728 189.15C542.028 185.54 539.408 182.33 535.898 181.99C533.908 181.8 531.978 182.57 530.638 184.07Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M556.758 204.47C555.668 202.99 554.038 202.05 552.228 201.88C548.718 201.54 545.628 204.21 545.328 207.82C545.028 211.43 547.648 214.64 551.158 214.98C553.148 215.17 555.078 214.4 556.418 212.9C557.508 214.38 559.138 215.32 560.948 215.49C564.458 215.83 567.548 213.16 567.848 209.55C568.148 205.94 565.528 202.73 562.018 202.39C560.028 202.2 558.098 202.97 556.758 204.47Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M518.058 214.53C516.968 213.05 515.338 212.11 513.528 211.94C510.018 211.6 506.928 214.27 506.628 217.88C506.328 221.49 508.948 224.7 512.458 225.04C514.448 225.23 516.378 224.46 517.718 222.96C518.808 224.44 520.438 225.38 522.248 225.55C525.758 225.89 528.848 223.22 529.148 219.61C529.448 216 526.828 212.79 523.318 212.45C521.328 212.26 519.398 213.03 518.058 214.53Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M546.868 224.74C545.778 223.26 544.148 222.32 542.338 222.15C538.828 221.81 535.738 224.48 535.438 228.09C535.138 231.7 537.758 234.91 541.268 235.25C543.258 235.44 545.188 234.67 546.528 233.17C547.618 234.65 549.248 235.59 551.058 235.76C554.568 236.1 557.658 233.43 557.958 229.82C558.258 226.21 555.638 223 552.128 222.66C550.138 222.47 548.208 223.24 546.868 224.74Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <path
         d="M505.308 262.97C505.308 262.97 509.068 208.49 527.188 185.7C538.608 171.33 547.898 167.9 555.718 168.5C555.718 168.5 576.458 195.33 580.368 230.59C584.278 265.85 582.978 275.72 548.278 274.61C513.578 273.5 505.308 262.97 505.308 262.97Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M502.718 252.89C502.718 252.89 515.268 237.89 516.458 236.59C517.648 235.29 540.998 230.6 540.998 230.6L539.498 255.3L502.718 252.9V252.89Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M553.138 168.46C558.788 168.22 563.708 170.28 568.108 172.33C578.118 177.01 605.438 193.82 615.388 216.49C625.338 239.16 616.368 254.85 585.308 258.8C554.248 262.75 536.428 255.58 536.428 255.58L538.198 227.23L575.528 225.11L566.568 198.89L553.128 168.44L553.138 168.46Z"
@@ -1030,66 +1032,66 @@ export const Illustration = (props) => {
         <path
           d="M572.028 183.53C570.938 182.05 569.308 181.11 567.498 180.94C563.988 180.6 560.898 183.27 560.598 186.88C560.298 190.49 562.918 193.7 566.428 194.04C568.418 194.23 570.348 193.46 571.688 191.96C572.778 193.44 574.408 194.38 576.218 194.55C579.728 194.89 582.818 192.22 583.118 188.61C583.418 185 580.798 181.79 577.288 181.45C575.298 181.26 573.368 182.03 572.028 183.53Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M602.578 196.73C601.488 195.25 599.858 194.31 598.048 194.14C594.538 193.8 591.448 196.47 591.148 200.08C590.848 203.69 593.468 206.9 596.978 207.24C598.968 207.43 600.898 206.66 602.238 205.16C603.328 206.64 604.958 207.58 606.768 207.75C610.278 208.09 613.368 205.42 613.668 201.81C613.968 198.2 611.348 194.99 607.838 194.65C605.848 194.46 603.918 195.23 602.578 196.73Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M583.308 218.07C582.218 216.59 580.588 215.65 578.778 215.48C575.268 215.14 572.178 217.81 571.878 221.42C571.578 225.03 574.198 228.24 577.708 228.58C579.698 228.77 581.628 228 582.968 226.5C584.058 227.98 585.688 228.92 587.498 229.09C591.008 229.43 594.098 226.76 594.398 223.15C594.698 219.54 592.078 216.33 588.568 215.99C586.578 215.8 584.648 216.57 583.308 218.07Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M620.858 233.21C619.768 231.73 618.138 230.79 616.328 230.62C612.818 230.28 609.728 232.95 609.428 236.56C609.128 240.17 611.748 243.38 615.258 243.72C617.248 243.91 619.178 243.14 620.518 241.64C621.608 243.12 623.238 244.06 625.048 244.23C628.558 244.57 631.648 241.9 631.948 238.29C632.248 234.68 629.628 231.47 626.118 231.13C624.128 230.94 622.198 231.71 620.858 233.21Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M561.378 235.88C560.288 234.4 558.658 233.46 556.848 233.29C553.338 232.95 550.248 235.62 549.948 239.23C549.648 242.84 552.268 246.05 555.778 246.39C557.768 246.58 559.698 245.81 561.038 244.31C562.128 245.79 563.758 246.73 565.568 246.9C569.078 247.24 572.168 244.57 572.468 240.96C572.768 237.35 570.148 234.14 566.638 233.8C564.648 233.61 562.718 234.38 561.378 235.88Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M586.548 257.91C585.458 256.43 583.828 255.49 582.018 255.32C578.508 254.98 575.418 257.65 575.118 261.26C574.818 264.87 577.438 268.08 580.948 268.42C582.938 268.61 584.868 267.84 586.208 266.34C587.298 267.82 588.928 268.76 590.738 268.93C594.248 269.27 597.338 266.6 597.638 262.99C597.938 259.38 595.318 256.17 591.808 255.83C589.818 255.64 587.888 256.41 586.548 257.91Z"
           stroke="white"
-          stroke-width="0.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
       <path
         d="M553.138 168.46C558.788 168.22 563.708 170.28 568.108 172.33C578.118 177.01 605.838 194.77 615.788 217.44C625.738 240.11 616.368 254.86 585.308 258.81C554.248 262.76 536.428 255.59 536.428 255.59L538.198 227.24L575.528 225.12L570.688 211.01"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M545.538 228.95L543.928 255.92"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M573.128 225.26L583.138 225.19"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M559.718 119.88C566.068 123.04 569.808 130.56 569.018 138.55C567.928 149.58 558.318 157.77 558.318 157.77L557.648 139.42L556.588 138.86L559.708 119.88H559.718Z"
@@ -1099,16 +1101,16 @@ export const Illustration = (props) => {
         d="M562.198 142.13C560.808 142.13 559.528 142.56 558.468 143.31V139.48C558.508 133.4 554.158 128.42 548.818 128.4L540.788 128.37C535.448 128.35 531.068 133.31 531.048 139.38L530.998 151.82C530.978 157.9 535.328 162.88 540.658 162.9L545.298 162.92L545.278 169.62C545.268 172.37 547.508 174.63 550.258 174.64H553.438C556.188 174.66 558.448 172.42 558.458 169.67L558.488 162.1V161.68L558.518 154.11C558.518 153.96 558.508 153.81 558.488 153.66C559.518 154.38 560.778 154.81 562.138 154.82C565.668 154.83 568.538 152.01 568.548 148.5C568.558 144.99 565.708 142.15 562.178 142.14L562.198 142.13Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M559.128 149.31C559.128 149.31 558.858 145 563.278 145.5"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M562.408 121.59C559.478 119.26 555.738 117.99 551.458 118.38C531.008 111.19 523.388 130.63 530.658 135.89C532.798 137.44 543.428 138.22 547.598 134.07C547.878 134.91 548.288 135.98 548.928 137.34C550.298 140.28 553.308 142.36 555.688 143.61L553.968 151.71C553.968 151.71 544.048 149.3 537.958 149.35C531.868 149.4 531.018 151.82 531.018 151.82C531.018 151.82 531.068 160.16 537.358 162.22C542.698 163.97 545.318 162.92 545.318 162.92C545.318 162.92 552.058 161.18 555.298 157.64C556.718 156.09 557.358 155.13 558.118 153.62L558.398 143.86C558.638 143.68 558.808 143.55 559.028 143.4C559.028 143.4 560.508 142.14 562.138 142.14C563.648 142.14 565.128 142.72 566.238 143.58C568.028 140.13 562.418 121.61 562.418 121.61L562.408 121.59Z"
@@ -1118,43 +1120,43 @@ export const Illustration = (props) => {
         d="M544.908 173.55C544.908 173.55 546.428 176.19 552.188 175.41C557.948 174.63 551.828 169.48 549.018 168.69C546.208 167.9 542.678 170.94 544.908 173.55Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M539.158 176.96C539.158 176.96 543.288 180.3 549.318 180.66C552.978 180.88 557.438 180.25 561.808 176.38"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M558.488 163.23C558.488 163.23 562.698 166.47 565.508 171.16C565.508 171.16 561.288 176.59 551.398 179.52L549.018 168.69L545.958 178.54C545.958 178.54 542.138 177.49 539.788 173.34C539.788 173.34 541.348 169.53 545.138 165.6C545.138 165.6 546.538 167.99 548.928 168.64C551.318 169.29 557.378 165.75 558.478 163.23H558.488Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M539.638 148.38L536.428 146.41L539.258 141.66"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M548.248 140.99L545.148 139.74"
         stroke="#020046"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M534.988 139.89L532.018 140.31"
         stroke="#020046"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M546.808 143.7C546.808 144.49 546.168 145.13 545.378 145.13C544.588 145.13 543.948 144.49 543.948 143.7C543.948 142.91 544.588 142.27 545.378 142.27C546.168 142.27 546.808 142.91 546.808 143.7Z"
@@ -1216,63 +1218,63 @@ export const Illustration = (props) => {
         d="M45.6976 55.96H92.9076C98.9376 55.96 103.828 60.85 103.828 66.88V114.01L92.7276 103.82H45.7076C39.6776 103.82 34.7876 98.93 34.7876 92.9V66.89C34.7876 60.86 39.6776 55.97 45.7076 55.97L45.6976 55.96Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path d="M88.2976 73.58H54.4176V93.86H88.2976V73.58Z" fill="#D8D7E2" />
       <path
         d="M84.7976 65.6H43.3276V90.41H84.7976V65.6Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M43.3276 65.6L63.8676 83.38L84.7976 65.6"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M43.3276 90.41L56.5176 77.02"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M71.3576 77.02L84.7976 90.41"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M114.488 267.76H103.988V415.36H114.488V267.76Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M614.658 267.76H604.158V415.36H614.658V267.76Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M640.258 270.43H82.7775C79.6775 270.43 77.1675 267.92 77.1675 264.82C77.1675 261.72 79.6775 259.21 82.7775 259.21H640.268C643.368 259.21 645.878 261.72 645.878 264.82C645.878 267.92 643.368 270.43 640.268 270.43H640.258Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M287.928 178.94C288.388 176.02 287.578 175.55 287.578 175.55L287.038 176.26C287.368 175.14 287.388 174.28 286.898 173.92C285.068 172.57 282.168 174.22 277.688 179.02C272.838 184.22 262.758 187.82 262.758 187.82C264.038 184.34 265.708 174.62 262.848 174.46C258.498 174.22 256.998 184.02 254.178 187.4C251.358 190.78 238.518 204.99 238.518 204.99L258.108 211.88C258.108 211.88 267.008 200.3 276.138 196.21C285.258 192.12 288.378 185.16 288.628 182.63C288.878 180.1 287.938 178.92 287.938 178.92L287.928 178.94Z"
@@ -1281,24 +1283,24 @@ export const Illustration = (props) => {
       <path
         d="M287.578 175.55C287.578 175.55 288.508 176.09 287.798 179.62C287.088 183.15 282.018 189.74 282.018 189.74"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M287.928 178.94C287.928 178.94 288.868 180.12 288.618 182.65C288.378 185.18 285.248 192.14 276.128 196.23C267.008 200.32 258.098 211.9 258.098 211.9L238.508 205.01C238.508 205.01 251.338 190.8 254.168 187.42C256.988 184.04 258.488 174.24 262.838 174.48C265.708 174.64 264.028 184.36 262.748 187.84C262.748 187.84 270.928 185.1 276.078 180.51C281.388 175.78 284.708 171.55 286.898 173.94C288.618 175.82 282.208 185.7 280.148 187.42"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M175.718 150.29L181.818 156.11L178.348 159.47L175.718 150.29Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M152.408 166.14C152.488 166.49 152.578 166.82 152.678 167.15C152.678 167.53 152.708 167.92 152.788 168.3L152.398 166.13L167.738 174.24L167.718 174.17L172.298 173.16C177.558 171.99 180.778 166.14 179.458 160.15L176.738 147.88C175.408 141.89 170.018 137.94 164.758 139.1L156.838 140.85C151.578 142.02 148.358 147.87 149.678 153.86L152.398 166.13L152.408 166.14Z"
@@ -1308,9 +1310,9 @@ export const Illustration = (props) => {
         d="M179.468 160.15L176.748 147.88C175.418 141.89 170.028 137.94 164.768 139.1L156.848 140.85C151.588 142.02 148.368 147.87 149.688 153.86L152.408 166.13C152.488 166.48 152.578 166.81 152.678 167.14C152.678 167.52 152.708 167.91 152.788 168.29L153.588 168.66L154.088 185.21H170.288L169.528 173.76L172.298 173.15C177.558 171.98 180.778 166.13 179.458 160.14L179.468 160.15Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M153.118 161.36L154.438 157.1C154.438 157.1 169.918 154.65 176.788 138.24C179.338 132.14 175.018 126.32 167.988 126.27C159.088 126.2 151.158 131.22 151.158 131.22C151.158 131.22 130.548 140.68 137.208 161.53C137.208 161.53 140.738 173.73 154.188 174.26"
@@ -1323,23 +1325,23 @@ export const Illustration = (props) => {
       <path
         d="M154.088 164.26C154.088 164.26 153.838 160.21 149.768 161.19"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M120.308 137.63C128.818 129.99 124.898 111.2 113.198 108.42C99.0876 105.07 89.0976 122.82 78.4576 106.72C67.8175 90.62 53.5676 94.27 48.7576 108.78C43.9476 123.29 59.4376 138.3 75.0176 137.27C90.5976 136.25 94.9376 125.96 100.618 133.79C106.278 141.59 115.038 142.37 120.318 137.62L120.308 137.63Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M136.788 141.07C136.788 143.31 134.978 145.12 132.738 145.12C130.498 145.12 128.688 143.31 128.688 141.07C128.688 138.83 130.498 137.02 132.738 137.02C134.978 137.02 136.788 138.83 136.788 141.07Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M145.998 189.14L153.838 179.84L173.738 180.51L180.968 188.6C180.968 188.6 167.468 189.14 145.998 189.14Z"
@@ -1352,23 +1354,23 @@ export const Illustration = (props) => {
       <path
         d="M220.358 216.3L225.838 221.83"
         stroke="white"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M240.368 197.71L262.748 212.29"
         stroke="white"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M147.838 188.22C147.838 188.22 160.258 187.78 164.398 187.83C168.538 187.88 180.958 188.61 180.958 188.61"
         stroke="white"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M168.888 155.83C168.948 156.83 169.798 157.59 170.788 157.53C171.788 157.47 172.548 156.62 172.488 155.63C172.428 154.63 171.578 153.87 170.588 153.93C169.598 153.99 168.828 154.84 168.888 155.83Z"
@@ -1377,20 +1379,20 @@ export const Illustration = (props) => {
       <path
         d="M179.338 166.27C179.338 166.27 176.978 167.83 174.228 165.25"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M166.698 153.59C167.468 152.69 168.328 151.86 169.248 151.12"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M205.498 373.08L212.528 415.27L228.358 415.35L228.678 405.74L246.268 415.03C246.268 415.03 250.728 415.11 254.528 415.02C257.448 414.95 260.208 415.35 260.188 414.49C260.038 408.05 253.968 402.32 235.928 387.01L233.808 371.6L205.498 373.08Z"
         fill="#020046"
         stroke="#020046"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
       <path
         d="M173.668 306.18L199.308 388.31H270.608L226.688 277.09L157.528 267.76L173.668 306.18Z"
@@ -1407,13 +1409,13 @@ export const Illustration = (props) => {
       <path
         d="M173.668 306.18L199.308 388.31H270.608L226.688 277.09L157.528 267.76"
         stroke="#020046"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
       <path
         d="M240.728 373.89L249.358 415.28L264.188 415.36L264.508 405.75L278.288 415.36C275.248 415.44 286.548 415.13 290.358 415.03C293.278 414.96 296.038 415.36 296.018 414.5C295.868 408.06 289.798 402.33 271.758 387.02L269.638 371.61L240.708 373.9L240.728 373.89Z"
         fill="#020046"
         stroke="#020046"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
       <path
         d="M213.778 307.81L234.888 388.31H286.018C286.018 388.31 259.338 290.13 247.418 277.1C235.498 264.07 196.858 264.82 196.858 264.82L213.768 307.81H213.778Z"
@@ -1426,14 +1428,14 @@ export const Illustration = (props) => {
       <path
         d="M213.778 307.81L234.888 388.31H286.018C286.018 388.31 259.338 290.13 247.418 277.1C235.498 264.07 196.858 264.82 196.858 264.82"
         stroke="#020046"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
       <path
         d="M18.8576 415.36H680.508"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M471.308 258.89L519.988 258.98C525.038 258.98 527.658 255.07 525.828 250.22L513.068 216.44C511.238 211.59 505.658 207.66 500.608 207.65L451.928 207.56C446.878 207.56 444.258 211.47 446.088 216.32L458.848 250.1C460.678 254.95 466.258 258.88 471.308 258.89Z"
@@ -1451,17 +1453,17 @@ export const Illustration = (props) => {
         d="M594.538 227.62H592.588H580.398L583.708 259.22H592.588H594.538H603.418L606.728 227.62H594.538Z"
         fill="white"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M582.778 250.37H604.348L606.048 234.15H581.078L582.778 250.37Z"
         fill="#E6DDFF"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M604.218 218.75H583.148C582.336 218.75 581.678 219.408 581.678 220.22V222.99C581.678 223.802 582.336 224.46 583.148 224.46H604.218C605.029 224.46 605.688 223.802 605.688 222.99V220.22C605.688 219.408 605.029 218.75 604.218 218.75Z"
@@ -1475,16 +1477,16 @@ export const Illustration = (props) => {
         d="M346.348 1.01H304.768C300.608 1.01 297.228 4.38 297.228 8.55V26.5C297.228 26.85 297.258 27.19 297.308 27.52C297.258 27.86 297.228 28.19 297.228 28.54V46.49C297.228 50.65 300.598 54.03 304.768 54.03H346.228L353.888 61.07V8.54C353.888 4.38 350.518 1 346.348 1V1.01Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M326.268 17.77H324.648H314.598L317.328 43.85H324.648H326.268H333.598L336.328 17.77H326.268Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M316.558 36.54H334.358L335.758 23.16H315.158L316.558 36.54Z"
@@ -1502,17 +1504,17 @@ export const Illustration = (props) => {
         d="M471.888 89.05H507.108C511.608 89.05 515.258 92.7 515.258 97.2V132.36L506.978 124.75H471.888C467.388 124.75 463.738 121.1 463.738 116.6V97.19C463.738 92.69 467.388 89.04 471.888 89.04V89.05Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M456.758 75.05H491.978C496.478 75.05 500.128 78.7 500.128 83.2V118.36L491.848 110.75H456.758C452.258 110.75 448.608 107.1 448.608 102.6V83.19C448.608 78.69 452.258 75.04 456.758 75.04V75.05Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M482.428 93.55C482.428 95.51 484.018 97.09 485.968 97.09C487.918 97.09 489.508 95.5 489.508 93.55C489.508 91.6 487.918 90.01 485.968 90.01C484.018 90.01 482.428 91.6 482.428 93.55Z"
@@ -1537,23 +1539,23 @@ export const Illustration = (props) => {
       <path
         d="M642.108 352.09L647.178 288.18"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M687.438 280.57L651.228 358.74"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M633.628 358.74L614.028 289.66"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M668.508 363.09H620.718C618.365 363.09 616.458 364.997 616.458 367.35V411.1C616.458 413.453 618.365 415.36 620.718 415.36H668.508C670.86 415.36 672.768 413.453 672.768 411.1V367.35C672.768 364.997 670.86 363.09 668.508 363.09Z"
@@ -1562,99 +1564,99 @@ export const Illustration = (props) => {
       <path
         d="M640.175 79.3215C653.051 68.7293 654.903 49.704 644.311 36.8273C633.719 23.9505 614.694 22.0984 601.817 32.6906C588.94 43.2828 587.088 62.3081 597.68 75.1848C608.272 88.0616 627.298 89.9137 640.175 79.3215Z"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M645.397 62.0256C648.759 48.503 640.522 34.8157 626.999 31.4542C613.476 28.0927 599.789 36.3298 596.428 49.8524C593.066 63.375 601.303 77.0623 614.826 80.4238C628.348 83.7853 642.036 75.5482 645.397 62.0256Z"
         fill="white"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M628.468 34.59L627.468 37.39"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M614.248 74.46L613.248 77.25"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M599.428 48.49L602.498 49.58"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M639.298 62.71L642.368 63.8"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M616.568 33.5L617.228 37.09"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M606.308 38.89L608.378 41.36"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M598.718 60.18L601.948 59.39"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M603.348 70.57L606.028 68.48"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M624.998 78.29L624.248 74.97"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M635.518 73.3L633.338 70.59"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M643.108 52.02L639.408 52.42"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M637.998 41.85L635.448 43.59"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M624.348 57.17C623.678 59.04 621.627 60.01 619.757 59.35C617.887 58.68 616.917 56.63 617.577 54.76C618.237 52.89 620.298 51.92 622.168 52.58C624.038 53.25 625.008 55.3 624.348 57.17Z"
@@ -1663,15 +1665,15 @@ export const Illustration = (props) => {
       <path
         d="M626.808 40.67L621.208 56.37L606.888 60.1"
         stroke="#C4C1D2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M187.608 373.89H196.868V313.74H187.608V373.89Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M189.398 393.1H195.088C197.457 393.1 199.378 391.179 199.378 388.81V346.02C199.378 343.651 197.457 341.73 195.088 341.73H189.398C187.028 341.73 185.108 343.651 185.108 346.02V388.81C185.108 391.179 187.028 393.1 189.398 393.1Z"
@@ -1685,8 +1687,8 @@ export const Illustration = (props) => {
         d="M146.938 406.49C146.938 411.06 150.638 414.76 155.208 414.76C159.778 414.76 163.478 411.06 163.478 406.49C163.478 401.92 159.778 398.22 155.208 398.22C150.638 398.22 146.938 401.92 146.938 406.49Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M152.038 406.49C152.038 408.24 153.458 409.66 155.208 409.66C156.958 409.66 158.378 408.24 158.378 406.49C158.378 404.74 156.958 403.32 155.208 403.32C153.458 403.32 152.038 404.74 152.038 406.49Z"
@@ -1696,8 +1698,8 @@ export const Illustration = (props) => {
         d="M221.238 406.49C221.238 411.06 224.938 414.76 229.508 414.76C234.078 414.76 237.778 411.06 237.778 406.49C237.778 401.92 234.078 398.22 229.508 398.22C224.938 398.22 221.238 401.92 221.238 406.49Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
       />
       <path
         d="M226.338 406.49C226.338 408.24 227.758 409.66 229.508 409.66C231.258 409.66 232.678 408.24 232.678 406.49C232.678 404.74 231.258 403.32 229.508 403.32C227.758 403.32 226.338 404.74 226.338 406.49Z"
@@ -1707,66 +1709,66 @@ export const Illustration = (props) => {
         d="M277.898 321.04H118.598C115.318 321.04 112.588 318.5 112.368 315.22L105.388 214.33C105.138 210.72 107.998 207.65 111.618 207.65H195.568C198.628 207.65 201.238 209.87 201.738 212.9L216.418 303.3C216.908 306.32 219.518 308.55 222.588 308.55H277.898C280.598 308.55 282.988 310.28 283.828 312.84C285.158 316.88 282.148 321.04 277.898 321.04Z"
         fill="white"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M112.768 231.05H184.998"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M112.768 254.07H189.118"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M117.428 277.09H193.778"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M117.428 300.11H193.778"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M190.488 212.48L205.178 309.93"
         stroke="#A3A1AF"
-        stroke-width="0.75"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
+        strokeWidth="0.75"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
       />
       <path
         d="M657.748 353.49H578.458C575.691 353.49 573.448 355.733 573.448 358.5V410.35C573.448 413.117 575.691 415.36 578.458 415.36H657.748C660.515 415.36 662.758 413.117 662.758 410.35V358.5C662.758 355.733 660.515 353.49 657.748 353.49Z"
         fill="#7F56D9"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M587.608 373.53V415.36"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M648.608 373.53V415.36"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M660.338 346.48H575.868C572.769 346.48 570.258 348.992 570.258 352.09V376.72C570.258 379.818 572.769 382.33 575.868 382.33H660.338C663.436 382.33 665.948 379.818 665.948 376.72V352.09C665.948 348.992 663.436 346.48 660.338 346.48Z"
@@ -1775,9 +1777,9 @@ export const Illustration = (props) => {
       <path
         d="M665.948 352.09V376.72C665.948 379.82 663.438 382.33 660.338 382.33H575.868C572.768 382.33 570.258 379.82 570.258 376.72V352.09"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M598.558 344.82H589.648C588.803 344.82 588.118 345.503 588.118 346.345C588.118 347.187 588.803 347.87 589.648 347.87H598.558C599.403 347.87 600.088 347.187 600.088 346.345C600.088 345.503 599.403 344.82 598.558 344.82Z"
@@ -1798,16 +1800,16 @@ export const Illustration = (props) => {
       <path
         d="M598.458 341.28C603.528 338.91 610.468 337.45 618.108 337.45C625.748 337.45 632.688 338.91 637.768 341.28"
         stroke="#020046"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M623.308 372.53C623.508 371.53 622.738 370.6 621.718 370.6H614.488C613.468 370.6 612.708 371.53 612.898 372.53L613.988 378.04H622.228L623.318 372.53H623.308Z"
         stroke="#020046"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M621.308 377.09H614.908C613.853 377.09 612.998 377.945 612.998 379V381.44C612.998 382.495 613.853 383.35 614.908 383.35H621.308C622.362 383.35 623.218 382.495 623.218 381.44V379C623.218 377.945 622.362 377.09 621.308 377.09Z"
@@ -1820,16 +1822,16 @@ export const Illustration = (props) => {
       <path
         d="M619.748 384.6H616.458V387.88H619.748V384.6Z"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M612.708 380.55H623.338"
         stroke="#C4C1D2"
-        stroke-width="0.75"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="0.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Icon>
   )
