@@ -30,7 +30,7 @@ export default function LoginOption({ isOpen, onClose, openConnectModal }) {
                   openConnectModal()
                 }}
               >
-                EVM
+                Polygon
               </Button>
               <Button
                 onClick={() => {

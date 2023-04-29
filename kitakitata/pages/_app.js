@@ -10,10 +10,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { ToastContainer } from "react-toastify"
 
-const { chains, provider } = configureChains(
-  [mainnet, polygon, optimism, arbitrum],
-  [publicProvider()]
-)
+const { chains, provider } = configureChains([polygon], [publicProvider()])
 const { connectors } = getDefaultWallets({
   appName: "Kitakitata",
   chains,
