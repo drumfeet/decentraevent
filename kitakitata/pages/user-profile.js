@@ -26,7 +26,7 @@ export default function Profile() {
   const [email, setEmail] = useState()
   const [company, setCompany] = useState()
   const [jobTitle, setJobTitle] = useState()
-  const { user, initDB, getUserProfile, isLoading, setIsLoading } =
+  const { user, initDB, getUserProfile, isLoading, setIsLoginModalOpen } =
     useContext(AppContext)
 
   const handleNameChange = (e) => setName(e.target.value)
@@ -35,7 +35,6 @@ export default function Profile() {
   const handleJobTitleChange = (e) => setJobTitle(e.target.value)
 
   const validateInputs = () => {
-    const newErrors = {}
     if (isNil(name) || isNil(email)) {
       toast("Name & Email are required")
       return false
@@ -92,7 +91,7 @@ export default function Profile() {
                       colorScheme="red"
                       aria-label="remove Photo"
                       onClick={() => {
-                        toast("working on it soon")
+                        toast("Feature coming soon!")
                       }}
                       icon={<SmallCloseIcon />}
                     />
@@ -102,7 +101,7 @@ export default function Profile() {
                   <Button
                     w="full"
                     onClick={() => {
-                      toast("working on it soon")
+                      toast("Feature coming soon!")
                     }}
                   >
                     Change Photo
@@ -162,13 +161,17 @@ export default function Profile() {
                 onClick={() => {
                   const isValid = validateInputs()
                   if (isValid) {
-                    let userProfileData = {
-                      name: name,
-                      email: email,
-                      job_title: jobTitle,
-                      company: company,
+                    if (isNil(user)) {
+                      setIsLoginModalOpen(true)
+                    } else {
+                      let userProfileData = {
+                        name: name,
+                        email: email,
+                        job_title: jobTitle,
+                        company: company,
+                      }
+                      handleProfileUpdate(userProfileData)
                     }
-                    handleProfileUpdate(userProfileData)
                   }
                 }}
               >
