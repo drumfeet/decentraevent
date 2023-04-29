@@ -224,6 +224,17 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getEvent = async (docId) => {
+    try {
+      const _event = await db.cget(COLLECTION_NAME, docId)
+      console.log("getEvent", _event)
+      return _event
+    } catch (e) {
+      toast(e.message)
+      console.error("getEvent", e)
+    }
+  }
+
   const getEvents = async () => {
     try {
       getUserRsvpForEvents()
@@ -233,7 +244,7 @@ export const AppContextProvider = ({ children }) => {
       setEvents(_events)
     } catch (e) {
       toast(e.message)
-      console.error(e)
+      console.error("getEvents", e)
     }
   }
 
@@ -694,6 +705,7 @@ export const AppContextProvider = ({ children }) => {
         contractTxId,
         isLoginModalOpen,
         setIsLoginModalOpen,
+        getEvent,
       }}
     >
       {children}

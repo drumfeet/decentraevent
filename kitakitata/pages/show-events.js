@@ -51,7 +51,8 @@ export default function ShowEvents() {
     <>
       <Layout>
         {/* <Tabs /> */}
-        {isNil(events) ? null : <EventsNew />}
+        <EventsNew />
+        {/* <Events /> */}
       </Layout>
     </>
   )

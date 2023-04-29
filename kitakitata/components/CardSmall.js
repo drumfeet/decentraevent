@@ -1,9 +1,13 @@
 import { CalendarIcon, ExternalLinkIcon, TimeIcon } from "@chakra-ui/icons"
 import { Box, HStack, Heading, Image, Text, Flex } from "@chakra-ui/react"
+import { toast } from "react-toastify"
+import { useRouter } from "next/router"
+import Link from "next/link"
 
 export default function CardSmall({ event }) {
   const IMG_FALLBACK = "https://via.placeholder.com/293x160"
   const MILLISECONDS = 1000
+  const router = useRouter()
 
   const getDateString = (timestamp) => {
     const date = new Date(timestamp * MILLISECONDS)
@@ -28,6 +32,10 @@ export default function CardSmall({ event }) {
     return `${timeString}`
   }
 
+  const handleViewEvent = async (metadata) => {
+    window.open(`/view-event/${metadata.id}`, "_blank")
+  }
+
   return (
     <>
       <Image borderTopRadius="12px" src="#" fallbackSrc={IMG_FALLBACK} />
@@ -45,7 +53,11 @@ export default function CardSmall({ event }) {
           </HStack>
         </HStack>
         <Flex justifyContent="flex-end">
-          <ExternalLinkIcon />
+          <ExternalLinkIcon
+            onClick={() => {
+              handleViewEvent(event)
+            }}
+          />
         </Flex>
       </Box>
     </>
