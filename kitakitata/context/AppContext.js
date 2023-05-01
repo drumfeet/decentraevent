@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react"
-import { isNil, not, isEmpty, props, any, either, assoc } from "ramda"
+import { isNil, not, isEmpty, props, any, either, assoc, join } from "ramda"
 import lf from "localforage"
 import SDK from "weavedb-sdk"
 import { useRouter } from "next/router"
@@ -353,6 +353,67 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getUserRsvpForEvent = async (userWalletAddress, eventId) => {
+    try {
+      console.log("getUserRsvpForEvent eventId", eventId)
+      console.log("getUserRsvpForEvent userWalletAddress", userWalletAddress)
+      const rsvpDocId = join("-", [userWalletAddress, eventId])
+      console.log("getUserRsvpForEvent rsvpDocId", rsvpDocId)
+
+      const _userRsvp = await db.cget(COLLECTION_RSVP, rsvpDocId)
+      console.log("getUserRsvpForEvent _userRsvp", _userRsvp)
+
+      if (!isNil(_userRsvp) && !isNil(_userRsvp?.data.lit)) {
+        const lit = new LitJsSdk.LitNodeClient()
+        await lit.connect()
+
+        const {
+          encryptedData,
+          encryptedSymmetricKey,
+          accessControlConditions,
+        } = _userRsvp.data.lit
+
+        const authSig = await LitJsSdk.checkAndSignAuthMessage({
+          chain: "polygon",
+        })
+
+        const symmetricKey = await lit.getEncryptionKey({
+          accessControlConditions,
+          toDecrypt: encryptedSymmetricKey,
+          chain: "polygon",
+          authSig,
+        })
+
+        const dataURItoBlob = (dataURI) => {
+          var byteString = window.atob(dataURI.split(",")[1])
+          var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0]
+          var ab = new ArrayBuffer(byteString.length)
+          var ia = new Uint8Array(ab)
+          for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i)
+          }
+
+          var blob = new Blob([ab], { type: mimeString })
+
+          return blob
+        }
+
+        const decryptedString = await LitJsSdk.decryptString(
+          dataURItoBlob(encryptedData),
+          symmetricKey
+        )
+        console.log("getUserRsvpForEvent decryptedString", decryptedString)
+
+        const jsonData = JSON.parse(decryptedString)
+        console.log("getUserRsvpForEvent jsonData", jsonData)
+        return jsonData
+      }
+    } catch (e) {
+      toast(e.message)
+      console.error("getUserRsvpForEvent", e)
+    }
+  }
+
   const setRsvpStatus = async (metadata, isUserGoing) => {
     console.log("setRsvpStatus() (events collection) metadata", metadata)
     console.log("setRsvpStatus() (current value) isUserGoing", isUserGoing)
@@ -381,12 +442,12 @@ export const AppContextProvider = ({ children }) => {
       const { name, email, company, job_title } = userProfile
 
       let rsvpStatus = {
-        isGoing: not(isUserGoing),
+        isGoing: isUserGoing,
         name: name,
         email: email,
         company: company,
         job_title: job_title,
-        user_address: user?.wallet.toLowerCase(),
+        user_address: userAddress,
       }
       const jsonStr = JSON.stringify(rsvpStatus)
 
@@ -400,6 +461,20 @@ export const AppContextProvider = ({ children }) => {
           returnValueTest: {
             comparator: "=",
             value: eventOwnerAddress,
+          },
+        },
+        {
+          operator: "or",
+        },
+        {
+          contractAddress: "",
+          standardContractType: "",
+          chain: "polygon",
+          method: "",
+          parameters: [":userAddress"],
+          returnValueTest: {
+            comparator: "=",
+            value: userAddress,
           },
         },
       ]
@@ -441,7 +516,7 @@ export const AppContextProvider = ({ children }) => {
         event_title: metadata.data.title,
         user_address: db.signer(),
         date: db.ts(),
-        is_going: not(isUserGoing),
+        // is_going: not(isUserGoing),
         lit: {
           encryptedData: encryptedData,
           encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
@@ -706,6 +781,7 @@ export const AppContextProvider = ({ children }) => {
         isLoginModalOpen,
         setIsLoginModalOpen,
         getEvent,
+        getUserRsvpForEvent,
       }}
     >
       {children}
