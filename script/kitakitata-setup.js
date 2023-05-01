@@ -140,12 +140,6 @@ const schema_rsvp = {
     date: {
       type: "number",
     },
-    is_going: {
-      type: "boolean",
-    },
-    is_liked: {
-      type: "boolean",
-    },
     lit: {
       encryptedData: { type: "string" },
       encryptedSymmetricKey: { type: "array", items: { type: "number" } },
