@@ -4,21 +4,31 @@ import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
 import { useState } from "react"
 import { Button, Container, Text } from "@chakra-ui/react"
-import { not } from "ramda"
+import { isNil, not } from "ramda"
 
 export default function ViewEvent() {
-  const { initDB, getEvent, user, setRsvpStatus, getUserRsvpForEvent } =
-    useContext(AppContext)
+  const {
+    initDB,
+    getEvent,
+    user,
+    setRsvpStatus,
+    getUserRsvpForEvent,
+    setIsLoginModalOpen,
+  } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
-  const [eventData, setEventData] = useState(null)
-  const [isUserGoing, setIsUserGoing] = useState(false)
+  const [eventData, setEventData] = useState({})
+  const [userRsvp, setUserRsvp] = useState({})
 
   const handleRsvpClick = async () => {
-    const isGoing = not(isUserGoing)
-    console.log("handleRsvpClick isGoing", isGoing)
-    setRsvpStatus(eventData, isGoing)
-    setIsUserGoing(isGoing)
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+    } else {
+      const isGoing = not(userRsvp?.isGoing)
+      console.log("handleRsvpClick isGoing", isGoing)
+      setRsvpStatus(eventData, isGoing)
+      setUserRsvp({ ...userRsvp, isGoing: isGoing })
+    }
   }
 
   useEffect(() => {
@@ -33,13 +43,13 @@ export default function ViewEvent() {
 
   useEffect(() => {
     ;(async () => {
-      if (user && initDB) {
+      if (user && initDB && eventData) {
         const _userRsvp = await getUserRsvpForEvent(
           user.wallet.toLowerCase(),
           eventData?.data?.event_id
         )
         console.log("ViewEvent _userRsvp", _userRsvp)
-        setIsUserGoing(_userRsvp.isGoing)
+        setUserRsvp(_userRsvp)
       }
     })()
   }, [eventData])
@@ -62,13 +72,13 @@ export default function ViewEvent() {
           <Text>
             eventData.data.event_details: {eventData?.data?.event_details}
           </Text>
-          <Text>Is User Going? {String(isUserGoing)}</Text>
+          <Text>Is User Going? {String(userRsvp?.isGoing)}</Text>
           <Button
             onClick={() => {
               handleRsvpClick()
             }}
           >
-            Going
+            RSVP
           </Button>
         </Container>
       </Layout>
