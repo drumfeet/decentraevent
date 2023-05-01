@@ -15,17 +15,39 @@ import {
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
-import { isNil } from "ramda"
+import { isEmpty, isNil } from "ramda"
+import { toast } from "react-toastify"
 
 export default function CreateEvent() {
   const { addEvent, eventData, setEventData, user, setIsLoginModalOpen } =
     useContext(AppContext)
 
+  const isRequiredInputValid = () => {
+    if (
+      isNil(eventData.title) ||
+      isNil(eventData.location) ||
+      isNil(eventData.start_time) ||
+      isNil(eventData.end_time) ||
+      isEmpty(eventData.title) ||
+      isEmpty(eventData.location) ||
+      isEmpty(eventData.start_time) ||
+      isEmpty(eventData.end_time)
+    ) {
+      toast("Title, Location, Start & End Time are required")
+      return false
+    }
+
+    return true
+  }
+
   const handleCreateEvent = () => {
-    if (isNil(user)) {
-      setIsLoginModalOpen(true)
-    } else {
-      addEvent()
+    const isValid = isRequiredInputValid()
+    if (isValid) {
+      if (isNil(user)) {
+        setIsLoginModalOpen(true)
+      } else {
+        addEvent()
+      }
     }
   }
 

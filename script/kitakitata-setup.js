@@ -10,6 +10,7 @@ const schema_events = {
     "title",
     "location",
     "start_time",
+    "end_time",
   ],
   properties: {
     event_id: {
