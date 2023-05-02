@@ -5,6 +5,7 @@ import Layout from "@/components/Layout"
 import { useState } from "react"
 import { Box, Button, Container, Text } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
+import { toast } from "react-toastify"
 
 export default function ViewEvent() {
   const {
@@ -34,6 +35,14 @@ export default function ViewEvent() {
 
   const handleViewAttendeesClick = () => {
     window.open(`/view-attendees/${eventData?.data.event_id}`, "_blank")
+  }
+
+  const handleEditEventClick = () => {
+    toast("handleEditEventClick WIP")
+  }
+
+  const handleDeleteEventClick = () => {
+    toast("handleDeleteEventClick WIP")
   }
 
   useEffect(() => {
@@ -96,6 +105,18 @@ export default function ViewEvent() {
             {isEventOwner && (
               <Button onClick={() => handleViewAttendeesClick()}>
                 View Attendees
+              </Button>
+            )}
+          </Box>
+          <Box>
+            {isEventOwner && (
+              <Button onClick={() => handleEditEventClick()}>Edit Event</Button>
+            )}
+          </Box>
+          <Box>
+            {isEventOwner && (
+              <Button onClick={() => handleDeleteEventClick()}>
+                Delete Event
               </Button>
             )}
           </Box>
