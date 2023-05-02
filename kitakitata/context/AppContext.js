@@ -59,8 +59,8 @@ export const AppContextProvider = ({ children }) => {
     console.log("<<checkUser()")
   }
 
-  const handleLensLogin = async () => {
-    console.log(">>handleLensLogin()")
+  const loginWithLens = async () => {
+    console.log(">>loginWithLens()")
 
     try {
       const { identity, tx } = await db.createTempAddressWithLens()
@@ -76,10 +76,10 @@ export const AppContextProvider = ({ children }) => {
               )}`
             : null,
         }
-        console.log("handleLensLogin() _user", _user)
+        console.log("loginWithLens() _user", _user)
       }
     } catch (e) {
-      console.error("handleLensLogin", e)
+      console.error("loginWithLens", e)
       toast(e.message)
     }
   }
@@ -238,26 +238,6 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const updateEventsList = async (showAllEvents = true) => {
-    try {
-      let _events
-      if (showAllEvents) {
-        _events = await db.cget(COLLECTION_EVENTS, ["date", "desc"])
-      } else {
-        _events = await db.cget(
-          COLLECTION_EVENTS,
-          ["user_address", "==", user.wallet.toLowerCase()],
-          ["date", "desc"]
-        )
-      }
-      console.log("updateEventsList() _events", _events)
-      setEvents(_events)
-    } catch (e) {
-      toast(e.message)
-      console.error("updateEventsList", e)
-    }
-  }
-
   const getEventAttendees = async (eventId) => {
     setIsLoading(true)
     try {
@@ -324,6 +304,26 @@ export const AppContextProvider = ({ children }) => {
       console.error("getEventAttendees", e)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const updateEventsList = async (showAllEvents = true) => {
+    try {
+      let _events
+      if (showAllEvents) {
+        _events = await db.cget(COLLECTION_EVENTS, ["date", "desc"])
+      } else {
+        _events = await db.cget(
+          COLLECTION_EVENTS,
+          ["user_address", "==", user.wallet.toLowerCase()],
+          ["date", "desc"]
+        )
+      }
+      console.log("updateEventsList() _events", _events)
+      setEvents(_events)
+    } catch (e) {
+      toast(e.message)
+      console.error("updateEventsList", e)
     }
   }
 
@@ -709,7 +709,7 @@ export const AppContextProvider = ({ children }) => {
         setUserRsvp,
         isLoading,
         setIsLoading,
-        handleLensLogin,
+        loginWithLens,
         setUserProfile,
         getUserProfile,
         eventAttendees,

@@ -13,7 +13,7 @@ import {
 import { useContext } from "react"
 
 export default function LoginOption({ isOpen, onClose, openConnectModal }) {
-  const { setIsLoginModalOpen, handleLensLogin } = useContext(AppContext)
+  const { setIsLoginModalOpen, loginWithLens } = useContext(AppContext)
 
   return (
     <>
@@ -34,7 +34,7 @@ export default function LoginOption({ isOpen, onClose, openConnectModal }) {
               </Button>
               <Button
                 onClick={() => {
-                  handleLensLogin()
+                  loginWithLens()
                 }}
               >
                 Lens
