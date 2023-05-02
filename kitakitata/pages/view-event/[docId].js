@@ -3,7 +3,7 @@ import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
 import { useState } from "react"
-import { Button, Container, Text } from "@chakra-ui/react"
+import { Box, Button, Container, Text } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
 
 export default function ViewEvent() {
@@ -57,13 +57,9 @@ export default function ViewEvent() {
 
   useEffect(() => {
     ;(async () => {
-      if (user && eventData) {
-        setIsEventOwner(
-          user.wallet.toLowerCase() === eventData?.setter ? true : false
-        )
-      }
+      setIsEventOwner(!!user && user.wallet.toLowerCase() === eventData?.setter)
     })()
-  }, [user])
+  }, [user, eventData])
 
   return (
     <>
@@ -92,6 +88,7 @@ export default function ViewEvent() {
           >
             RSVP
           </Button>
+          <Box>{isEventOwner && <Button>View Attendees</Button>}</Box>
         </Container>
       </Layout>
     </>
