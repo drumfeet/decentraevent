@@ -15,17 +15,16 @@ export const AppContextProvider = ({ children }) => {
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_USERS = "users"
   const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
+  const router = useRouter()
   const [db, setDb] = useState(null)
   const [initDB, setInitDB] = useState(false)
   const [user, setUser] = useState(null)
   const [eventData, setEventData] = useState({})
   const [events, setEvents] = useState([])
   const [userRsvp, setUserRsvp] = useState()
-  const router = useRouter()
   const [dryWriteTx, setDryWriteTx] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [eventAttendees, setEventAttendees] = useState({})
-  const [userProfile, setUserProfile] = useState(null)
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
 
   const setupWeaveDB = async () => {
@@ -779,8 +778,6 @@ export const AppContextProvider = ({ children }) => {
         eventAttendees,
         setEventAttendees,
         getEventAttendees,
-        userProfile,
-        setUserProfile,
         contractTxId,
         isLoginModalOpen,
         setIsLoginModalOpen,
