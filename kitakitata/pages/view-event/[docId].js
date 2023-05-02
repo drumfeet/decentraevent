@@ -79,28 +79,30 @@ export default function ViewEvent() {
       <Layout>
         <Container maxW={"6xl"} my={28}>
           <Text>ViewEvent Page</Text>
-          <Text>eventData.data.event_id: {eventData?.data?.event_id}</Text>
+          <Text>event_id: {eventData?.data?.event_id}</Text>
+          <Text>user_address: {eventData?.data?.user_address}</Text>
+          <Text>date: {eventData?.data?.date}</Text>
+          <Text>event title: {eventData?.data?.title}</Text>
+          <Text>organizer: {eventData?.data?.organizer}</Text>
+          <Text>location: {eventData?.data?.location}</Text>
+          <Text>start_time: {eventData?.data?.start_time}</Text>
+          <Text>end_time: {eventData?.data?.end_time}</Text>
+          <Text>event_details: {eventData?.data?.event_details}</Text>
           <Text>
-            eventData.data.user_address: {eventData?.data?.user_address}
+            Is user going to the event? {String(userRsvpData?.isGoing)}
           </Text>
-          <Text>eventData.data.date: {eventData?.data?.date}</Text>
-          <Text>eventData.data.title: {eventData?.data?.title}</Text>
-          <Text>eventData.data.organizer: {eventData?.data?.organizer}</Text>
-          <Text>eventData.data.location: {eventData?.data?.location}</Text>
-          <Text>eventData.data.start_time: {eventData?.data?.start_time}</Text>
-          <Text>eventData.data.end_time: {eventData?.data?.end_time}</Text>
-          <Text>
-            eventData.data.event_details: {eventData?.data?.event_details}
-          </Text>
-          <Text>Is User Going? {String(userRsvpData?.isGoing)}</Text>
-          <Text>Is Event Owner? {String(isEventOwner)}</Text>
+          <Text>Is user owner of the event? {String(isEventOwner)}</Text>
           <Button
+            disabled={true}
             onClick={() => {
               handleRsvpClick()
             }}
           >
-            RSVP
+            {userRsvpData?.isGoing ? "Leave" : "Join"}
           </Button>
+          <Text>
+            Only owner of the event can view attendees, edit/delete event
+          </Text>
           <Box>
             {isEventOwner && (
               <Button onClick={() => handleViewAttendeesClick()}>
