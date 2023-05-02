@@ -1,9 +1,5 @@
 import { AppContext } from "@/context/AppContext"
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  SearchIcon,
-} from "@chakra-ui/icons"
+import { ArrowBackIcon, ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Flex,
   Button,
@@ -15,13 +11,12 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import CardSmall from "./CardSmall"
 
 const EVENTS_PER_PAGE = 8
 const CARD_RADIUS = "12px"
-const MILLISECONDS = 1000
 
 export default function EventsNew() {
   const { events } = useContext(AppContext)
@@ -40,6 +35,10 @@ export default function EventsNew() {
   const handlePageSelect = (newPage) => {
     setPage(newPage)
   }
+
+  useEffect(() => {
+    setPage(1)
+  }, [events])
 
   const numPages = Math.ceil(events.length / EVENTS_PER_PAGE)
   const startIdx = (page - 1) * EVENTS_PER_PAGE

@@ -7,8 +7,7 @@ import { isNil, map } from "ramda"
 import { useContext, useEffect, useState } from "react"
 
 export default function ShowEvents() {
-  const { user, events, getEvents, getMyEvents, initDB } =
-    useContext(AppContext)
+  const { user, events, updateEventsList, initDB } = useContext(AppContext)
   const [tab, setTab] = useState("All")
   const tabs = isNil(user) ? ["All"] : ["All", "Mine"]
 
@@ -40,9 +39,9 @@ export default function ShowEvents() {
   useEffect(() => {
     if (initDB) {
       if (tab === "All") {
-        getEvents()
+        updateEventsList(true)
       } else {
-        getMyEvents()
+        updateEventsList(false)
       }
     }
   }, [tab, initDB])
@@ -50,7 +49,7 @@ export default function ShowEvents() {
   return (
     <>
       <Layout>
-        {/* <Tabs /> */}
+        <Tabs />
         <EventsNew />
         {/* <Events /> */}
       </Layout>

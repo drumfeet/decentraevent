@@ -213,7 +213,7 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const deleteEvent = async (docId) => {
-    console.log("deleteEvent docId", docId)
+    console.log("deleteEvent() docId", docId)
     setIsLoading(true)
     try {
       const tx = await db.delete(COLLECTION_EVENTS, docId, user)
@@ -230,7 +230,7 @@ export const AppContextProvider = ({ children }) => {
   const getEvent = async (docId) => {
     try {
       const _event = await db.cget(COLLECTION_EVENTS, docId)
-      console.log("getEvent", _event)
+      console.log("getEvent() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
@@ -238,34 +238,23 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEvents = async () => {
+  const updateEventsList = async (showAllEvents = true) => {
     try {
-      getUserRsvpForEvents()
-
-      const _events = await db.cget(COLLECTION_EVENTS, ["date", "desc"], true)
-      console.log("getEvents", _events)
+      let _events
+      if (showAllEvents) {
+        _events = await db.cget(COLLECTION_EVENTS, ["date", "desc"])
+      } else {
+        _events = await db.cget(
+          COLLECTION_EVENTS,
+          ["user_address", "==", user.wallet.toLowerCase()],
+          ["date", "desc"]
+        )
+      }
+      console.log("updateEventsList() _events", _events)
       setEvents(_events)
     } catch (e) {
       toast(e.message)
-      console.error("getEvents", e)
-    }
-  }
-
-  const getMyEvents = async () => {
-    try {
-      getUserRsvpForEvents()
-
-      const _events = await db.cget(
-        COLLECTION_EVENTS,
-        ["user_address", "==", user.wallet.toLowerCase()],
-        ["date", "desc"],
-        true
-      )
-      console.log("getMyEvents", _events)
-      setEvents(_events)
-    } catch (e) {
-      toast(e.message)
-      console.error(e)
+      console.error("updateEventsList", e)
     }
   }
 
@@ -723,18 +712,12 @@ export const AppContextProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    if (initDB) {
-      getEvents()
-    }
-  }, [initDB, user])
-
-  useEffect(() => {
     ;(async () => {
       try {
         if (initDB) {
           const _txResult = await dryWriteTx.getResult()
           console.log("useEffect _txResult", _txResult)
-          await getEvents()
+          await updateEventsList(true)
         }
       } catch (e) {
         toast(e.message)
@@ -762,8 +745,6 @@ export const AppContextProvider = ({ children }) => {
         setEventData,
         events,
         setEvents,
-        getEvents,
-        getMyEvents,
         login,
         logout,
         setRsvpStatus,
@@ -783,6 +764,7 @@ export const AppContextProvider = ({ children }) => {
         setIsLoginModalOpen,
         getEvent,
         getUserRsvpForEvent,
+        updateEventsList,
       }}
     >
       {children}

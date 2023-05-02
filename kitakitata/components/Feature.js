@@ -1,20 +1,9 @@
 import { AppContext } from "@/context/AppContext"
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  CalendarIcon,
-  ExternalLinkIcon,
-  SearchIcon,
-  TimeIcon,
-} from "@chakra-ui/icons"
+import { SearchIcon } from "@chakra-ui/icons"
 import {
   Flex,
-  Text,
   Button,
-  Image,
   Heading,
-  Box,
-  HStack,
   Container,
   InputGroup,
   Input,
@@ -22,7 +11,7 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import CardSmall from "./CardSmall"
 
@@ -55,7 +44,7 @@ const getTimeString = (timestamp) => {
 }
 
 export default function Feature() {
-  const { events } = useContext(AppContext)
+  const { events, initDB, updateEventsList } = useContext(AppContext)
   const [page, setPage] = useState(1)
 
   const handlePreviousPage = () => {
@@ -71,6 +60,12 @@ export default function Feature() {
   const handlePageSelect = (newPage) => {
     setPage(newPage)
   }
+
+  useEffect(() => {
+    if (initDB) {
+      updateEventsList(true)
+    }
+  }, [initDB])
 
   const numPages = Math.ceil(events.length / EVENTS_PER_PAGE)
   const startIdx = (page - 1) * EVENTS_PER_PAGE
