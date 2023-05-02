@@ -32,6 +32,13 @@ export default function ViewEvent() {
     }
   }
 
+  const handleViewAttendeesClick = async () => {
+    await router.push({
+      pathname: `/view-attendees/${eventData.id}`,
+      query: { metadata: JSON.stringify(eventData) },
+    })
+  }
+
   useEffect(() => {
     ;(async () => {
       if (initDB) {
@@ -88,7 +95,13 @@ export default function ViewEvent() {
           >
             RSVP
           </Button>
-          <Box>{isEventOwner && <Button>View Attendees</Button>}</Box>
+          <Box>
+            {isEventOwner && (
+              <Button onClick={() => handleViewAttendeesClick()}>
+                View Attendees
+              </Button>
+            )}
+          </Box>
         </Container>
       </Layout>
     </>
