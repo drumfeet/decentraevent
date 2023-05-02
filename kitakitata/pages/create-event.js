@@ -19,7 +19,7 @@ import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
 
 export default function CreateEvent() {
-  const { addEvent, eventData, setEventData, user, setIsLoginModalOpen } =
+  const { createEvent, eventData, setEventData, user, setIsLoginModalOpen } =
     useContext(AppContext)
 
   const isRequiredInputValid = () => {
@@ -43,7 +43,7 @@ export default function CreateEvent() {
   const handleCreateEvent = () => {
     const isValid = isRequiredInputValid()
     if (isValid) {
-      addEvent()
+      createEvent()
     }
   }
 

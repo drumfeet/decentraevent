@@ -147,7 +147,7 @@ export const AppContextProvider = ({ children }) => {
     return !isNaN(timestamp) && timestamp >= 0
   }
 
-  const addEvent = async () => {
+  const createEvent = async () => {
     const MILLISECONDS = 1000
     setIsLoading(true)
 
@@ -155,7 +155,7 @@ export const AppContextProvider = ({ children }) => {
       const userAddress = user.wallet.toLowerCase()
       const eventId = nanoid()
       const docId = `${userAddress}:${eventId}`
-      console.log("addEvent() docId", docId)
+      console.log("createEvent() docId", docId)
 
       eventData.start_time = Date.parse(eventData?.start_time) / MILLISECONDS
       eventData.end_time = Date.parse(eventData?.end_time) / MILLISECONDS
@@ -165,18 +165,18 @@ export const AppContextProvider = ({ children }) => {
       console.log("eventData", eventData)
 
       let tx = await db.set(eventData, COLLECTION_EVENTS, docId, user)
-      console.log("addEvent() tx", tx)
+      console.log("createEvent() tx", tx)
       setDryWriteTx(tx)
       setEventData({})
       await router.push("/show-events")
     } catch (e) {
       toast(e.message)
-      console.error("addEvent", e)
+      console.error("createEvent", e)
     } finally {
       setIsLoading(false)
     }
 
-    console.log("<<addEvent()")
+    console.log("<<createEvent()")
   }
 
   const updateEvent = async (docId) => {
@@ -708,7 +708,7 @@ export const AppContextProvider = ({ children }) => {
         user,
         setUser,
         openCreateEventPage,
-        addEvent,
+        createEvent,
         updateEvent,
         deleteEvent,
         eventData,
