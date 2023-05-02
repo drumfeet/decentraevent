@@ -32,7 +32,7 @@ export default function CardSmall({ event }) {
     return `${timeString}`
   }
 
-  const handleViewEvent = async (metadata) => {
+  const handleViewEvent = (metadata) => {
     window.open(`/view-event/${metadata.id}`, "_blank")
   }
 

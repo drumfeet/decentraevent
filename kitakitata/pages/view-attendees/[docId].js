@@ -1,25 +1,14 @@
 import Layout from "@/components/Layout"
 import {
   Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
   Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Textarea,
   TableContainer,
   Table,
-  TableCaption,
   Thead,
   Tr,
   Th,
   Tbody,
   Td,
-  Tfoot,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -30,11 +19,9 @@ import { DownloadIcon } from "@chakra-ui/icons"
 
 export default function ViewAttendees() {
   const {
-    updateEvent,
     eventData,
     setEventData,
     eventAttendees,
-    setEventAttendees,
     initDB,
   } = useContext(AppContext)
   const router = useRouter()
@@ -44,14 +31,8 @@ export default function ViewAttendees() {
   const [startTime, setStartTime] = useState(null)
   const [endTime, setEndTime] = useState(null)
 
-  const handleInputChange = (event) => {
-    setEventData({
-      ...eventData,
-      [event.target.id]: event.target.value,
-    })
-  }
 
-  const handleDownload = (event) => {
+  const handleDownload = () => {
     const csvData = eventAttendees
       .map(
         (attendee) =>

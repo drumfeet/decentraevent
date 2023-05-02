@@ -32,11 +32,8 @@ export default function ViewEvent() {
     }
   }
 
-  const handleViewAttendeesClick = async () => {
-    await router.push({
-      pathname: `/view-attendees/${eventData.id}`,
-      query: { metadata: JSON.stringify(eventData) },
-    })
+  const handleViewAttendeesClick = () => {
+    window.open(`/view-attendees/${eventData?.data.event_id}`, "_blank")
   }
 
   useEffect(() => {

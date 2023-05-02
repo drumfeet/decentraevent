@@ -312,7 +312,7 @@ export const AppContextProvider = ({ children }) => {
             dataURItoBlob(encryptedData),
             symmetricKey
           )
-          console.log("getEventAttendees decryptedString", decryptedString)
+          console.log("getEventAttendees() decryptedString", decryptedString)
           const jsonData = JSON.parse(decryptedString)
           _attendees.push(assoc("decrypted", jsonData, attendee))
           console.log("_attendees", _attendees)
