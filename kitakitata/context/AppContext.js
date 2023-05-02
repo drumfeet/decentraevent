@@ -60,7 +60,7 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const handleLensLogin = async () => {
-    console.log("handleLensLogin")
+    console.log(">>handleLensLogin()")
 
     try {
       const { identity, tx } = await db.createTempAddressWithLens()
@@ -76,7 +76,7 @@ export const AppContextProvider = ({ children }) => {
               )}`
             : null,
         }
-        console.log("handleLensLogin _user", _user)
+        console.log("handleLensLogin() _user", _user)
       }
     } catch (e) {
       console.error("handleLensLogin", e)
@@ -142,7 +142,7 @@ export const AppContextProvider = ({ children }) => {
     console.log("<<createEvent()")
   }
 
-  function isUnixTimestamp(str) {
+  const isTimestampNumeric = (str) => {
     const timestamp = Number(str)
     return !isNaN(timestamp) && timestamp >= 0
   }
@@ -184,13 +184,13 @@ export const AppContextProvider = ({ children }) => {
     setIsLoading(true)
 
     try {
-      const startTimeIsNum = isUnixTimestamp(eventData.start_time)
-      const endTimeIsNum = isUnixTimestamp(eventData.end_time)
+      const isStartTimeNumeric = isTimestampNumeric(eventData.start_time)
+      const isEndTimeNumeric = isTimestampNumeric(eventData.end_time)
 
-      if (!startTimeIsNum) {
+      if (!isStartTimeNumeric) {
         eventData.start_time = Date.parse(eventData?.start_time) / MILLISECONDS
       }
-      if (!endTimeIsNum) {
+      if (!isEndTimeNumeric) {
         eventData.end_time = Date.parse(eventData?.end_time) / MILLISECONDS
       }
 
