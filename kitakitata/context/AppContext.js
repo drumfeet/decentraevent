@@ -11,9 +11,9 @@ import LitJsSdk from "@lit-protocol/sdk-browser"
 export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-  const COLLECTION_NAME = "events"
+  const COLLECTION_EVENTS = "events"
   const COLLECTION_RSVP = "rsvp"
-  const COLLECTION_USER = "users"
+  const COLLECTION_USERS = "users"
   const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
   const [db, setDb] = useState(null)
   const [initDB, setInitDB] = useState(false)
@@ -135,7 +135,11 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const createEvent = async () => {
-    await router.push("/create-event")
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+    } else {
+      await router.push("/create-event")
+    }
     console.log("<<createEvent()")
   }
 
@@ -161,7 +165,7 @@ export const AppContextProvider = ({ children }) => {
       eventData.event_id = eventId
       console.log("eventData", eventData)
 
-      let tx = await db.set(eventData, COLLECTION_NAME, docId, user)
+      let tx = await db.set(eventData, COLLECTION_EVENTS, docId, user)
       console.log("addEvent() tx", tx)
       setDryWriteTx(tx)
       setEventData({})
@@ -194,7 +198,7 @@ export const AppContextProvider = ({ children }) => {
       eventData.date = db.ts()
       eventData.user_address = db.signer()
 
-      let tx = await db.update(eventData, COLLECTION_NAME, docId, user)
+      let tx = await db.update(eventData, COLLECTION_EVENTS, docId, user)
       console.log("updateEvent() tx", tx)
       setDryWriteTx(tx)
       setEventData({})
@@ -213,7 +217,7 @@ export const AppContextProvider = ({ children }) => {
     console.log("deleteEvent docId", docId)
     setIsLoading(true)
     try {
-      const tx = await db.delete(COLLECTION_NAME, docId, user)
+      const tx = await db.delete(COLLECTION_EVENTS, docId, user)
       console.log("deleteEvent() tx", tx)
       setDryWriteTx(tx)
     } catch (e) {
@@ -226,7 +230,7 @@ export const AppContextProvider = ({ children }) => {
 
   const getEvent = async (docId) => {
     try {
-      const _event = await db.cget(COLLECTION_NAME, docId)
+      const _event = await db.cget(COLLECTION_EVENTS, docId)
       console.log("getEvent", _event)
       return _event
     } catch (e) {
@@ -239,7 +243,7 @@ export const AppContextProvider = ({ children }) => {
     try {
       getUserRsvpForEvents()
 
-      const _events = await db.cget(COLLECTION_NAME, ["date", "desc"], true)
+      const _events = await db.cget(COLLECTION_EVENTS, ["date", "desc"], true)
       console.log("getEvents", _events)
       setEvents(_events)
     } catch (e) {
@@ -253,7 +257,7 @@ export const AppContextProvider = ({ children }) => {
       getUserRsvpForEvents()
 
       const _events = await db.cget(
-        COLLECTION_NAME,
+        COLLECTION_EVENTS,
         ["user_address", "==", user.wallet.toLowerCase()],
         ["date", "desc"],
         true
@@ -636,7 +640,7 @@ export const AppContextProvider = ({ children }) => {
         },
       }
 
-      let tx = await db.upsert(userData, COLLECTION_USER, userAddress, user)
+      let tx = await db.upsert(userData, COLLECTION_USERS, userAddress, user)
       console.log("handleProfileUpdate tx", tx)
       setDryWriteTx(tx)
     } catch (e) {
@@ -654,7 +658,7 @@ export const AppContextProvider = ({ children }) => {
     let jsonData = null
     try {
       const userProfileData = await db.get(
-        COLLECTION_USER,
+        COLLECTION_USERS,
         user.wallet.toLowerCase()
       )
       console.log("getUserProfile userProfileData", userProfileData)

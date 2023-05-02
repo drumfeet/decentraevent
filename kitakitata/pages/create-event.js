@@ -43,11 +43,7 @@ export default function CreateEvent() {
   const handleCreateEvent = () => {
     const isValid = isRequiredInputValid()
     if (isValid) {
-      if (isNil(user)) {
-        setIsLoginModalOpen(true)
-      } else {
-        addEvent()
-      }
+      addEvent()
     }
   }
 

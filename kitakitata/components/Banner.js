@@ -1,3 +1,4 @@
+import { AppContext } from "@/context/AppContext"
 import {
   Flex,
   Container,
@@ -8,8 +9,11 @@ import {
   Icon,
 } from "@chakra-ui/react"
 import Link from "next/link"
+import { useContext } from "react"
 
 export default function Banner() {
+  const { createEvent } = useContext(AppContext)
+
   return (
     <Container maxW={"6xl"} my={28}>
       <Stack direction={{ base: "column", md: "row" }}>
@@ -22,11 +26,9 @@ export default function Banner() {
           </Text>
 
           <Stack spacing={6} direction={"row"}>
-            <Link href={"/create-event"}>
-              <Button py="10px" px="18px" mt={8}>
-                Create Event
-              </Button>
-            </Link>
+            <Button py="10px" px="18px" mt={8} onClick={createEvent}>
+              Create Event
+            </Button>
           </Stack>
         </Flex>
 
