@@ -166,7 +166,9 @@ export const AppContextProvider = ({ children }) => {
 
       let tx = await db.set(eventData, COLLECTION_EVENTS, docId, user)
       console.log("createEvent() tx", tx)
-      setDryWriteTx(tx)
+      if (tx.success) {
+        setDryWriteTx(tx)
+      }
       setEventData({})
       await router.push("/show-events")
     } catch (e) {
@@ -199,7 +201,9 @@ export const AppContextProvider = ({ children }) => {
 
       let tx = await db.update(eventData, COLLECTION_EVENTS, docId, user)
       console.log("updateEvent() tx", tx)
-      setDryWriteTx(tx)
+      if (tx.success) {
+        setDryWriteTx(tx)
+      }
       setEventData({})
       await router.push("/show-events")
     } catch (e) {
@@ -218,7 +222,9 @@ export const AppContextProvider = ({ children }) => {
     try {
       const tx = await db.delete(COLLECTION_EVENTS, docId, user)
       console.log("deleteEvent() tx", tx)
-      setDryWriteTx(tx)
+      if (tx.success) {
+        setDryWriteTx(tx)
+      }
     } catch (e) {
       toast(e.message)
       console.error("deleteEvent", e)
@@ -402,114 +408,130 @@ export const AppContextProvider = ({ children }) => {
       const docId = `${userAddress}-${metadata.data.event_id}`
       console.log("setUserRsvpForEvent() docId", docId)
 
-      const eventOwnerAddress = metadata.data.user_address
-      console.log("setUserRsvpForEvent() eventOwnerAddress", eventOwnerAddress)
+      if (!isUserGoing) {
+        toast("Leave")
+        let tx = await db.delete(COLLECTION_RSVP, docId, user)
+        console.log("setUserRsvpForEvent() tx", tx)
+        if (tx.success) {
+          setDryWriteTx(tx)
+        }
+      } else {
+        const eventOwnerAddress = metadata.data.user_address
+        console.log(
+          "setUserRsvpForEvent() eventOwnerAddress",
+          eventOwnerAddress
+        )
 
-      const userProfile = await getUserProfile()
-      console.log("setUserRsvpForEvent() userProfile", userProfile)
+        const userProfile = await getUserProfile()
+        console.log("setUserRsvpForEvent() userProfile", userProfile)
 
-      const propNameEmail = props(["name", "email"], userProfile)
-      console.log("propNameEmail", propNameEmail)
-      const isNameEmailNullOrEmpty = any(either(isNil, isEmpty))(propNameEmail)
-      console.log("isNameEmailNullOrEmpty", isNameEmailNullOrEmpty)
-      const isUserProfileNull = isNil(userProfile)
-      console.log("isUserProfileNull", isUserProfileNull)
-      if (isUserProfileNull || isNameEmailNullOrEmpty) {
-        toast("Update your profile (name/email)")
-        return
-      }
-      const { name, email, company, job_title } = userProfile
+        const propNameEmail = props(["name", "email"], userProfile)
+        console.log("propNameEmail", propNameEmail)
+        const isNameEmailNullOrEmpty = any(either(isNil, isEmpty))(
+          propNameEmail
+        )
+        console.log("isNameEmailNullOrEmpty", isNameEmailNullOrEmpty)
+        const isUserProfileNull = isNil(userProfile)
+        console.log("isUserProfileNull", isUserProfileNull)
+        if (isUserProfileNull || isNameEmailNullOrEmpty) {
+          toast("Update your profile (name/email)")
+          return
+        }
+        const { name, email, company, job_title } = userProfile
 
-      let rsvpStatus = {
-        isGoing: isUserGoing,
-        name: name,
-        email: email,
-        company: company,
-        job_title: job_title,
-        user_address: userAddress,
-      }
-      const jsonStr = JSON.stringify(rsvpStatus)
+        let rsvpStatus = {
+          isGoing: isUserGoing,
+          name: name,
+          email: email,
+          company: company,
+          job_title: job_title,
+          user_address: userAddress,
+        }
+        const jsonStr = JSON.stringify(rsvpStatus)
 
-      const accessControlConditions = [
-        {
-          contractAddress: "",
-          standardContractType: "",
-          chain: "polygon",
-          method: "",
-          parameters: [":userAddress"],
-          returnValueTest: {
-            comparator: "=",
-            value: eventOwnerAddress,
+        const accessControlConditions = [
+          {
+            contractAddress: "",
+            standardContractType: "",
+            chain: "polygon",
+            method: "",
+            parameters: [":userAddress"],
+            returnValueTest: {
+              comparator: "=",
+              value: eventOwnerAddress,
+            },
           },
-        },
-        {
-          operator: "or",
-        },
-        {
-          contractAddress: "",
-          standardContractType: "",
-          chain: "polygon",
-          method: "",
-          parameters: [":userAddress"],
-          returnValueTest: {
-            comparator: "=",
-            value: userAddress,
+          {
+            operator: "or",
           },
-        },
-      ]
+          {
+            contractAddress: "",
+            standardContractType: "",
+            chain: "polygon",
+            method: "",
+            parameters: [":userAddress"],
+            returnValueTest: {
+              comparator: "=",
+              value: userAddress,
+            },
+          },
+        ]
 
-      const lit = new LitJsSdk.LitNodeClient()
-      await lit.connect()
+        const lit = new LitJsSdk.LitNodeClient()
+        await lit.connect()
 
-      const authSig = await LitJsSdk.checkAndSignAuthMessage({
-        chain: "polygon",
-      })
-
-      const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
-        jsonStr
-      )
-
-      const encryptedSymmetricKey = await lit.saveEncryptionKey({
-        accessControlConditions,
-        symmetricKey,
-        authSig,
-        chain: "polygon",
-      })
-
-      const blobToDataURI = (blob) => {
-        return new Promise((resolve, reject) => {
-          var reader = new FileReader()
-
-          reader.onload = (e) => {
-            var data = e.target.result
-            resolve(data)
-          }
-          reader.readAsDataURL(blob)
+        const authSig = await LitJsSdk.checkAndSignAuthMessage({
+          chain: "polygon",
         })
-      }
-      const encryptedData = await blobToDataURI(encryptedString)
 
-      let rsvp_data = {
-        event_doc_id: metadata.id,
-        event_id: metadata.data.event_id,
-        event_title: metadata.data.title,
-        user_address: db.signer(),
-        date: db.ts(),
-        // is_going: not(isUserGoing),
-        lit: {
-          encryptedData: encryptedData,
-          encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
-            encryptedSymmetricKey,
-            "base16"
-          ),
-          accessControlConditions: accessControlConditions,
-        },
-      }
-      console.log("rsvp_data", rsvp_data)
+        const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
+          jsonStr
+        )
 
-      let tx = await db.upsert(rsvp_data, COLLECTION_RSVP, docId, user)
-      console.log("setUserRsvpForEvent() tx", tx)
-      setDryWriteTx(tx)
+        const encryptedSymmetricKey = await lit.saveEncryptionKey({
+          accessControlConditions,
+          symmetricKey,
+          authSig,
+          chain: "polygon",
+        })
+
+        const blobToDataURI = (blob) => {
+          return new Promise((resolve, reject) => {
+            var reader = new FileReader()
+
+            reader.onload = (e) => {
+              var data = e.target.result
+              resolve(data)
+            }
+            reader.readAsDataURL(blob)
+          })
+        }
+        const encryptedData = await blobToDataURI(encryptedString)
+
+        let rsvp_data = {
+          event_doc_id: metadata.id,
+          event_id: metadata.data.event_id,
+          event_title: metadata.data.title,
+          user_address: db.signer(),
+          date: db.ts(),
+          // is_going: not(isUserGoing),
+          lit: {
+            encryptedData: encryptedData,
+            encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
+              encryptedSymmetricKey,
+              "base16"
+            ),
+            accessControlConditions: accessControlConditions,
+          },
+        }
+        console.log("rsvp_data", rsvp_data)
+
+        let tx = await db.upsert(rsvp_data, COLLECTION_RSVP, docId, user)
+        console.log("setUserRsvpForEvent() tx", tx)
+        if (tx.success) {
+          setDryWriteTx(tx)
+        }
+      }
     } catch (e) {
       toast(e.message)
       console.error("setUserRsvpForEvent", e)
@@ -587,7 +609,9 @@ export const AppContextProvider = ({ children }) => {
 
       let tx = await db.upsert(userData, COLLECTION_USERS, userAddress, user)
       console.log("setUserProfile tx", tx)
-      setDryWriteTx(tx)
+      if (tx.success) {
+        setDryWriteTx(tx)
+      }
     } catch (e) {
       toast(e.message)
       console.error("setUserProfile", e)

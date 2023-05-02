@@ -150,7 +150,7 @@ const schema_rsvp = {
 }
 
 const rules_rsvp = {
-  let: {
+  "let create,update": {
     docId: [
       "join",
       "-",
