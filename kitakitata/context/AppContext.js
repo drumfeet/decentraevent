@@ -390,20 +390,23 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const setRsvpStatus = async (metadata, isUserGoing) => {
-    console.log("setRsvpStatus() (events collection) metadata", metadata)
-    console.log("setRsvpStatus() (current value) isUserGoing", isUserGoing)
+  const setUserRsvpForEvent = async (metadata, isUserGoing) => {
+    console.log("setUserRsvpForEvent() (events collection) metadata", metadata)
+    console.log(
+      "setUserRsvpForEvent() (current value) isUserGoing",
+      isUserGoing
+    )
     setIsLoading(true)
     try {
       const userAddress = user.wallet.toLowerCase()
       const docId = `${userAddress}-${metadata.data.event_id}`
-      console.log("setRsvpStatus() docId", docId)
+      console.log("setUserRsvpForEvent() docId", docId)
 
       const eventOwnerAddress = metadata.data.user_address
-      console.log("setRsvpStatus() eventOwnerAddress", eventOwnerAddress)
+      console.log("setUserRsvpForEvent() eventOwnerAddress", eventOwnerAddress)
 
       const userProfile = await getUserProfile()
-      console.log("setRsvpStatus() userProfile", userProfile)
+      console.log("setUserRsvpForEvent() userProfile", userProfile)
 
       const propNameEmail = props(["name", "email"], userProfile)
       console.log("propNameEmail", propNameEmail)
@@ -505,21 +508,21 @@ export const AppContextProvider = ({ children }) => {
       console.log("rsvp_data", rsvp_data)
 
       let tx = await db.upsert(rsvp_data, COLLECTION_RSVP, docId, user)
-      console.log("setRsvpStatus() tx", tx)
+      console.log("setUserRsvpForEvent() tx", tx)
       setDryWriteTx(tx)
     } catch (e) {
       toast(e.message)
-      console.error("setRsvpStatus", e)
+      console.error("setUserRsvpForEvent", e)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleProfileUpdate = async (userProfileData) => {
+  const setUserProfile = async (userProfileData) => {
     setIsLoading(true)
     try {
       const userAddress = user.wallet.toLowerCase()
-      console.log("handleProfileUpdate userAddress", userAddress)
+      console.log("setUserProfile userAddress", userAddress)
       console.log("userAddress userProfileData", userProfileData)
 
       const accessControlConditions = [
@@ -583,16 +586,16 @@ export const AppContextProvider = ({ children }) => {
       }
 
       let tx = await db.upsert(userData, COLLECTION_USERS, userAddress, user)
-      console.log("handleProfileUpdate tx", tx)
+      console.log("setUserProfile tx", tx)
       setDryWriteTx(tx)
     } catch (e) {
       toast(e.message)
-      console.error("handleProfileUpdate", e)
+      console.error("setUserProfile", e)
     } finally {
       setIsLoading(false)
     }
 
-    console.log("handleProfileUpdate")
+    console.log("<<setUserProfile()")
   }
 
   const getUserProfile = async () => {
@@ -701,13 +704,13 @@ export const AppContextProvider = ({ children }) => {
         setEvents,
         login,
         logout,
-        setRsvpStatus,
+        setUserRsvpForEvent,
         userRsvp,
         setUserRsvp,
         isLoading,
         setIsLoading,
         handleLensLogin,
-        handleProfileUpdate,
+        setUserProfile,
         getUserProfile,
         eventAttendees,
         setEventAttendees,

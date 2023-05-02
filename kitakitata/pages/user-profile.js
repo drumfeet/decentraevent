@@ -21,7 +21,7 @@ import {
 import { SmallCloseIcon } from "@chakra-ui/icons"
 
 export default function Profile() {
-  const { handleProfileUpdate } = useContext(AppContext)
+  const { setUserProfile } = useContext(AppContext)
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [company, setCompany] = useState()
@@ -170,7 +170,7 @@ export default function Profile() {
                         job_title: jobTitle,
                         company: company,
                       }
-                      handleProfileUpdate(userProfileData)
+                      setUserProfile(userProfileData)
                     }
                   }
                 }}

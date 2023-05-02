@@ -11,7 +11,7 @@ export default function ViewEvent() {
     initDB,
     getEvent,
     user,
-    setRsvpStatus,
+    setUserRsvpForEvent,
     getUserRsvpForEvent,
     setIsLoginModalOpen,
   } = useContext(AppContext)
@@ -27,7 +27,7 @@ export default function ViewEvent() {
     } else {
       const isGoing = not(userRsvpData?.isGoing)
       console.log("handleRsvpClick() isGoing", isGoing)
-      setRsvpStatus(eventData, isGoing)
+      setUserRsvpForEvent(eventData, isGoing)
       setUserRsvpData({ ...userRsvpData, isGoing: isGoing })
     }
   }

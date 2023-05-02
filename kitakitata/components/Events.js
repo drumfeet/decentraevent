@@ -106,7 +106,7 @@ export default function Events() {
     user,
     events,
     userRsvp,
-    setRsvpStatus,
+    // setRsvpStatus,
     // saveToList,
     deleteEvent,
     isLoading,
@@ -135,7 +135,7 @@ export default function Events() {
   }
 
   const handleGoing = async (metadata, isUserGoing) => {
-    setRsvpStatus(metadata, isUserGoing)
+    // setRsvpStatus(metadata, isUserGoing)
   }
 
   const handleLike = async (metadata, isUserLiked) => {
