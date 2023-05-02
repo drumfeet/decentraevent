@@ -258,16 +258,16 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEventAttendees = async (metadata) => {
+  const getEventAttendees = async (eventId) => {
     setIsLoading(true)
     try {
-      console.log("getEventAttendees() metadata", metadata)
-      const _eventId = metadata?.data.event_id
+      console.log("getEventAttendees() eventId", eventId)
 
       const _eventAttendees = await db.cget(
         COLLECTION_RSVP,
-        ["event_id", "==", _eventId],
-        ["date", "desc"])
+        ["event_id", "==", eventId],
+        ["date", "desc"]
+      )
       console.log("getEventAttendees() _eventAttendees", _eventAttendees)
 
       const lit = new LitJsSdk.LitNodeClient()
@@ -275,7 +275,7 @@ export const AppContextProvider = ({ children }) => {
 
       let _attendees = []
       for (const attendee of _eventAttendees) {
-        console.log("attendee", attendee)
+        console.log("getEventAttendees() attendee", attendee)
         if (!isNil(attendee?.data.lit)) {
           const {
             encryptedData,
@@ -318,7 +318,7 @@ export const AppContextProvider = ({ children }) => {
           console.log("_attendees", _attendees)
         }
       }
-      setEventAttendees(_attendees)
+      return _attendees
     } catch (e) {
       toast(e.message)
       console.error("getEventAttendees", e)

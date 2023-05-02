@@ -18,19 +18,10 @@ import { toast } from "react-toastify"
 import { DownloadIcon } from "@chakra-ui/icons"
 
 export default function ViewAttendees() {
-  const {
-    eventData,
-    setEventData,
-    eventAttendees,
-    initDB,
-  } = useContext(AppContext)
   const router = useRouter()
-  const { docId, metadata } = router.query
-  const jsonMetadata = metadata ? JSON.parse(metadata) : null
-
-  const [startTime, setStartTime] = useState(null)
-  const [endTime, setEndTime] = useState(null)
-
+  const { eventId } = router.query
+  const { initDB, getEventAttendees } = useContext(AppContext)
+  const [eventAttendees, setEventAttendees] = useState([])
 
   const handleDownload = () => {
     const csvData = eventAttendees
@@ -51,37 +42,20 @@ export default function ViewAttendees() {
     console.log("<<handleDownload")
   }
 
-  const convertDateTime = () => {
-    const MILLISECONDS = 1000
-
-    const startTimeUnix = new Date(jsonMetadata.data.start_time * MILLISECONDS)
-    const offsetMinutesStartTime = startTimeUnix.getTimezoneOffset()
-    startTimeUnix.setMinutes(
-      startTimeUnix.getMinutes() - offsetMinutesStartTime
-    )
-    const startTimeIsoString = startTimeUnix.toISOString().slice(0, 16)
-    setStartTime(startTimeIsoString)
-
-    const endTimeUnix = new Date(jsonMetadata.data.end_time * MILLISECONDS)
-    const offsetMinutesEndTime = endTimeUnix.getTimezoneOffset()
-    endTimeUnix.setMinutes(endTimeUnix.getMinutes() - offsetMinutesEndTime)
-    const endTimeIsoString = endTimeUnix.toISOString().slice(0, 16)
-    setEndTime(endTimeIsoString)
-  }
-
   useEffect(() => {
     ;(async () => {
       try {
-        if (initDB && !isNil(jsonMetadata)) {
-          setEventData(jsonMetadata.data)
-          convertDateTime()
+        if (initDB) {
+          const _eventAttendees = await getEventAttendees(eventId)
+          console.log("view-attendees _eventAttendees", _eventAttendees)
+          setEventAttendees(_eventAttendees)
         }
       } catch (e) {
         toast(e.message)
         console.error("useEffect view-attendees catch()", e)
       }
     })()
-  }, [docId, metadata])
+  }, [initDB])
 
   return (
     <Layout>
