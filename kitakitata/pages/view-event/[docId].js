@@ -18,16 +18,17 @@ export default function ViewEvent() {
   const router = useRouter()
   const { docId } = router.query
   const [eventData, setEventData] = useState({})
-  const [userRsvp, setUserRsvp] = useState({})
+  const [userRsvpData, setUserRsvpData] = useState({})
+  const [isEventOwner, setIsEventOwner] = useState(false)
 
   const handleRsvpClick = async () => {
     if (isNil(user)) {
       setIsLoginModalOpen(true)
     } else {
-      const isGoing = not(userRsvp?.isGoing)
-      console.log("handleRsvpClick isGoing", isGoing)
+      const isGoing = not(userRsvpData?.isGoing)
+      console.log("handleRsvpClick() isGoing", isGoing)
       setRsvpStatus(eventData, isGoing)
-      setUserRsvp({ ...userRsvp, isGoing: isGoing })
+      setUserRsvpData({ ...userRsvpData, isGoing: isGoing })
     }
   }
 
@@ -49,10 +50,20 @@ export default function ViewEvent() {
           eventData?.data?.event_id
         )
         console.log("ViewEvent _userRsvp", _userRsvp)
-        setUserRsvp(_userRsvp)
+        setUserRsvpData(_userRsvp)
       }
     })()
   }, [eventData])
+
+  useEffect(() => {
+    ;(async () => {
+      if (user && eventData) {
+        setIsEventOwner(
+          user.wallet.toLowerCase() === eventData?.setter ? true : false
+        )
+      }
+    })()
+  }, [user])
 
   return (
     <>
@@ -72,7 +83,8 @@ export default function ViewEvent() {
           <Text>
             eventData.data.event_details: {eventData?.data?.event_details}
           </Text>
-          <Text>Is User Going? {String(userRsvp?.isGoing)}</Text>
+          <Text>Is User Going? {String(userRsvpData?.isGoing)}</Text>
+          <Text>Is Event Owner? {String(isEventOwner)}</Text>
           <Button
             onClick={() => {
               handleRsvpClick()

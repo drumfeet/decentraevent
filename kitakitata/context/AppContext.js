@@ -328,14 +328,15 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const getUserRsvpForEvent = async (userWalletAddress, eventId) => {
+    let jsonData
     try {
-      console.log("getUserRsvpForEvent eventId", eventId)
-      console.log("getUserRsvpForEvent userWalletAddress", userWalletAddress)
+      console.log("getUserRsvpForEvent() eventId", eventId)
+      console.log("getUserRsvpForEvent() userWalletAddress", userWalletAddress)
       const rsvpDocId = join("-", [userWalletAddress, eventId])
-      console.log("getUserRsvpForEvent rsvpDocId", rsvpDocId)
+      console.log("getUserRsvpForEvent() rsvpDocId", rsvpDocId)
 
       const _userRsvp = await db.cget(COLLECTION_RSVP, rsvpDocId)
-      console.log("getUserRsvpForEvent _userRsvp", _userRsvp)
+      console.log("getUserRsvpForEvent() _userRsvp", _userRsvp)
 
       if (!isNil(_userRsvp) && !isNil(_userRsvp?.data.lit)) {
         const lit = new LitJsSdk.LitNodeClient()
@@ -376,15 +377,16 @@ export const AppContextProvider = ({ children }) => {
           dataURItoBlob(encryptedData),
           symmetricKey
         )
-        console.log("getUserRsvpForEvent decryptedString", decryptedString)
+        console.log("getUserRsvpForEvent() decryptedString", decryptedString)
 
-        const jsonData = JSON.parse(decryptedString)
-        console.log("getUserRsvpForEvent jsonData", jsonData)
-        return jsonData
+        jsonData = JSON.parse(decryptedString)
+        console.log("getUserRsvpForEvent() jsonData", jsonData)
       }
     } catch (e) {
       toast(e.message)
       console.error("getUserRsvpForEvent", e)
+    } finally {
+      return jsonData
     }
   }
 
