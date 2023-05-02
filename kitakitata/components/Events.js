@@ -107,7 +107,7 @@ export default function Events() {
     events,
     userRsvp,
     setRsvpStatus,
-    saveToList,
+    // saveToList,
     deleteEvent,
     isLoading,
     getEventAttendees,
@@ -140,7 +140,7 @@ export default function Events() {
   }
 
   const handleLike = async (metadata, isUserLiked) => {
-    saveToList(metadata, isUserLiked)
+    // saveToList(metadata, isUserLiked)
   }
 
   const handleView = async (metadata) => {

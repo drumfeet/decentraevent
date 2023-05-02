@@ -133,13 +133,13 @@ export const AppContextProvider = ({ children }) => {
     console.log("<<logout()")
   }
 
-  const createEvent = async () => {
+  const openCreateEventPage = async () => {
     if (isNil(user)) {
       setIsLoginModalOpen(true)
     } else {
       await router.push("/create-event")
     }
-    console.log("<<createEvent()")
+    console.log("<<openCreateEventPage()")
   }
 
   const isTimestampNumeric = (str) => {
@@ -531,36 +531,6 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const saveToList = async (metadata, isUserLiked) => {
-    console.log("saveToList() metadata", metadata)
-    console.log("saveToList() isUserLiked", isUserLiked)
-    setIsLoading(true)
-    try {
-      const userAddress = user.wallet.toLowerCase()
-      const docId = `${userAddress}-${metadata.data.event_id}`
-      console.log("saveToList() docId", docId)
-
-      let rsvp_data = {
-        event_doc_id: metadata.id,
-        event_id: metadata.data.event_id,
-        event_title: metadata.data.title,
-        user_address: db.signer(),
-        date: db.ts(),
-        is_liked: not(isUserLiked),
-      }
-      console.log("rsvp_data", rsvp_data)
-
-      let tx = await db.upsert(rsvp_data, COLLECTION_RSVP, docId, user)
-      console.log("saveToList() tx", tx)
-      setDryWriteTx(tx)
-    } catch (e) {
-      toast(e.message)
-      console.error("saveToList", e)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   const handleProfileUpdate = async (userProfileData) => {
     setIsLoading(true)
     try {
@@ -737,7 +707,7 @@ export const AppContextProvider = ({ children }) => {
         setInitDB,
         user,
         setUser,
-        createEvent,
+        openCreateEventPage,
         addEvent,
         updateEvent,
         deleteEvent,
@@ -748,7 +718,6 @@ export const AppContextProvider = ({ children }) => {
         login,
         logout,
         setRsvpStatus,
-        saveToList,
         userRsvp,
         setUserRsvp,
         isLoading,

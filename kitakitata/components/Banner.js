@@ -12,7 +12,7 @@ import Link from "next/link"
 import { useContext } from "react"
 
 export default function Banner() {
-  const { createEvent } = useContext(AppContext)
+  const { openCreateEventPage } = useContext(AppContext)
 
   return (
     <Container maxW={"6xl"} my={28}>
@@ -26,7 +26,7 @@ export default function Banner() {
           </Text>
 
           <Stack spacing={6} direction={"row"}>
-            <Button py="10px" px="18px" mt={8} onClick={createEvent}>
+            <Button py="10px" px="18px" mt={8} onClick={openCreateEventPage}>
               Create Event
             </Button>
           </Stack>

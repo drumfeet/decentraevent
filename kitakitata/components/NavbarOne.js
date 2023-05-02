@@ -29,7 +29,7 @@ import RainbowWallet from "./RainbowWallet"
 import { FaHome } from "react-icons/fa"
 
 export default function NavbarOne() {
-  const { createEvent } = useContext(AppContext)
+  const { openCreateEventPage } = useContext(AppContext)
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -78,7 +78,7 @@ export default function NavbarOne() {
           spacing={6}
           alignItems={"center"}
         >
-          <Button size={"sm"} leftIcon={<AddIcon />} onClick={createEvent}>
+          <Button size={"sm"} leftIcon={<AddIcon />} onClick={openCreateEventPage}>
             Create
           </Button>
           <RainbowWallet />

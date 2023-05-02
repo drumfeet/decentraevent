@@ -29,7 +29,7 @@ import RainbowWallet from "./RainbowWallet"
 import { FaHome } from "react-icons/fa"
 
 export default function NavbarMain() {
-  const { createEvent } = useContext(AppContext)
+  const { openCreateEventPage } = useContext(AppContext)
   const { isOpen, onToggle } = useDisclosure()
 
   return (
@@ -82,7 +82,7 @@ export default function NavbarMain() {
             colorScheme={"teal"}
             size={"sm"}
             leftIcon={<AddIcon />}
-            onClick={createEvent}
+            onClick={openCreateEventPage}
           >
             Create
           </Button>
