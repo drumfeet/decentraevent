@@ -110,7 +110,6 @@ export default function Events() {
     // saveToList,
     deleteEvent,
     isLoading,
-    getEventAttendees,
   } = useContext(AppContext)
   const router = useRouter()
   const [numCardsToShow, setNumCardsToShow] = useState(NUM_OF_CARDS)
@@ -144,7 +143,6 @@ export default function Events() {
   }
 
   const handleView = async (metadata) => {
-    await getEventAttendees(metadata)
 
     await router.push({
       pathname: `/view-attendees/${metadata.id}`,

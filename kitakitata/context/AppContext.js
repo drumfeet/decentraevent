@@ -261,16 +261,14 @@ export const AppContextProvider = ({ children }) => {
   const getEventAttendees = async (metadata) => {
     setIsLoading(true)
     try {
-      console.log("getEventAttendees metadata", metadata)
+      console.log("getEventAttendees() metadata", metadata)
       const _eventId = metadata?.data.event_id
 
       const _eventAttendees = await db.cget(
         COLLECTION_RSVP,
         ["event_id", "==", _eventId],
-        ["date", "desc"],
-        true
-      )
-      console.log("getEventAttendees _eventAttendees", _eventAttendees)
+        ["date", "desc"])
+      console.log("getEventAttendees() _eventAttendees", _eventAttendees)
 
       const lit = new LitJsSdk.LitNodeClient()
       await lit.connect()
@@ -326,22 +324,6 @@ export const AppContextProvider = ({ children }) => {
       console.error("getEventAttendees", e)
     } finally {
       setIsLoading(false)
-    }
-  }
-
-  const getUserRsvpForEvents = async () => {
-    try {
-      const _userRsvp = await db.cget(
-        COLLECTION_RSVP,
-        ["date", "desc"],
-        ["user_address", "==", user?.wallet.toLowerCase()],
-        true
-      )
-      console.log("getUserRsvpForEvents", _userRsvp)
-      setUserRsvp(_userRsvp)
-    } catch (e) {
-      toast(e.message)
-      console.error(e)
     }
   }
 
