@@ -167,6 +167,8 @@ export const AppContextProvider = ({ children }) => {
       console.log("createEvent() tx", tx)
       if (tx.success) {
         setDryWriteTx(tx)
+      } else {
+        throw new Error("Error! " + tx.error)
       }
 
       await router.push("/show-events")
@@ -229,6 +231,8 @@ export const AppContextProvider = ({ children }) => {
       console.log("deleteEvent() tx", tx)
       if (tx.success) {
         setDryWriteTx(tx)
+      } else {
+        throw new Error("Error! " + tx.error)
       }
     } catch (e) {
       toast(e.message)

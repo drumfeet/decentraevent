@@ -19,8 +19,8 @@ import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
 
 export default function CreateEvent() {
-  const { createEvent, eventData, setEventData, user, setIsLoginModalOpen } =
-    useContext(AppContext)
+  const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
+  const [eventData, setEventData] = useState({})
 
   const isRequiredInputValid = () => {
     if (
@@ -40,17 +40,24 @@ export default function CreateEvent() {
     return true
   }
 
-  const handleCreateEvent = () => {
-    const isValid = isRequiredInputValid()
-    if (isValid) {
-      createEvent()
+  const handleCreateEventClick = async () => {
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+      return
     }
+
+    if (!isRequiredInputValid()) {
+      return
+    }
+
+    const eventDataCopy = { ...eventData }
+    await createEvent(eventDataCopy)
   }
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (e) => {
     setEventData({
       ...eventData,
-      [event.target.id]: event.target.value,
+      [e.target.id]: e.target.value,
     })
   }
 
@@ -140,7 +147,7 @@ export default function CreateEvent() {
                       bg: "blue.500",
                     }}
                     onClick={() => {
-                      handleCreateEvent()
+                      handleCreateEventClick()
                     }}
                   >
                     Create Event
