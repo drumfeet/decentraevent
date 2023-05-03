@@ -21,7 +21,7 @@ export default function EditEvent() {
   const { initDB, updateEvent, getEvent } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
-  const TIME_NUMERIC = 957328192
+  const TIME_NUMERIC = "2000-12-25T08:00"
   const [eventData, setEventData] = useState({
     title: "",
     organizer: "",
@@ -32,11 +32,15 @@ export default function EditEvent() {
   })
 
   const handleInputChange = (event) => {
-    console.log("event.target.id", event.target.id)
     setEventData({
       ...eventData,
       [event.target.id]: event.target.value,
     })
+  }
+
+  const handleUpdateEventClick = async () => {
+    const eventDataCopy = { ...eventData }
+    await updateEvent(docId, eventDataCopy)
   }
 
   const getDateTime = (time) => {
@@ -151,7 +155,7 @@ export default function EditEvent() {
                       bg: "blue.500",
                     }}
                     onClick={() => {
-                      updateEvent(docId)
+                      handleUpdateEventClick()
                     }}
                   >
                     Update Event

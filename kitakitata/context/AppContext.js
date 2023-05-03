@@ -19,7 +19,6 @@ export const AppContextProvider = ({ children }) => {
   const [db, setDb] = useState(null)
   const [initDB, setInitDB] = useState(false)
   const [user, setUser] = useState(null)
-  const [eventData, setEventData] = useState({})
   const [events, setEvents] = useState([])
   const [userRsvp, setUserRsvp] = useState()
   const [dryWriteTx, setDryWriteTx] = useState(null)
@@ -147,7 +146,7 @@ export const AppContextProvider = ({ children }) => {
     return !isNaN(timestamp) && timestamp >= 0
   }
 
-  const createEvent = async () => {
+  const createEvent = async (eventData) => {
     const MILLISECONDS = 1000
     setIsLoading(true)
 
@@ -169,7 +168,7 @@ export const AppContextProvider = ({ children }) => {
       if (tx.success) {
         setDryWriteTx(tx)
       }
-      setEventData({})
+
       await router.push("/show-events")
     } catch (e) {
       toast(e.message)
@@ -181,11 +180,18 @@ export const AppContextProvider = ({ children }) => {
     console.log("<<createEvent()")
   }
 
-  const updateEvent = async (docId) => {
+  const updateEvent = async (docId, eventData) => {
     const MILLISECONDS = 1000
     setIsLoading(true)
 
     try {
+      eventData.start_time = Math.floor(
+        new Date(eventData.start_time).getTime() / MILLISECONDS
+      )
+      eventData.end_time = Math.floor(
+        new Date(eventData.end_time).getTime() / MILLISECONDS
+      )
+
       const isStartTimeNumeric = isTimestampNumeric(eventData.start_time)
       const isEndTimeNumeric = isTimestampNumeric(eventData.end_time)
 
@@ -203,17 +209,14 @@ export const AppContextProvider = ({ children }) => {
       console.log("updateEvent() tx", tx)
       if (tx.success) {
         setDryWriteTx(tx)
+        toast("Event updated successfully")
       }
-      setEventData({})
-      await router.push("/show-events")
     } catch (e) {
       toast(e.message)
       console.error("updateEvent", e)
     } finally {
       setIsLoading(false)
     }
-
-    console.log("<<updateEvent()")
   }
 
   const deleteEvent = async (docId) => {
@@ -728,8 +731,6 @@ export const AppContextProvider = ({ children }) => {
         createEvent,
         updateEvent,
         deleteEvent,
-        eventData,
-        setEventData,
         events,
         setEvents,
         login,
