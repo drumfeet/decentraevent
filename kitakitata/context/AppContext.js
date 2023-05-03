@@ -211,7 +211,7 @@ export const AppContextProvider = ({ children }) => {
         setDryWriteTx(tx)
         toast("Event updated successfully")
       } else {
-        toast("Error! " + tx.error)
+        throw new Error("Error! " + tx.error)
       }
     } catch (e) {
       toast(e.message)
@@ -551,6 +551,25 @@ export const AppContextProvider = ({ children }) => {
     })
   }
 
+  const createUserProfileObject = (
+    encryptedData,
+    encryptedSymmetricKey,
+    accessControlConditions
+  ) => {
+    return {
+      user_address: db.signer(),
+      date: db.ts(),
+      lit: {
+        encryptedData,
+        encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
+          encryptedSymmetricKey,
+          "base16"
+        ),
+        accessControlConditions,
+      },
+    }
+  }
+
   const setUserProfile = async (userProfileData) => {
     setIsLoading(true)
     try {
@@ -572,8 +591,8 @@ export const AppContextProvider = ({ children }) => {
         },
       ]
 
-      const lit = new LitJsSdk.LitNodeClient()
-      await lit.connect()
+      const litNodeClient = new LitJsSdk.LitNodeClient()
+      await litNodeClient.connect()
 
       const authSig = await LitJsSdk.checkAndSignAuthMessage({
         chain: "polygon",
@@ -585,43 +604,27 @@ export const AppContextProvider = ({ children }) => {
         jsonStr
       )
 
-      const encryptedSymmetricKey = await lit.saveEncryptionKey({
+      const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
         accessControlConditions,
         symmetricKey,
         authSig,
         chain: "polygon",
       })
 
-      const blobToDataURI = (blob) => {
-        return new Promise((resolve, reject) => {
-          var reader = new FileReader()
-
-          reader.onload = (e) => {
-            var data = e.target.result
-            resolve(data)
-          }
-          reader.readAsDataURL(blob)
-        })
-      }
       const encryptedData = await blobToDataURI(encryptedString)
 
-      let userData = {
-        user_address: db.signer(),
-        date: db.ts(),
-        lit: {
-          encryptedData: encryptedData,
-          encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
-            encryptedSymmetricKey,
-            "base16"
-          ),
-          accessControlConditions: accessControlConditions,
-        },
-      }
+      const userData = createUserProfileObject(
+        encryptedData,
+        encryptedSymmetricKey,
+        accessControlConditions
+      )
 
       let tx = await db.upsert(userData, COLLECTION_USERS, userAddress, user)
       console.log("setUserProfile tx", tx)
       if (tx.success) {
         setDryWriteTx(tx)
+      } else {
+        throw new Error("Error! " + tx.error)
       }
     } catch (e) {
       toast(e.message)
@@ -629,8 +632,6 @@ export const AppContextProvider = ({ children }) => {
     } finally {
       setIsLoading(false)
     }
-
-    console.log("<<setUserProfile()")
   }
 
   const getUserProfile = async () => {

@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout"
 import { AppContext } from "@/context/AppContext"
-import { isNil } from "ramda"
+import { isEmpty, isNil } from "ramda"
 import { useContext, useEffect, useState } from "react"
 
 import { toast } from "react-toastify"
@@ -22,20 +22,22 @@ import { SmallCloseIcon } from "@chakra-ui/icons"
 
 export default function Profile() {
   const { setUserProfile } = useContext(AppContext)
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [company, setCompany] = useState()
-  const [jobTitle, setJobTitle] = useState()
   const { user, initDB, getUserProfile, isLoading, setIsLoginModalOpen } =
     useContext(AppContext)
-
-  const handleNameChange = (e) => setName(e.target.value)
-  const handleEmailChange = (e) => setEmail(e.target.value)
-  const handleCompanyChange = (e) => setCompany(e.target.value)
-  const handleJobTitleChange = (e) => setJobTitle(e.target.value)
+  const [userProfileData, setUserProfileData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    job_title: "",
+  })
 
   const validateInputs = () => {
-    if (isNil(name) || isNil(email)) {
+    if (
+      isNil(userProfileData.name) ||
+      isNil(userProfileData.email) ||
+      isEmpty(userProfileData.name) ||
+      isEmpty(userProfileData.email)
+    ) {
       toast("Name & Email are required")
       return false
     }
@@ -43,19 +45,39 @@ export default function Profile() {
     return true
   }
 
+  const handleSubmitClick = async () => {
+    const isValid = validateInputs()
+    if (isValid) {
+      if (isNil(user)) {
+        setIsLoginModalOpen(true)
+      } else {
+        setUserProfile(userProfileData)
+      }
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setUserProfileData({
+      ...userProfileData,
+      [e.target.id]: e.target.value || "",
+    })
+  }
+
   useEffect(() => {
     ;(async () => {
-      try {
-        if (initDB && user) {
-          const { name, email, company, job_title } = await getUserProfile()
-          setName(name)
-          setEmail(email)
-          setCompany(company)
-          setJobTitle(job_title)
-        }
-      } catch (e) {}
+      if (initDB && user) {
+        const _userProfileData = await getUserProfile()
+        setUserProfileData({
+          ...userProfileData,
+          name: _userProfileData?.name || "",
+          email: _userProfileData?.email || "",
+          company: _userProfileData?.company || "",
+          job_title: _userProfileData?.job_title || "",
+        })
+        console.log("setUserProfileData() _userProfileData", _userProfileData)
+      }
     })()
-  }, [user])
+  }, [user, initDB])
 
   return (
     <>
@@ -79,7 +101,7 @@ export default function Profile() {
             <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
               User Profile
             </Heading>
-            <FormControl id="name">
+            <FormControl id="photo">
               <Stack direction={["column", "row"]} spacing={6}>
                 <Center>
                   <Avatar size="xl" src="">
@@ -112,41 +134,41 @@ export default function Profile() {
             <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
               <Input
-                defaultValue={name}
+                value={userProfileData.name}
                 placeholder="Name"
                 _placeholder={{ color: "gray.500" }}
                 type="text"
-                onChange={handleNameChange}
+                onChange={handleInputChange}
               />
             </FormControl>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
               <Input
-                defaultValue={email}
+                value={userProfileData.email}
                 placeholder="your-email@example.com"
                 _placeholder={{ color: "gray.500" }}
                 type="email"
-                onChange={handleEmailChange}
+                onChange={handleInputChange}
               />
             </FormControl>
             <FormControl id="company">
               <FormLabel>Company</FormLabel>
               <Input
-                defaultValue={company}
+                value={userProfileData.company}
                 placeholder="Company"
                 _placeholder={{ color: "gray.500" }}
                 type="text"
-                onChange={handleCompanyChange}
+                onChange={handleInputChange}
               />
             </FormControl>
-            <FormControl id="jobTitle">
+            <FormControl id="job_title">
               <FormLabel>Job Title</FormLabel>
               <Input
-                defaultValue={jobTitle}
+                value={userProfileData.job_title}
                 placeholder="Job Title"
                 _placeholder={{ color: "gray.500" }}
                 type="text"
-                onChange={handleJobTitleChange}
+                onChange={handleInputChange}
               />
             </FormControl>
             <Stack spacing={6} direction={["column", "row"]}>
@@ -159,20 +181,7 @@ export default function Profile() {
                   bg: "blue.500",
                 }}
                 onClick={() => {
-                  const isValid = validateInputs()
-                  if (isValid) {
-                    if (isNil(user)) {
-                      setIsLoginModalOpen(true)
-                    } else {
-                      let userProfileData = {
-                        name: name,
-                        email: email,
-                        job_title: jobTitle,
-                        company: company,
-                      }
-                      setUserProfile(userProfileData)
-                    }
-                  }
+                  handleSubmitClick()
                 }}
               >
                 Submit
