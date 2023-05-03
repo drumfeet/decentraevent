@@ -397,147 +397,153 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const setUserRsvpForEvent = async (metadata, isUserGoing) => {
-    console.log("setUserRsvpForEvent() (events collection) metadata", metadata)
-    console.log(
-      "setUserRsvpForEvent() (current value) isUserGoing",
-      isUserGoing
-    )
     setIsLoading(true)
+
+    const userAddress = user.wallet?.toLowerCase()
+    const docId = `${userAddress}-${metadata.data.event_id}`
+
     try {
-      const userAddress = user.wallet.toLowerCase()
-      const docId = `${userAddress}-${metadata.data.event_id}`
-      console.log("setUserRsvpForEvent() docId", docId)
-
-      if (!isUserGoing) {
-        toast("Leave")
-        let tx = await db.delete(COLLECTION_RSVP, docId, user)
-        console.log("setUserRsvpForEvent() tx", tx)
-        if (tx.success) {
-          setDryWriteTx(tx)
-        }
+      if (isUserGoing) {
+        await handleUserGoing(docId, metadata, userAddress, isUserGoing)
       } else {
-        const eventOwnerAddress = metadata.data.user_address
-        console.log(
-          "setUserRsvpForEvent() eventOwnerAddress",
-          eventOwnerAddress
-        )
-
-        const userProfile = await getUserProfile()
-        console.log("setUserRsvpForEvent() userProfile", userProfile)
-
-        const propNameEmail = props(["name", "email"], userProfile)
-        console.log("propNameEmail", propNameEmail)
-        const isNameEmailNullOrEmpty = any(either(isNil, isEmpty))(
-          propNameEmail
-        )
-        console.log("isNameEmailNullOrEmpty", isNameEmailNullOrEmpty)
-        const isUserProfileNull = isNil(userProfile)
-        console.log("isUserProfileNull", isUserProfileNull)
-        if (isUserProfileNull || isNameEmailNullOrEmpty) {
-          toast("Update your profile (name/email)")
-          return
-        }
-        const { name, email, company, job_title } = userProfile
-
-        let rsvpStatus = {
-          isGoing: isUserGoing,
-          name: name,
-          email: email,
-          company: company,
-          job_title: job_title,
-          user_address: userAddress,
-        }
-        const jsonStr = JSON.stringify(rsvpStatus)
-
-        const accessControlConditions = [
-          {
-            contractAddress: "",
-            standardContractType: "",
-            chain: "polygon",
-            method: "",
-            parameters: [":userAddress"],
-            returnValueTest: {
-              comparator: "=",
-              value: eventOwnerAddress,
-            },
-          },
-          {
-            operator: "or",
-          },
-          {
-            contractAddress: "",
-            standardContractType: "",
-            chain: "polygon",
-            method: "",
-            parameters: [":userAddress"],
-            returnValueTest: {
-              comparator: "=",
-              value: userAddress,
-            },
-          },
-        ]
-
-        const lit = new LitJsSdk.LitNodeClient()
-        await lit.connect()
-
-        const authSig = await LitJsSdk.checkAndSignAuthMessage({
-          chain: "polygon",
-        })
-
-        const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
-          jsonStr
-        )
-
-        const encryptedSymmetricKey = await lit.saveEncryptionKey({
-          accessControlConditions,
-          symmetricKey,
-          authSig,
-          chain: "polygon",
-        })
-
-        const blobToDataURI = (blob) => {
-          return new Promise((resolve, reject) => {
-            var reader = new FileReader()
-
-            reader.onload = (e) => {
-              var data = e.target.result
-              resolve(data)
-            }
-            reader.readAsDataURL(blob)
-          })
-        }
-        const encryptedData = await blobToDataURI(encryptedString)
-
-        let rsvp_data = {
-          event_doc_id: metadata.id,
-          event_id: metadata.data.event_id,
-          event_title: metadata.data.title,
-          user_address: db.signer(),
-          date: db.ts(),
-          // is_going: not(isUserGoing),
-          lit: {
-            encryptedData: encryptedData,
-            encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
-              encryptedSymmetricKey,
-              "base16"
-            ),
-            accessControlConditions: accessControlConditions,
-          },
-        }
-        console.log("rsvp_data", rsvp_data)
-
-        let tx = await db.upsert(rsvp_data, COLLECTION_RSVP, docId, user)
-        console.log("setUserRsvpForEvent() tx", tx)
-        if (tx.success) {
-          setDryWriteTx(tx)
-        }
+        await handleUserNotGoing(docId)
       }
-    } catch (e) {
+    } catch (error) {
       toast(e.message)
-      console.error("setUserRsvpForEvent", e)
+      console.error(`setUserRsvpForEvent() catch: ${error}`)
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleUserGoing = async (docId, metadata, userAddress, isUserGoing) => {
+    const userProfile = await getUserProfile()
+    const { name, email } = userProfile ?? {}
+
+    if (!name || !email) {
+      toast("Update your profile (name/email)")
+      return
+    }
+
+    const eventOwnerAddress = metadata.data.user_address
+
+    const userRsvp = createUserRsvp(
+      userAddress,
+      name,
+      email,
+      userProfile.company,
+      userProfile.job_title
+    )
+
+    const encryptedRsvpData = await encryptRsvpData(userRsvp)
+
+    const accessControlConditions = [
+      {
+        contractAddress: "",
+        standardContractType: "",
+        chain: "polygon",
+        method: "",
+        parameters: [":userAddress"],
+        returnValueTest: {
+          comparator: "=",
+          value: eventOwnerAddress,
+        },
+      },
+      {
+        operator: "or",
+      },
+      {
+        contractAddress: "",
+        standardContractType: "",
+        chain: "polygon",
+        method: "",
+        parameters: [":userAddress"],
+        returnValueTest: {
+          comparator: "=",
+          value: userAddress,
+        },
+      },
+    ]
+
+    const lit = new LitJsSdk.LitNodeClient()
+    await lit.connect()
+
+    const authSig = await LitJsSdk.checkAndSignAuthMessage({
+      chain: "polygon",
+    })
+
+    const { encryptedString, symmetricKey } = encryptedRsvpData
+
+    const encryptedSymmetricKey = await lit.saveEncryptionKey({
+      accessControlConditions,
+      symmetricKey,
+      authSig,
+      chain: "polygon",
+    })
+
+    const encryptedData = await blobToDataURI(encryptedString)
+
+    const rsvpData = {
+      event_doc_id: metadata.id,
+      event_id: metadata.data.event_id,
+      event_title: metadata.data.title,
+      user_address: db.signer(),
+      date: db.ts(),
+      is_going: isUserGoing,
+      lit: {
+        encryptedData: encryptedData,
+        encryptedSymmetricKey: LitJsSdk.uint8arrayToString(
+          encryptedSymmetricKey,
+          "base16"
+        ),
+        accessControlConditions: accessControlConditions,
+      },
+    }
+
+    const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
+    if (tx.success) {
+      setDryWriteTx(tx)
+    }
+  }
+
+  const handleUserNotGoing = async (docId) => {
+    const tx = await db.delete(COLLECTION_RSVP, docId, user)
+    if (tx.success) {
+      setDryWriteTx(tx)
+      toast("Event attendance removed")
+    } else {
+      console.error(`Error deleting RSVP: ${tx.error}`)
+      toast("Error deleting RSVP")
+    }
+  }
+
+  const createUserRsvp = (userAddress, name, email, company, jobTitle) => ({
+    isGoing: true,
+    name,
+    email,
+    company,
+    job_title: jobTitle,
+    user_address: userAddress,
+  })
+
+  const encryptRsvpData = async (userRsvp) => {
+    const jsonStr = JSON.stringify(userRsvp)
+    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(
+      jsonStr
+    )
+    return { encryptedString, symmetricKey }
+  }
+
+  const blobToDataURI = (blob) => {
+    return new Promise((resolve, reject) => {
+      var reader = new FileReader()
+
+      reader.onload = (e) => {
+        var data = e.target.result
+        resolve(data)
+      }
+      reader.readAsDataURL(blob)
+    })
   }
 
   const setUserProfile = async (userProfileData) => {
