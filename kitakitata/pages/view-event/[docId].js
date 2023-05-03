@@ -15,6 +15,7 @@ export default function ViewEvent() {
     setUserRsvpForEvent,
     getUserRsvpForEvent,
     setIsLoginModalOpen,
+    deleteEvent,
   } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
@@ -43,8 +44,8 @@ export default function ViewEvent() {
     })
   }
 
-  const handleDeleteEventClick = () => {
-    toast("handleDeleteEventClick WIP")
+  const handleDeleteEventClick = async () => {
+    await deleteEvent(docId)
   }
 
   useEffect(() => {

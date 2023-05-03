@@ -234,6 +234,8 @@ export const AppContextProvider = ({ children }) => {
       } else {
         throw new Error("Error! " + tx.error)
       }
+
+      await router.push("/show-events")
     } catch (e) {
       toast(e.message)
       console.error("deleteEvent", e)
