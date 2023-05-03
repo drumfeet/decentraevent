@@ -18,7 +18,8 @@ import { useRouter } from "next/router"
 import { isNil } from "ramda"
 
 export default function EditEvent() {
-  const { initDB, updateEvent, getEvent } = useContext(AppContext)
+  const { initDB, updateEvent, getEvent, user, setIsLoginModalOpen } =
+    useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
   const TIME_NUMERIC = "2000-12-25T08:00"
@@ -39,8 +40,12 @@ export default function EditEvent() {
   }
 
   const handleUpdateEventClick = async () => {
-    const eventDataCopy = { ...eventData }
-    await updateEvent(docId, eventDataCopy)
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+    } else {
+      const eventDataCopy = { ...eventData }
+      await updateEvent(docId, eventDataCopy)
+    }
   }
 
   const getDateTime = (time) => {

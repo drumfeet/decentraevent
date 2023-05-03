@@ -205,11 +205,13 @@ export const AppContextProvider = ({ children }) => {
       eventData.date = db.ts()
       eventData.user_address = db.signer()
 
-      let tx = await db.update(eventData, COLLECTION_EVENTS, docId, user)
+      const tx = await db.update(eventData, COLLECTION_EVENTS, docId, user)
       console.log("updateEvent() tx", tx)
       if (tx.success) {
         setDryWriteTx(tx)
         toast("Event updated successfully")
+      } else {
+        toast("Error! " + tx.error)
       }
     } catch (e) {
       toast(e.message)
