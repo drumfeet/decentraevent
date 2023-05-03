@@ -37,8 +37,10 @@ export default function ViewEvent() {
     window.open(`/view-attendees/${eventData?.data.event_id}`, "_blank")
   }
 
-  const handleEditEventClick = () => {
-    toast("handleEditEventClick WIP")
+  const handleEditEventClick = async () => {
+    await router.push({
+      pathname: `/edit-event/${eventData.id}`,
+    })
   }
 
   const handleDeleteEventClick = () => {

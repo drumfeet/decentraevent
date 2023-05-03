@@ -18,45 +18,56 @@ import { useRouter } from "next/router"
 import { isNil } from "ramda"
 
 export default function EditEvent() {
-  const { updateEvent, eventData, setEventData } = useContext(AppContext)
+  const { initDB, updateEvent, getEvent } = useContext(AppContext)
   const router = useRouter()
-  const { docId, metadata } = router.query
-  const jsonMetadata = metadata ? JSON.parse(metadata) : null
-
-  const [startTime, setStartTime] = useState(null)
-  const [endTime, setEndTime] = useState(null)
-
-  useEffect(() => {
-    if (!isNil(jsonMetadata)) {
-      setEventData(jsonMetadata.data)
-      convertDateTime()
-    }
-  }, [docId, metadata])
+  const { docId } = router.query
+  const TIME_NUMERIC = 957328192
+  const [eventData, setEventData] = useState({
+    title: "",
+    organizer: "",
+    location: "",
+    start_time: TIME_NUMERIC,
+    end_time: TIME_NUMERIC,
+    event_details: "",
+  })
 
   const handleInputChange = (event) => {
+    console.log("event.target.id", event.target.id)
     setEventData({
       ...eventData,
       [event.target.id]: event.target.value,
     })
   }
 
-  const convertDateTime = () => {
+  const getDateTime = (time) => {
     const MILLISECONDS = 1000
+    const timeUnix = new Date(time * MILLISECONDS)
+    const offsetMinutesStartTime = timeUnix.getTimezoneOffset()
+    timeUnix.setMinutes(timeUnix.getMinutes() - offsetMinutesStartTime)
+    const timeIsoNumeric = timeUnix.toISOString().slice(0, 16)
 
-    const startTimeUnix = new Date(jsonMetadata.data.start_time * MILLISECONDS)
-    const offsetMinutesStartTime = startTimeUnix.getTimezoneOffset()
-    startTimeUnix.setMinutes(
-      startTimeUnix.getMinutes() - offsetMinutesStartTime
-    )
-    const startTimeIsoString = startTimeUnix.toISOString().slice(0, 16)
-    setStartTime(startTimeIsoString)
-
-    const endTimeUnix = new Date(jsonMetadata.data.end_time * MILLISECONDS)
-    const offsetMinutesEndTime = endTimeUnix.getTimezoneOffset()
-    endTimeUnix.setMinutes(endTimeUnix.getMinutes() - offsetMinutesEndTime)
-    const endTimeIsoString = endTimeUnix.toISOString().slice(0, 16)
-    setEndTime(endTimeIsoString)
+    return timeIsoNumeric
   }
+
+  useEffect(() => {
+    ;(async () => {
+      if (initDB) {
+        const _event = await getEvent(docId)
+        if (!isNil(_event?.data)) {
+          setEventData({
+            ...eventData,
+            title: _event?.data?.title,
+            organizer: _event?.data?.organizer,
+            location: _event?.data?.location,
+            start_time: getDateTime(_event?.data?.start_time),
+            end_time: getDateTime(_event?.data?.end_time),
+            event_details: _event?.data?.event_details,
+          })
+          console.log("EditEvent _event", _event)
+        }
+      }
+    })()
+  }, [initDB])
 
   return (
     <>
@@ -79,7 +90,7 @@ export default function EditEvent() {
                 <FormControl id="title">
                   <FormLabel>Event Title</FormLabel>
                   <Input
-                    defaultValue={eventData?.title}
+                    value={eventData?.title}
                     placeholder="Event Title"
                     onChange={handleInputChange}
                     maxLength={"100"}
@@ -88,7 +99,7 @@ export default function EditEvent() {
                 <FormControl id="organizer">
                   <FormLabel>Organizer</FormLabel>
                   <Input
-                    defaultValue={eventData?.organizer}
+                    value={eventData?.organizer}
                     placeholder="Organizer"
                     onChange={handleInputChange}
                     maxLength={"100"}
@@ -97,7 +108,7 @@ export default function EditEvent() {
                 <FormControl id="location">
                   <FormLabel>Location</FormLabel>
                   <Input
-                    defaultValue={eventData?.location}
+                    value={eventData?.location}
                     placeholder="Location"
                     onChange={handleInputChange}
                     maxLength={"100"}
@@ -106,7 +117,7 @@ export default function EditEvent() {
                 <FormControl id="start_time">
                   <FormLabel>Start Time</FormLabel>
                   <Input
-                    defaultValue={startTime}
+                    value={eventData?.start_time}
                     placeholder="Select Start Time"
                     size="md"
                     type="datetime-local"
@@ -116,7 +127,7 @@ export default function EditEvent() {
                 <FormControl id="end_time">
                   <FormLabel>End Time</FormLabel>
                   <Input
-                    defaultValue={endTime}
+                    value={eventData?.end_time}
                     placeholder="Select End Time"
                     size="md"
                     type="datetime-local"
@@ -126,7 +137,7 @@ export default function EditEvent() {
                 <FormControl id="event_details">
                   <FormLabel>Details</FormLabel>
                   <Textarea
-                    defaultValue={eventData?.event_details}
+                    value={eventData?.event_details}
                     placeholder="Details"
                     onChange={handleInputChange}
                     maxLength={"250"}
