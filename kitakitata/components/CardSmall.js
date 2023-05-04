@@ -1,13 +1,10 @@
-import { CalendarIcon, ExternalLinkIcon, TimeIcon } from "@chakra-ui/icons"
-import { Box, HStack, Heading, Image, Text, Flex } from "@chakra-ui/react"
-import { toast } from "react-toastify"
-import { useRouter } from "next/router"
-import Link from "next/link"
+import { CalendarIcon, TimeIcon } from "@chakra-ui/icons"
+import { Box, HStack, Heading, Image, Text } from "@chakra-ui/react"
+import { GoLocation } from "react-icons/go"
 
 export default function CardSmall({ event }) {
   const IMG_FALLBACK = "https://via.placeholder.com/293x160"
   const MILLISECONDS = 1000
-  const router = useRouter()
 
   const getDateString = (timestamp) => {
     const date = new Date(timestamp * MILLISECONDS)
@@ -41,7 +38,14 @@ export default function CardSmall({ event }) {
       <Image borderTopRadius="12px" src="#" fallbackSrc={IMG_FALLBACK} />
 
       <Box p="12px">
-        <Heading size="md" noOfLines={1}>
+        <Heading
+          size="md"
+          noOfLines={1}
+          cursor="pointer"
+          onClick={() => {
+            handleViewEvent(event)
+          }}
+        >
           {event?.data?.title}
         </Heading>
         <HStack fontSize="xs" color="gray.500">
@@ -52,13 +56,17 @@ export default function CardSmall({ event }) {
             <Text>{getTimeString(event?.data?.start_time)}</Text>
           </HStack>
         </HStack>
-        <Flex justifyContent="flex-end">
+        <HStack fontSize="xs" color="gray.500">
+          <GoLocation />
+          <Text>{event?.data?.location}</Text>
+        </HStack>
+        {/* <Flex justifyContent="flex-end">
           <ExternalLinkIcon
             onClick={() => {
               handleViewEvent(event)
             }}
           />
-        </Flex>
+        </Flex> */}
       </Box>
     </>
   )
