@@ -35,38 +35,40 @@ export default function CardSmall({ event }) {
 
   return (
     <>
-      <Image borderTopRadius="12px" src="#" fallbackSrc={IMG_FALLBACK} />
+      <Box p="16px">
+        <Image src="#" fallbackSrc={IMG_FALLBACK} />
 
-      <Box p="12px">
-        <Heading
-          size="md"
-          noOfLines={1}
-          cursor="pointer"
-          onClick={() => {
-            handleViewEvent(event)
-          }}
-        >
-          {event?.data?.title}
-        </Heading>
-        <HStack fontSize="xs" color="gray.500">
-          <CalendarIcon />
-          <Text>{getDateString(event?.data?.start_time)}</Text>
-          <HStack flex="1" ml="auto" justifyContent="flex-end">
-            <TimeIcon />
-            <Text>{getTimeString(event?.data?.start_time)}</Text>
+        <Box p="12px">
+          <Heading
+            size="md"
+            noOfLines={1}
+            cursor="pointer"
+            onClick={() => {
+              handleViewEvent(event)
+            }}
+          >
+            {event?.data?.title}
+          </Heading>
+          <HStack fontSize="xs" color="gray.500">
+            <CalendarIcon />
+            <Text>{getDateString(event?.data?.start_time)}</Text>
+            <HStack flex="1" ml="auto" justifyContent="flex-end">
+              <TimeIcon />
+              <Text>{getTimeString(event?.data?.start_time)}</Text>
+            </HStack>
           </HStack>
-        </HStack>
-        <HStack fontSize="xs" color="gray.500">
-          <GoLocation />
-          <Text>{event?.data?.location}</Text>
-        </HStack>
-        {/* <Flex justifyContent="flex-end">
+          <HStack fontSize="xs" color="gray.500">
+            <GoLocation />
+            <Text>{event?.data?.location}</Text>
+          </HStack>
+          {/* <Flex justifyContent="flex-end">
           <ExternalLinkIcon
             onClick={() => {
               handleViewEvent(event)
             }}
           />
         </Flex> */}
+        </Box>
       </Box>
     </>
   )
