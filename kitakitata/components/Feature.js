@@ -70,7 +70,9 @@ export default function Feature() {
                 borderRadius={0}
               />
             </InputGroup>
-            <Button onClick={() => handlelSearchClick()}>Search</Button>
+            <Button py="10px" px="50px" onClick={() => handlelSearchClick()}>
+              Search
+            </Button>
           </Stack>
         </Flex>
 

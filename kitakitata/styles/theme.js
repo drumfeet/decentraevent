@@ -12,6 +12,9 @@ const colors = {
     text: "#1D2939",
     footer: "#475467",
   },
+  yellow: {
+    footer: "#FFEDDF",
+  },
 }
 
 const overrides = {
@@ -28,8 +31,6 @@ const overrides = {
             // bg: "brand.purple",
           },
           borderRadius: "0",
-          py: "10px",
-          px: "50px",
         },
       },
     },

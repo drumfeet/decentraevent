@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   Input,
   Link,
   Stack,
@@ -10,67 +11,15 @@ import {
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import { toast } from "react-toastify"
+import { LinkIcon } from "@chakra-ui/icons"
+import { FaGithub, FaTwitter } from "react-icons/fa"
 
 export default function Footer() {
   const { contractTxId } = useContext(AppContext)
 
   return (
     <>
-      <Stack position="relative">
-        <Box mt={28} bg="brand.deepPurple">
-          <Container height="200px" />
-        </Box>
-
-        <Box position="relative" top="-100px">
-          <Container
-            bg="white"
-            borderRadius="16px"
-            boxShadow="xl"
-            p="64px"
-            display="flex"
-            as={Stack}
-            maxW={"6xl"}
-            direction={{ base: "column", md: "row" }}
-            spacing={4}
-            justify={{ base: "center", md: "space-between" }}
-            align={{ base: "center", md: "center" }}
-          >
-            <Box flex="1">
-              <Text fontSize="4xl" fontWeight="bold">
-                Join our newsletter
-              </Text>
-              <Text fontSize="lg">Signup for the very exciting meetups.</Text>
-            </Box>
-            <Box flex="1">
-              <Stack direction={{ base: "column", md: "row" }} spacing={"12px"}>
-                <Input
-                  w="100%"
-                  variant={"solid"}
-                  borderWidth={1}
-                  id={"email"}
-                  type={"email"}
-                  required
-                  placeholder={"Your Email"}
-                  aria-label={"Your Email"}
-                />
-                <Button
-                  py="12px"
-                  px="20px"
-                  onClick={() => toast("Feature coming soon!")}
-                >
-                  Subscribe
-                </Button>
-              </Stack>
-            </Box>
-          </Container>
-        </Box>
-      </Stack>
-
-      <Box
-        bg="brand.deepPurple"
-        color="whiteAlpha.900"
-        position="relative"
-      >
+      <Box bg="yellow.footer">
         <Container
           as={Stack}
           maxW={"6xl"}
@@ -80,18 +29,29 @@ export default function Footer() {
           justify={{ base: "center", md: "space-between" }}
           align={{ base: "center", md: "center" }}
         >
-          <Text fontWeight="bold">Kitakitata</Text>
-          <Stack direction={"row"} spacing={6}>
-            <Text>
-              Powered by{" "}
-              <Link
-                href="https://weavedb.dev"
-                isExternal
-                textDecoration="underline"
-              >
-                WeaveDB
-              </Link>
+          <Box>
+            <Text fontSize="24px" fontWeight="bold">
+              Kitakitata
             </Text>
+            <Text color="black.footer" fontSize="16px">
+              © 2023 All rights reserved.
+            </Text>
+          </Box>
+
+          <Text color="black.footer" fontSize="16px">
+            Powered by{" "}
+            <Link
+              href="https://weavedb.dev"
+              isExternal
+              textDecoration="underline"
+            >
+              WeaveDB
+            </Link>
+          </Text>
+          <Stack direction={"row"} spacing={6}>
+            <FaTwitter />
+            <FaGithub />
+            <LinkIcon />
           </Stack>
         </Container>
       </Box>
