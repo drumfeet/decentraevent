@@ -1,5 +1,5 @@
 import { AppContext } from "@/context/AppContext"
-import { SearchIcon } from "@chakra-ui/icons"
+import { CalendarIcon } from "@chakra-ui/icons"
 import {
   Flex,
   Button,
@@ -9,12 +9,12 @@ import {
   InputLeftElement,
   Grid,
   GridItem,
-  Box,
   Container,
 } from "@chakra-ui/react"
 import { useContext, useEffect } from "react"
 import { toast } from "react-toastify"
 import CardSmall from "./CardSmall"
+import { GoLocation } from "react-icons/go"
 
 const EVENTS_PER_PAGE = 6
 
@@ -37,18 +37,18 @@ export default function Feature() {
       <Container maxW="5xl">
         <Flex flexDirection="column" mt="88px" mb="58px">
           <Heading size="md">Find Events</Heading>
-          <Flex id="search" justifyContent="space-between">
+          <Flex justifyContent="space-between">
             <InputGroup mr={MARGIN_RIGHT}>
               <InputLeftElement
                 pointerEvents="none"
-                children={<SearchIcon color="brand.light" />}
+                children={<CalendarIcon color="brand.light" />}
               />
               <Input placeholder="Event name" borderColor="brand.light" />
             </InputGroup>
             <InputGroup mr={MARGIN_RIGHT}>
               <InputLeftElement
                 pointerEvents="none"
-                children={<SearchIcon color="brand.light" />}
+                children={<GoLocation color="brand.light" />}
               />
               <Input placeholder="Location" borderColor="brand.light" />
             </InputGroup>
