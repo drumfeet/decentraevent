@@ -408,20 +408,20 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const setUserRsvpForEvent = async (metadata, isUserGoing) => {
-    setIsLoading(true)
-
-    const userAddress = user.wallet?.toLowerCase()
-    const docId = `${userAddress}-${metadata.data.event_id}`
-
     try {
+      setIsLoading(true)
+
+      const userAddress = user.wallet?.toLowerCase()
+      const docId = `${userAddress}-${metadata.data.event_id}`
+
       if (isUserGoing) {
         await handleUserGoing(docId, metadata, userAddress, isUserGoing)
       } else {
         await handleUserNotGoing(docId)
       }
-    } catch (error) {
+    } catch (e) {
       toast(e.message)
-      console.error(`setUserRsvpForEvent() catch: ${error}`)
+      console.error(`setUserRsvpForEvent() catch: ${e}`)
     } finally {
       setIsLoading(false)
     }
@@ -432,8 +432,7 @@ export const AppContextProvider = ({ children }) => {
     const { name, email } = userProfile ?? {}
 
     if (!name || !email) {
-      toast("Update your profile (name/email)")
-      return
+      throw new Error("Update your profile (name/email)")
     }
 
     const eventOwnerAddress = metadata.data.user_address
@@ -514,6 +513,8 @@ export const AppContextProvider = ({ children }) => {
     const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
     if (tx.success) {
       setDryWriteTx(tx)
+    } else {
+      throw new Error("Error! " + tx.error)
     }
   }
 
@@ -523,8 +524,7 @@ export const AppContextProvider = ({ children }) => {
       setDryWriteTx(tx)
       toast("Event attendance removed")
     } else {
-      console.error(`Error deleting RSVP: ${tx.error}`)
-      toast("Error deleting RSVP")
+      throw new Error("Error! " + tx.error)
     }
   }
 
