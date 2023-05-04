@@ -340,50 +340,52 @@ export default function Footer() {
 
   return (
     <>
-      <FooterIllustration />
-      <Box bg="yellow.footer">
-        <Container
-          as={Stack}
-          maxW={"6xl"}
-          py="48px"
-          direction={{ base: "column", md: "row" }}
-          spacing={4}
-          justify={{ base: "center", md: "space-between" }}
-          align={{ base: "center", md: "center" }}
-        >
-          <Flex direction={{ base: "column", md: "row" }} alignItems="center">
-            <Text fontSize="24px" fontWeight="bold" mr="8px">
-              Kitakitata
-            </Text>
-            <Text color="black.footer" fontSize="16px">
-              © 2023 All rights reserved.
-            </Text>
-          </Flex>
+      <Box mt="88px">
+        <FooterIllustration />
+        <Box bg="yellow.footer">
+          <Container
+            as={Stack}
+            maxW={"6xl"}
+            py="48px"
+            direction={{ base: "column", md: "row" }}
+            spacing={4}
+            justify={{ base: "center", md: "space-between" }}
+            align={{ base: "center", md: "center" }}
+          >
+            <Flex direction={{ base: "column", md: "row" }} alignItems="center">
+              <Text fontSize="24px" fontWeight="bold" mr="8px">
+                Kitakitata
+              </Text>
+              <Text color="black.footer" fontSize="16px">
+                © 2023 All rights reserved.
+              </Text>
+            </Flex>
 
-          <Text color="black.footer" fontSize="16px">
-            Powered by{" "}
-            <Link
-              href="https://weavedb.dev"
-              isExternal
-              textDecoration="underline"
-            >
-              WeaveDB
-            </Link>
-          </Text>
-          <Stack direction={"row"} spacing="28px">
-            <SocialButton href="#">
-              <FaTwitter />
-            </SocialButton>
-            <SocialButton href={`https://github.com/drumfeet/kitakitata`}>
-              <FaGithub />
-            </SocialButton>
-            <SocialButton
-              href={`https://sonar.warp.cc/?#/app/contract/${contractTxId}`}
-            >
-              <LinkIcon />
-            </SocialButton>
-          </Stack>
-        </Container>
+            <Text color="black.footer" fontSize="16px">
+              Powered by{" "}
+              <Link
+                href="https://weavedb.dev"
+                isExternal
+                textDecoration="underline"
+              >
+                WeaveDB
+              </Link>
+            </Text>
+            <Stack direction={"row"} spacing="28px">
+              <SocialButton href="#">
+                <FaTwitter />
+              </SocialButton>
+              <SocialButton href={`https://github.com/drumfeet/kitakitata`}>
+                <FaGithub />
+              </SocialButton>
+              <SocialButton
+                href={`https://sonar.warp.cc/?#/app/contract/${contractTxId}`}
+              >
+                <LinkIcon />
+              </SocialButton>
+            </Stack>
+          </Container>
+        </Box>
       </Box>
     </>
   )
