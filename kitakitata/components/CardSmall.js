@@ -38,7 +38,7 @@ export default function CardSmall({ event }) {
       <Box p="16px">
         <Image src="#" fallbackSrc={IMG_FALLBACK} />
 
-        <Box p="12px">
+        <Box>
           <Heading
             size="md"
             noOfLines={1}

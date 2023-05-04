@@ -7,6 +7,11 @@ const colors = {
     purple: "#7F56D9",
     deepPurple: "#53389E",
   },
+  black: {
+    border: "#667085",
+    text: "#1D2939",
+    footer: "#475467",
+  },
 }
 
 const overrides = {
@@ -14,18 +19,25 @@ const overrides = {
     Button: {
       variants: {
         solid: {
-          bg: "brand.purple",
-          color: "whiteAlpha.900",
+          bg: "black",
+          color: "white",
           _hover: {
-            bg: "brand.deepPurple",
+            // bg: "brand.deepPurple",
           },
           _active: {
-            bg: "brand.purple",
+            // bg: "brand.purple",
           },
+          borderRadius: "0",
+          py: "10px",
+          px: "50px",
         },
       },
     },
   },
+  // fonts: {
+  //   heading: `Open Sans, serif`,
+  //   body: `Raleway, sans-serif`,
+  // },
 }
 
 const theme = extendTheme({

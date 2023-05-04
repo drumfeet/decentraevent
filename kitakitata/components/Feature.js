@@ -51,22 +51,22 @@ export default function Feature() {
             <InputGroup mr={{ base: 0, md: "16px" }}>
               <InputLeftElement
                 pointerEvents="none"
-                children={<CalendarIcon color="brand.light" />}
+                children={<CalendarIcon color="black.border" />}
               />
               <Input
                 placeholder="Event name"
-                borderColor="brand.light"
+                borderColor="black.border"
                 borderRadius={0}
               />
             </InputGroup>
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
-                children={<GoLocation color="brand.light" />}
+                children={<GoLocation color="black.border" />}
               />
               <Input
                 placeholder="Location"
-                borderColor="brand.light"
+                borderColor="black.border"
                 borderRadius={0}
               />
             </InputGroup>
