@@ -30,28 +30,27 @@ export default function Feature() {
   const startIdx = 0
   const endIdx = startIdx + EVENTS_PER_PAGE
   const eventsToShow = events.slice(startIdx, endIdx)
+  const MARGIN_RIGHT = "16px"
 
   return (
     <>
       <Container maxW="5xl">
-        <Flex flexDirection="column" my={4}>
-          <Heading size="md" mb={4}>
-            Find Events
-          </Heading>
-          <Flex justifyContent="flex-start" alignItems="center">
-            <InputGroup width="auto" mr="4">
+        <Flex flexDirection="column" mt="88px" mb="58px">
+          <Heading size="md">Find Events</Heading>
+          <Flex id="search" justifyContent="space-between">
+            <InputGroup mr={MARGIN_RIGHT}>
               <InputLeftElement
                 pointerEvents="none"
-                children={<SearchIcon color="gray.300" />}
+                children={<SearchIcon color="brand.light" />}
               />
-              <Input placeholder="Event name" />
+              <Input placeholder="Event name" borderColor="brand.light" />
             </InputGroup>
-            <InputGroup width="auto" mr="4">
+            <InputGroup mr={MARGIN_RIGHT}>
               <InputLeftElement
                 pointerEvents="none"
-                children={<SearchIcon color="gray.300" />}
+                children={<SearchIcon color="brand.light" />}
               />
-              <Input placeholder="Location" />
+              <Input placeholder="Location" borderColor="brand.light" />
             </InputGroup>
             <Button onClick={() => toast("Feature coming soon!")}>
               Search
