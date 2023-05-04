@@ -10,6 +10,7 @@ import {
   Grid,
   GridItem,
   Container,
+  Stack,
 } from "@chakra-ui/react"
 import { useContext, useEffect } from "react"
 import { toast } from "react-toastify"
@@ -21,6 +22,10 @@ const EVENTS_PER_PAGE = 6
 export default function Feature() {
   const { events, initDB, updateEventsList } = useContext(AppContext)
 
+  const handlelSearchClick = () => {
+    toast("Feature coming soon!")
+  }
+
   useEffect(() => {
     if (initDB) {
       updateEventsList(true)
@@ -30,32 +35,43 @@ export default function Feature() {
   const startIdx = 0
   const endIdx = startIdx + EVENTS_PER_PAGE
   const eventsToShow = events.slice(startIdx, endIdx)
-  const MARGIN_RIGHT = "16px"
 
   return (
     <>
       <Container maxW="5xl">
         <Flex flexDirection="column" mt="88px" mb="58px">
-          <Heading size="md">Find Events</Heading>
-          <Flex justifyContent="space-between">
-            <InputGroup mr={MARGIN_RIGHT}>
+          <Heading textAlign="center" fontSize="48px">
+            Find Events
+          </Heading>
+          <Stack
+            spacing={{ base: 4, md: 0 }}
+            direction={{ base: "column", md: "row" }}
+            mt={{ md: "16px" }}
+          >
+            <InputGroup mr={{ base: 0, md: "16px" }}>
               <InputLeftElement
                 pointerEvents="none"
                 children={<CalendarIcon color="brand.light" />}
               />
-              <Input placeholder="Event name" borderColor="brand.light" />
+              <Input
+                placeholder="Event name"
+                borderColor="brand.light"
+                borderRadius={0}
+              />
             </InputGroup>
-            <InputGroup mr={MARGIN_RIGHT}>
+            <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
                 children={<GoLocation color="brand.light" />}
               />
-              <Input placeholder="Location" borderColor="brand.light" />
+              <Input
+                placeholder="Location"
+                borderColor="brand.light"
+                borderRadius={0}
+              />
             </InputGroup>
-            <Button onClick={() => toast("Feature coming soon!")}>
-              Search
-            </Button>
-          </Flex>
+            <Button onClick={() => handlelSearchClick()}>Search</Button>
+          </Stack>
         </Flex>
 
         <Grid
@@ -65,6 +81,7 @@ export default function Feature() {
             "repeat(3, 1fr)",
           ]}
           gap={6}
+          justifyItems="center"
         >
           {eventsToShow.map((event) => {
             return (
