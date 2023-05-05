@@ -19,6 +19,7 @@ const SocialButton = ({ children, label, href }) => {
   const buttonProps = {
     cursor: "pointer",
     display: "inline-flex",
+    fontSize: "20px",
   }
 
   return (
