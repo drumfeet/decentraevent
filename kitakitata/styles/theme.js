@@ -25,7 +25,10 @@ const overrides = {
           bg: "black",
           color: "white",
           _hover: {
-            // bg: "brand.deepPurple",
+            borderColor: "white",
+            borderWidth: "1px",
+            boxShadow: "4px 4px 0px #000000",
+            bg: "black",
           },
           _active: {
             // bg: "brand.purple",

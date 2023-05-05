@@ -88,9 +88,6 @@ export default function RainbowWallet() {
                         <Button
                           px="51px"
                           py="14px"
-                          borderColor="white"
-                          borderWidth="1px"
-                          boxShadow="4px 4px 0px #000000"
                           onClick={() => {
                             handleLoginModalOpen()
                           }}
