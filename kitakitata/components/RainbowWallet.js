@@ -9,6 +9,7 @@ import {
   MenuItem,
   Text,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import LoginOption from "./LoginOption"
@@ -84,13 +85,18 @@ export default function RainbowWallet() {
                   if (!connected) {
                     return (
                       <>
-                        <Text
+                        <Button
+                          px="51px"
+                          py="14px"
+                          borderColor="white"
+                          borderWidth="1px"
+                          boxShadow="4px 4px 0px #000000"
                           onClick={() => {
                             handleLoginModalOpen()
                           }}
                         >
                           Login
-                        </Text>
+                        </Button>
                       </>
                     )
                   }
@@ -105,7 +111,7 @@ export default function RainbowWallet() {
                     <div style={{ display: "flex", gap: 12 }}>
                       <>
                         <Menu isOpen={isOpen} onClose={onClose}>
-                          <MenuButton onClick={onOpen}>
+                          <MenuButton as={Button} onClick={onOpen}>
                             {account?.address.slice(0, 8)}
                           </MenuButton>
                           <MenuList>
