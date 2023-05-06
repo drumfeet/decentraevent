@@ -4,10 +4,10 @@ import {
   IconButton,
   Stack,
   Link,
-  useColorModeValue,
   useDisclosure,
   Container,
   HStack,
+  Text,
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
@@ -22,7 +22,9 @@ const NavLink = ({ children }) => (
     rounded={"md"}
     _hover={{
       textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
+      borderColor: "black",
+      borderWidth: "1px",
+      boxShadow: "4px 4px 0px #000000",
     }}
     href={"#"}
   >
@@ -46,11 +48,19 @@ export default function NavbarOne() {
               onClick={isOpen ? onClose : onOpen}
             />
             <HStack spacing={8} alignItems={"center"}>
-              <Box>Kitakitata</Box>
+              <Box>
+                <Link href="/">
+                  <Text fontSize="24px" fontWeight="500">
+                    Kitakitata
+                  </Text>
+                </Link>
+              </Box>
               <HStack
                 as={"nav"}
                 spacing={4}
                 display={{ base: "none", md: "flex" }}
+                fontSize="24px"
+                fontWeight="400"
               >
                 {Links.map((link) => (
                   <NavLink key={link}>{link}</NavLink>
