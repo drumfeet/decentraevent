@@ -1,3 +1,4 @@
+import BannerTwo from "@/components/BannerTwo"
 import Events from "@/components/Events"
 import EventsNew from "@/components/EventsNew"
 import Layout from "@/components/Layout"
@@ -49,9 +50,9 @@ export default function ShowEvents() {
   return (
     <>
       <Layout>
+        <BannerTwo />
         <Tabs />
         <EventsNew />
-        {/* <Events /> */}
       </Layout>
     </>
   )

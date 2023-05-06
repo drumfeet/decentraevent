@@ -8,6 +8,7 @@ import {
   Container,
   HStack,
   Text,
+  Divider,
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
@@ -86,6 +87,7 @@ export default function NavbarOne() {
           ) : null}
         </Container>
       </Box>
+      <Divider borderColor="black" />
     </>
   )
 }

@@ -15,7 +15,6 @@ export default function Banner() {
 
   return (
     <>
-      <Divider borderColor="black" />
       <Box
         bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
         pt="48px"

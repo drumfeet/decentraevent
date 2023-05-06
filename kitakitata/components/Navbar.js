@@ -1,13 +1,9 @@
-import NavbarMain from "./NavbarMain"
-import NavbarSub from "./NavbarSub"
-import NavbarOne from "./NavbarOne"
+import NavbarTwo from "./NavbarTwo"
 
 export default function Navbar() {
   return (
     <>
-      {/* <NavbarSub />
-      <NavbarMain /> */}
-      <NavbarOne />
+      <NavbarTwo />
     </>
   )
 }
