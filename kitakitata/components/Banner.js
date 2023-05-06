@@ -1,17 +1,13 @@
 import { AppContext } from "@/context/AppContext"
 import {
   Flex,
-  Container,
   Heading,
-  Stack,
   Text,
   Button,
   Icon,
   Box,
   Divider,
 } from "@chakra-ui/react"
-import Head from "next/head"
-import Link from "next/link"
 import { useContext } from "react"
 
 export default function Banner() {
@@ -23,34 +19,40 @@ export default function Banner() {
       <Box
         bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
         pt="48px"
-        pb="18px"
+        pb={{ base: "88px", md: "18px" }}
       >
-        <Flex justifyContent="flex-end" pr={{ base: "16px", md: "88px" }}>
+        <Flex
+          justifyContent={{ base: "space-between", md: "flex-end" }}
+          alignItems="center"
+          px={{ base: "16px", md: "88px" }}
+        >
+          <Box
+            position={{ base: "relative", md: "absolute" }}
+            left={{ base: "0", md: "10%" }}
+            right={{ base: "0", md: "auto" }}
+            top={{ base: "0", md: "10%" }}
+          >
+            <Text fontSize="48px" fontWeight="300">
+              Unleash Your Social Side
+            </Text>
+            <Heading fontSize="72px" fontStyle="italic" fontWeight="500">
+              Bring People Together
+            </Heading>
+
+            <Text fontSize="24px" fontWeight="400" color="#344054">
+              Stay Informed and Connected with Like-Minded Individuals.
+            </Text>
+            <Text fontSize="24px" fontWeight="400" color="#344054">
+              Build Lasting Relationships and Connections in Your Community.
+            </Text>
+            <Button py="14px" px="16px" mt={8} onClick={openCreateEventPage}>
+              Create Event
+            </Button>
+          </Box>
           <Box display={{ base: "none", md: "block" }}>
             <Illustration />
           </Box>
         </Flex>
-
-        {/* <Container maxW={"6xl"}>
-        <Stack direction={{ base: "column", md: "row" }}>
-          <Flex direction={"column"} alignItems={"flex-start"} flex={1}>
-            <Heading>Unleash Your Social Side with Kitakitata</Heading>
-
-            <Text color={"gray.500"}>
-              Keep track of your meetings and receive smart reminders in
-              appropriate times. Read your smart “Daily Agenda” every morning.
-            </Text>
-
-            <Stack spacing={6} direction={"row"}>
-              <Button py="10px" px="18px" mt={8} onClick={openCreateEventPage}>
-                Create Event
-              </Button>
-            </Stack>
-          </Flex>
-
-          <Illustration />
-        </Stack>
-      </Container> */}
       </Box>
     </>
   )
