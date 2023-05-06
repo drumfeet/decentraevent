@@ -13,9 +13,9 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
 import RainbowWallet from "./RainbowWallet"
 
-const Links = ["Events"]
+const Links = [{ name: "Events", url: "/show-events" }]
 
-const NavLink = ({ children }) => (
+const NavLink = ({ children, to }) => (
   <Link
     px={2}
     py={1}
@@ -26,7 +26,7 @@ const NavLink = ({ children }) => (
       borderWidth: "1px",
       boxShadow: "4px 4px 0px #000000",
     }}
-    href={"#"}
+    href={to}
   >
     {children}
   </Link>
@@ -63,7 +63,9 @@ export default function NavbarOne() {
                 fontWeight="400"
               >
                 {Links.map((link) => (
-                  <NavLink key={link}>{link}</NavLink>
+                  <NavLink key={link.name} to={link.url}>
+                    {link.name}
+                  </NavLink>
                 ))}
               </HStack>
             </HStack>
@@ -75,7 +77,9 @@ export default function NavbarOne() {
             <Box pb={4} display={{ md: "none" }}>
               <Stack as={"nav"} spacing={4}>
                 {Links.map((link) => (
-                  <NavLink key={link}>{link}</NavLink>
+                  <NavLink key={link.name} to={link.url}>
+                    {link.name}
+                  </NavLink>
                 ))}
               </Stack>
             </Box>
