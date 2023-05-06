@@ -16,15 +16,12 @@ import { useContext, useEffect } from "react"
 import { toast } from "react-toastify"
 import CardSmall from "./CardSmall"
 import { GoLocation } from "react-icons/go"
+import Search from "./Search"
 
 const EVENTS_PER_PAGE = 6
 
 export default function Feature() {
   const { events, initDB, updateEventsList } = useContext(AppContext)
-
-  const handlelSearchClick = () => {
-    toast("Feature coming soon!")
-  }
 
   useEffect(() => {
     if (initDB) {
@@ -43,37 +40,7 @@ export default function Feature() {
           <Heading textAlign="center" fontSize="48px">
             Find Events
           </Heading>
-          <Stack
-            spacing={{ base: 4, md: 0 }}
-            direction={{ base: "column", md: "row" }}
-            mt={{ md: "16px" }}
-          >
-            <InputGroup mr={{ base: 0, md: "16px" }}>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<CalendarIcon color="black.border" />}
-              />
-              <Input
-                placeholder="Event name"
-                borderColor="black.border"
-                borderRadius={0}
-              />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<GoLocation color="black.border" />}
-              />
-              <Input
-                placeholder="Location"
-                borderColor="black.border"
-                borderRadius={0}
-              />
-            </InputGroup>
-            <Button py="10px" px="50px" onClick={() => handlelSearchClick()}>
-              Search
-            </Button>
-          </Stack>
+          <Search />
         </Flex>
 
         <Grid
