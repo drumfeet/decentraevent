@@ -31,6 +31,7 @@ const overrides = {
             bg: "black",
           },
           _active: {
+            bg:"black"
             // bg: "brand.purple",
           },
           borderRadius: "0",

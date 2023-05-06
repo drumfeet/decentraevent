@@ -57,9 +57,8 @@ export default function NavbarOne() {
                 ))}
               </HStack>
             </HStack>
-            <Flex alignItems={"center"}>
-              <RainbowWallet />
-            </Flex>
+
+            <RainbowWallet />
           </Flex>
 
           {isOpen ? (

@@ -63,6 +63,17 @@ export default function RainbowWallet() {
             }
           }, [account])
 
+          const conditionalProps = !ready
+            ? {
+                "aria-hidden": true,
+                style: {
+                  opacity: 0,
+                  pointerEvents: "none",
+                  userSelect: "none",
+                },
+              }
+            : {}
+
           return (
             <>
               <LoginOption
@@ -71,68 +82,66 @@ export default function RainbowWallet() {
                 openConnectModal={openConnectModal}
               />
 
-              <div
-                {...(!ready && {
-                  "aria-hidden": true,
-                  style: {
-                    opacity: 0,
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  },
-                })}
-              >
-                {(() => {
-                  if (!connected) {
-                    return (
-                      <>
-                        <Button
-                          px="51px"
-                          py="14px"
-                          onClick={() => {
-                            handleLoginModalOpen()
-                          }}
-                        >
-                          Login
-                        </Button>
-                      </>
-                    )
-                  }
-                  if (chain?.unsupported) {
-                    return (
-                      <button onClick={openChainModal} type="button">
-                        Wrong network
-                      </button>
-                    )
-                  }
+              {(() => {
+                if (!connected) {
                   return (
-                    <div style={{ display: "flex", gap: 12 }}>
-                      <>
-                        <Menu isOpen={isOpen} onClose={onClose}>
-                          <MenuButton as={Button} onClick={onOpen}>
-                            {account?.address.slice(0, 8)}
-                          </MenuButton>
-                          <MenuList>
-                            <MenuItem
-                              onClick={async () => {
-                                await router.push("/user-profile")
-                              }}
-                            >
-                              Profile
-                            </MenuItem>
-                            <MenuItem
-                              onClick={() => {
-                                openAccountModal()
-                              }}
-                            >
-                              Logout
-                            </MenuItem>
-                          </MenuList>
-                        </Menu>
-                      </>
-                    </div>
+                    <>
+                      <Button
+                        {...conditionalProps}
+                        px="51px"
+                        py="14px"
+                        onClick={() => {
+                          handleLoginModalOpen()
+                        }}
+                      >
+                        Login
+                      </Button>
+                    </>
                   )
-                })()}
-              </div>
+                }
+                if (chain?.unsupported) {
+                  return (
+                    <Button
+                      {...conditionalProps}
+                      onClick={openChainModal}
+                      type="button"
+                    >
+                      Wrong network
+                    </Button>
+                  )
+                }
+                return (
+                  <div style={{ display: "flex", gap: 12 }}>
+                    <>
+                      <Menu
+                        {...conditionalProps}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                      >
+                        <MenuButton as={Button} onClick={onOpen}>
+                          {account?.address.slice(0, 8)}
+                        </MenuButton>
+                        <MenuList>
+                          <MenuItem
+                            onClick={async () => {
+                              await router.push("/user-profile")
+                            }}
+                          >
+                            Profile
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() => {
+                              openAccountModal()
+                            }}
+                          >
+                            Logout
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
+                    </>
+                  </div>
+                )
+              })()}
             </>
           )
         }}
