@@ -2,23 +2,20 @@ import Layout from "@/components/Layout"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { useContext, useEffect, useState } from "react"
-
 import { toast } from "react-toastify"
 import {
   Button,
-  Flex,
   FormControl,
-  FormLabel,
   Heading,
   Input,
   Stack,
-  useColorModeValue,
-  Avatar,
-  AvatarBadge,
-  IconButton,
-  Center,
+  Container,
+  Box,
+  Divider,
+  Text,
 } from "@chakra-ui/react"
-import { SmallCloseIcon } from "@chakra-ui/icons"
+import GoBack from "@/components/GoBack"
+import { GoCloudUpload } from "react-icons/go"
 
 export default function Profile() {
   const { setUserProfile } = useContext(AppContext)
@@ -82,96 +79,78 @@ export default function Profile() {
   return (
     <>
       <Layout>
-        <Flex
-          minH={"100vh"}
-          align={"center"}
-          justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
-        >
-          <Stack
-            spacing={4}
+        <Container maxW={"8xl"}>
+          <Box justifyContent="flex-start" my="28px">
+            <GoBack />
+          </Box>
+
+          <Box
+            mx="auto"
             w={"full"}
-            maxW={"md"}
-            bg={useColorModeValue("white", "gray.700")}
-            rounded={"xl"}
-            boxShadow={"lg"}
-            p={6}
-            my={12}
+            maxW={"462px"}
+            borderColor="black"
+            borderWidth="1px"
+            boxShadow="8px 8px 0px"
           >
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-              User Profile
+            <Heading
+              fontSize="24px"
+              fontWeight="500"
+              color="black.text"
+              p="32px"
+              textAlign="center"
+            >
+              Create Event
             </Heading>
-            <FormControl id="photo">
-              <Stack direction={["column", "row"]} spacing={6}>
-                <Center>
-                  <Avatar size="xl" src="">
-                    <AvatarBadge
-                      as={IconButton}
-                      size="sm"
-                      rounded="full"
-                      top="-10px"
-                      colorScheme="red"
-                      aria-label="remove Photo"
-                      onClick={() => {
-                        toast("Feature coming soon!")
-                      }}
-                      icon={<SmallCloseIcon />}
-                    />
-                  </Avatar>
-                </Center>
-                <Center w="full">
-                  <Button
-                    w="full"
-                    onClick={() => {
-                      toast("Feature coming soon!")
-                    }}
-                  >
-                    Change Photo
-                  </Button>
-                </Center>
-              </Stack>
-            </FormControl>
-            <FormControl id="name" isRequired>
-              <FormLabel>Name</FormLabel>
-              <Input
-                value={userProfileData.name}
-                placeholder="Name"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleInputChange}
-              />
-            </FormControl>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
-              <Input
-                value={userProfileData.email}
-                placeholder="your-email@example.com"
-                _placeholder={{ color: "gray.500" }}
-                type="email"
-                onChange={handleInputChange}
-              />
-            </FormControl>
-            <FormControl id="company">
-              <FormLabel>Company</FormLabel>
-              <Input
-                value={userProfileData.company}
-                placeholder="Company"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleInputChange}
-              />
-            </FormControl>
-            <FormControl id="job_title">
-              <FormLabel>Job Title</FormLabel>
-              <Input
-                value={userProfileData.job_title}
-                placeholder="Job Title"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleInputChange}
-              />
-            </FormControl>
-            <Stack spacing={6} direction={["column", "row"]}>
+            <Divider borderColor="black" />
+
+            <Stack spacing="24px" p="32px">
+              <FormControl id="name" isRequired>
+                <Input
+                  value={userProfileData.name}
+                  placeholder="Name"
+                  type="text"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <FormControl id="email" isRequired>
+                <Input
+                  value={userProfileData.email}
+                  placeholder="your-email@example.com"
+                  type="email"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <FormControl id="company">
+                <Input
+                  value={userProfileData.company}
+                  placeholder="Company"
+                  type="text"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <FormControl id="job_title">
+                <Input
+                  value={userProfileData.job_title}
+                  placeholder="Job Title"
+                  type="text"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+
+              <Box borderWidth="1px" p="8px">
+                <Stack align="center" justify="center" textAlign="center">
+                  <GoCloudUpload size="28px" />
+                  <Text fontSize="16px" fontWeight="500">
+                    This feature is not yet available
+                  </Text>
+                  <Text fontSize="14px">Upload profile picture</Text>
+                  <Text fontSize="12px">Click to upload or drag and drop</Text>
+                  <Text fontSize="10px">
+                    SVG, PNG, JPG or GIF (max. 800x400px)
+                  </Text>
+                </Stack>
+              </Box>
+
               <Button
                 isLoading={isLoading}
                 bg={"blue.400"}
@@ -187,8 +166,8 @@ export default function Profile() {
                 Submit
               </Button>
             </Stack>
-          </Stack>
-        </Flex>
+          </Box>
+        </Container>
       </Layout>
     </>
   )

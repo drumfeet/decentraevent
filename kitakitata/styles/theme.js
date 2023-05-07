@@ -31,14 +31,30 @@ const overrides = {
             bg: "black",
           },
           _active: {
-            bg:"black"
-            // bg: "brand.purple",
+            bg: "black",
           },
           borderRadius: "0",
         },
       },
     },
+    Input: {
+      variants: {
+        outline: {
+          field: {
+            borderRadius: "0",
+          },
+        },
+      },
+    },
+    Textarea: {
+      variants: {
+        outline: {
+          borderRadius: "0",
+        },
+      },
+    },
   },
+
   // fonts: {
   //   heading: `Open Sans, serif`,
   //   body: `Raleway, sans-serif`,
