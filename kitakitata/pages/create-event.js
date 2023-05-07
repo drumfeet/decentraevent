@@ -18,8 +18,8 @@ import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
-import { ChevronLeftIcon } from "@chakra-ui/icons"
 import { GoCloudUpload } from "react-icons/go"
+import GoBack from "@/components/GoBack"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
@@ -41,10 +41,6 @@ export default function CreateEvent() {
     }
 
     return true
-  }
-
-  const handleGoBackClick = () => {
-    window.history.back()
   }
 
   const handleCreateEventClick = async () => {
@@ -72,22 +68,8 @@ export default function CreateEvent() {
     <>
       <Layout>
         <Container maxW={"8xl"}>
-          <Box justifyContent="flex-start">
-            <Button
-              variant="ghost"
-              leftIcon={<ChevronLeftIcon />}
-              fontSize="16px"
-              fontWeight="400"
-              color="#546A7B"
-              _hover={{
-                borderColor: "black",
-                borderWidth: "1px",
-                boxShadow: "4px 4px 0px #000000",
-              }}
-              onClick={() => handleGoBackClick()}
-            >
-              Go Back
-            </Button>
+          <Box justifyContent="flex-start" my="28px">
+            <GoBack />
           </Box>
 
           <Box
