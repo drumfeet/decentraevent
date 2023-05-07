@@ -12,12 +12,14 @@ import {
   Divider,
   FormHelperText,
   Container,
+  Text,
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
+import { GoCloudUpload } from "react-icons/go"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
@@ -152,6 +154,22 @@ export default function CreateEvent() {
                     maxLength={"250"}
                   />
                 </FormControl>
+
+                <Box borderWidth="1px" p="8px">
+                  <Stack align="center" justify="center" textAlign="center">
+                    <GoCloudUpload size="28px" />
+                    <Text fontSize="16px" fontWeight="500">
+                      This feature is not yet available
+                    </Text>
+                    <Text fontSize="14px">Upload photo for event</Text>
+                    <Text fontSize="12px">
+                      Click to upload or drag and drop
+                    </Text>
+                    <Text fontSize="10px">
+                      SVG, PNG, JPG or GIF (max. 800x400px)
+                    </Text>
+                  </Stack>
+                </Box>
                 <FormControl id="event_admins" hidden={true}>
                   <FormLabel>Event Admins</FormLabel>
                   <Tooltip label="Enter a comma-separated list of wallet addresses that is an admin of the event.">
