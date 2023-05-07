@@ -13,9 +13,13 @@ import {
   Box,
   Divider,
   Text,
+  Avatar,
+  AvatarBadge,
+  IconButton,
 } from "@chakra-ui/react"
 import GoBack from "@/components/GoBack"
 import { GoCloudUpload } from "react-icons/go"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 
 export default function Profile() {
   const { setUserProfile } = useContext(AppContext)
@@ -99,11 +103,27 @@ export default function Profile() {
               p="32px"
               textAlign="center"
             >
-              Create Event
+              User Profile
             </Heading>
             <Divider borderColor="black" />
 
             <Stack spacing="24px" p="32px">
+              <FormControl id="photo">
+                <Avatar size="lg" src="">
+                  <AvatarBadge
+                    as={IconButton}
+                    size="xs"
+                    rounded="full"
+                    top="-10px"
+                    aria-label="remove Photo"
+                    onClick={() => {
+                      toast("Feature coming soon!")
+                    }}
+                    icon={<SmallCloseIcon />}
+                  />
+                </Avatar>
+              </FormControl>
+
               <FormControl id="name" isRequired>
                 <Input
                   value={userProfileData.name}
@@ -153,12 +173,7 @@ export default function Profile() {
 
               <Button
                 isLoading={isLoading}
-                bg={"blue.400"}
                 color={"white"}
-                w="full"
-                _hover={{
-                  bg: "blue.500",
-                }}
                 onClick={() => {
                   handleSubmitClick()
                 }}
