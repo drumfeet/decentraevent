@@ -38,7 +38,6 @@ export default function CardSmall({ event }) {
       <Box p="16px">
         {/* <Image src="#" fallbackSrc={IMG_FALLBACK} /> */}
         <Box
-          bg="red"
           h="151px"
           bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
         ></Box>
