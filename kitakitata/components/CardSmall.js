@@ -1,5 +1,5 @@
 import { CalendarIcon, TimeIcon } from "@chakra-ui/icons"
-import { Box, HStack, Heading, Image, Text } from "@chakra-ui/react"
+import { Box, HStack, Heading, Image, Stack, Text } from "@chakra-ui/react"
 import { GoLocation } from "react-icons/go"
 
 export default function CardSmall({ event }) {
@@ -35,15 +35,16 @@ export default function CardSmall({ event }) {
 
   return (
     <>
-      <Box p="16px">
+      <Box>
         {/* <Image src="#" fallbackSrc={IMG_FALLBACK} /> */}
         <Box
           h="151px"
           bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
-        ></Box>
+        />
 
-        <Box>
+        <Stack spacing="8px">
           <Heading
+            mt="8px"
             size="md"
             noOfLines={1}
             cursor="pointer"
@@ -72,7 +73,7 @@ export default function CardSmall({ event }) {
             }}
           />
         </Flex> */}
-        </Box>
+        </Stack>
       </Box>
     </>
   )

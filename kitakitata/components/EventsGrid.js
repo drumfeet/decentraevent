@@ -48,6 +48,7 @@ export default function EventsGrid({ showPagination = true }) {
         {eventsToShow.map((event) => {
           return (
             <GridItem
+              p="16px"
               w="100%"
               maxW="301px"
               maxH="297px"
