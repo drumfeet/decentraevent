@@ -7,7 +7,8 @@ import { isNil } from "ramda"
 import { useContext, useEffect, useState } from "react"
 
 export default function ShowEvents() {
-  const { user, updateEventsList, initDB } = useContext(AppContext)
+  const { user, updateEventsList, initDB, openCreateEventPage } =
+    useContext(AppContext)
   const [tab, setTab] = useState("All")
   const tabs = isNil(user) ? ["All"] : ["All", "My Events"]
 
@@ -39,7 +40,9 @@ export default function ShowEvents() {
                 </Box>
               ))}
             </Flex>
-            <Button>Create Event</Button>
+            <Button py="14px" px="16px" onClick={openCreateEventPage}>
+              Create Event
+            </Button>
           </Flex>
         </Container>
       </>
