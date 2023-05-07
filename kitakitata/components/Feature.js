@@ -12,7 +12,7 @@ export default function Feature() {
           </Heading>
           <Search />
         </Flex>
-        <EventsGrid />
+        <EventsGrid showPagination={false} />
       </Container>
     </>
   )

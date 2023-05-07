@@ -1,6 +1,5 @@
 import BannerTwo from "@/components/BannerTwo"
 import Events from "@/components/Events"
-import EventsNew from "@/components/EventsNew"
 import Layout from "@/components/Layout"
 import { AppContext } from "@/context/AppContext"
 import { Box, Flex } from "@chakra-ui/react"
@@ -8,7 +7,7 @@ import { isNil, map } from "ramda"
 import { useContext, useEffect, useState } from "react"
 
 export default function ShowEvents() {
-  const { user, events, updateEventsList, initDB } = useContext(AppContext)
+  const { user, updateEventsList, initDB } = useContext(AppContext)
   const [tab, setTab] = useState("All")
   const tabs = isNil(user) ? ["All"] : ["All", "Mine"]
 
@@ -52,7 +51,7 @@ export default function ShowEvents() {
       <Layout>
         <BannerTwo />
         <Tabs />
-        <EventsNew />
+        <Events />
       </Layout>
     </>
   )
