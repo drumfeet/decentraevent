@@ -165,12 +165,12 @@ export const AppContextProvider = ({ children }) => {
 
       let tx = await db.set(eventData, COLLECTION_EVENTS, docId, user)
       console.log("createEvent() tx", tx)
-      if (tx.success) {
-        setDryWriteTx(tx)
-      } else {
+      if (tx.error) {
         throw new Error("Error! " + tx.error)
       }
 
+      setDryWriteTx(tx)
+      toast("Event created successfully")
       await router.push("/show-events")
     } catch (e) {
       toast(e.message)
@@ -209,12 +209,13 @@ export const AppContextProvider = ({ children }) => {
 
       const tx = await db.update(eventData, COLLECTION_EVENTS, docId, user)
       console.log("updateEvent() tx", tx)
-      if (tx.success) {
-        setDryWriteTx(tx)
-        toast("Event updated successfully")
-      } else {
+      if (tx.error) {
         throw new Error("Error! " + tx.error)
       }
+
+      setDryWriteTx(tx)
+      toast("Event updated successfully")
+      await router.push("/show-events")
     } catch (e) {
       toast(e.message)
       console.error("updateEvent", e)
@@ -229,12 +230,12 @@ export const AppContextProvider = ({ children }) => {
     try {
       const tx = await db.delete(COLLECTION_EVENTS, docId, user)
       console.log("deleteEvent() tx", tx)
-      if (tx.success) {
-        setDryWriteTx(tx)
-      } else {
+      if (tx.error) {
         throw new Error("Error! " + tx.error)
       }
 
+      setDryWriteTx(tx)
+      toast("Event deleted successfully")
       await router.push("/show-events")
     } catch (e) {
       toast(e.message)
@@ -511,21 +512,22 @@ export const AppContextProvider = ({ children }) => {
     }
 
     const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
-    if (tx.success) {
-      setDryWriteTx(tx)
-    } else {
+    if (tx.error) {
       throw new Error("Error! " + tx.error)
     }
+
+    setDryWriteTx(tx)
+    toast("Event attendance confirmed")
   }
 
   const handleUserNotGoing = async (docId) => {
     const tx = await db.delete(COLLECTION_RSVP, docId, user)
-    if (tx.success) {
-      setDryWriteTx(tx)
-      toast("Event attendance removed")
-    } else {
+    if (tx.error) {
       throw new Error("Error! " + tx.error)
     }
+
+    setDryWriteTx(tx)
+    toast("Event attendance removed")
   }
 
   const createUserRsvp = (userAddress, name, email, company, jobTitle) => ({
@@ -627,11 +629,12 @@ export const AppContextProvider = ({ children }) => {
 
       let tx = await db.upsert(userData, COLLECTION_USERS, userAddress, user)
       console.log("setUserProfile tx", tx)
-      if (tx.success) {
-        setDryWriteTx(tx)
-      } else {
+      if (tx.error) {
         throw new Error("Error! " + tx.error)
       }
+
+      setDryWriteTx(tx)
+      toast("Profile updated successfully")
     } catch (e) {
       toast(e.message)
       console.error("setUserProfile", e)
