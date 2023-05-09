@@ -13,12 +13,14 @@ import {
   Textarea,
   Container,
   Divider,
+  FormHelperText,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import { isNil } from "ramda"
 import GoBack from "@/components/GoBack"
+import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 
 export default function EditEvent() {
   const { initDB, updateEvent, getEvent, user, setIsLoginModalOpen } =
@@ -109,7 +111,7 @@ export default function EditEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
-                <FormLabel>Event Title</FormLabel>
+                <FormHelperText>Event Title</FormHelperText>
                 <Input
                   value={eventData?.title}
                   placeholder="Event Title"
@@ -118,7 +120,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
-                <FormLabel>Organizer</FormLabel>
+                <FormHelperText>Organizer</FormHelperText>
                 <Input
                   value={eventData?.organizer}
                   placeholder="Organizer"
@@ -127,7 +129,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="location">
-                <FormLabel>Location</FormLabel>
+                <FormHelperText>Location</FormHelperText>
                 <Input
                   value={eventData?.location}
                   placeholder="Location"
@@ -136,7 +138,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="start_time">
-                <FormLabel>Start Time</FormLabel>
+                <FormHelperText>Local Start Time</FormHelperText>
                 <Input
                   value={eventData?.start_time}
                   placeholder="Select Start Time"
@@ -146,7 +148,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="end_time">
-                <FormLabel>End Time</FormLabel>
+                <FormHelperText>Local End Time</FormHelperText>
                 <Input
                   value={eventData?.end_time}
                   placeholder="Select End Time"
@@ -156,7 +158,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="event_details">
-                <FormLabel>Details</FormLabel>
+                <FormHelperText>Details</FormHelperText>
                 <Textarea
                   value={eventData?.event_details}
                   placeholder="Details"
@@ -164,6 +166,8 @@ export default function EditEvent() {
                   maxLength={"250"}
                 />
               </FormControl>
+
+              <UploadPhotoEvent />
               <Button
                 py="14px"
                 onClick={() => {
