@@ -11,11 +11,14 @@ import {
   Text,
   useColorModeValue,
   Textarea,
+  Container,
+  Divider,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import { isNil } from "ramda"
+import GoBack from "@/components/GoBack"
 
 export default function EditEvent() {
   const { initDB, updateEvent, getEvent, user, setIsLoginModalOpen } =
@@ -81,95 +84,97 @@ export default function EditEvent() {
   return (
     <>
       <Layout>
-        <Flex minH={"100vh"} align={"center"} justify={"center"}>
-          <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-            <Stack align={"center"}>
-              <Heading fontSize={"4xl"}>Create awesome events! ✌️</Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
-                learn, enjoy, and have fun with community meetups
-              </Text>
-            </Stack>
-            <Box
-              rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
-              boxShadow={"lg"}
-              p={8}
+        <Container maxW={"8xl"}>
+          <Box justifyContent="flex-start" my="28px">
+            <GoBack />
+          </Box>
+
+          <Box
+            mx="auto"
+            w={"full"}
+            maxW={"462px"}
+            borderColor="black"
+            borderWidth="1px"
+            boxShadow="8px 8px 0px"
+          >
+            <Heading
+              fontSize="24px"
+              fontWeight="500"
+              color="black.text"
+              p="32px"
+              textAlign="center"
             >
-              <Stack spacing={4}>
-                <FormControl id="title">
-                  <FormLabel>Event Title</FormLabel>
-                  <Input
-                    value={eventData?.title}
-                    placeholder="Event Title"
-                    onChange={handleInputChange}
-                    maxLength={"100"}
-                  />
-                </FormControl>
-                <FormControl id="organizer">
-                  <FormLabel>Organizer</FormLabel>
-                  <Input
-                    value={eventData?.organizer}
-                    placeholder="Organizer"
-                    onChange={handleInputChange}
-                    maxLength={"100"}
-                  />
-                </FormControl>
-                <FormControl id="location">
-                  <FormLabel>Location</FormLabel>
-                  <Input
-                    value={eventData?.location}
-                    placeholder="Location"
-                    onChange={handleInputChange}
-                    maxLength={"100"}
-                  />
-                </FormControl>
-                <FormControl id="start_time">
-                  <FormLabel>Start Time</FormLabel>
-                  <Input
-                    value={eventData?.start_time}
-                    placeholder="Select Start Time"
-                    size="md"
-                    type="datetime-local"
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-                <FormControl id="end_time">
-                  <FormLabel>End Time</FormLabel>
-                  <Input
-                    value={eventData?.end_time}
-                    placeholder="Select End Time"
-                    size="md"
-                    type="datetime-local"
-                    onChange={handleInputChange}
-                  />
-                </FormControl>
-                <FormControl id="event_details">
-                  <FormLabel>Details</FormLabel>
-                  <Textarea
-                    value={eventData?.event_details}
-                    placeholder="Details"
-                    onChange={handleInputChange}
-                    maxLength={"250"}
-                  />
-                </FormControl>
-                <Stack spacing={10}>
-                  <Button
-                    bg={"blue.400"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.500",
-                    }}
-                    onClick={() => {
-                      handleUpdateEventClick()
-                    }}
-                  >
-                    Update Event
-                  </Button>
-                </Stack>
-              </Stack>
-            </Box>
-          </Stack>
-        </Flex>
+              Update Event
+            </Heading>
+            <Divider borderColor="black" />
+            <Stack spacing="24px" p="32px">
+              <FormControl id="title">
+                <FormLabel>Event Title</FormLabel>
+                <Input
+                  value={eventData?.title}
+                  placeholder="Event Title"
+                  onChange={handleInputChange}
+                  maxLength={"100"}
+                />
+              </FormControl>
+              <FormControl id="organizer">
+                <FormLabel>Organizer</FormLabel>
+                <Input
+                  value={eventData?.organizer}
+                  placeholder="Organizer"
+                  onChange={handleInputChange}
+                  maxLength={"100"}
+                />
+              </FormControl>
+              <FormControl id="location">
+                <FormLabel>Location</FormLabel>
+                <Input
+                  value={eventData?.location}
+                  placeholder="Location"
+                  onChange={handleInputChange}
+                  maxLength={"100"}
+                />
+              </FormControl>
+              <FormControl id="start_time">
+                <FormLabel>Start Time</FormLabel>
+                <Input
+                  value={eventData?.start_time}
+                  placeholder="Select Start Time"
+                  size="md"
+                  type="datetime-local"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <FormControl id="end_time">
+                <FormLabel>End Time</FormLabel>
+                <Input
+                  value={eventData?.end_time}
+                  placeholder="Select End Time"
+                  size="md"
+                  type="datetime-local"
+                  onChange={handleInputChange}
+                />
+              </FormControl>
+              <FormControl id="event_details">
+                <FormLabel>Details</FormLabel>
+                <Textarea
+                  value={eventData?.event_details}
+                  placeholder="Details"
+                  onChange={handleInputChange}
+                  maxLength={"250"}
+                />
+              </FormControl>
+              <Button
+                py="14px"
+                onClick={() => {
+                  handleUpdateEventClick()
+                }}
+              >
+                Create Event
+              </Button>
+            </Stack>
+          </Box>
+        </Container>
       </Layout>
     </>
   )
