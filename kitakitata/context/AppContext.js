@@ -256,6 +256,21 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getEventWithEventId = async (eventId) => {
+    try {
+      const _event = await db.cget(
+        COLLECTION_EVENTS,
+        ["event_id"],
+        ["event_id", "==", eventId]
+      )
+      console.log("getEventWithEventId() _event", _event)
+      return _event
+    } catch (e) {
+      toast(e.message)
+      console.error("getEventWithEventId", e)
+    }
+  }
+
   const getEventAttendees = async (eventId) => {
     setIsLoading(true)
     try {
@@ -762,6 +777,7 @@ export const AppContextProvider = ({ children }) => {
         isLoginModalOpen,
         setIsLoginModalOpen,
         getEvent,
+        getEventWithEventId,
         getUserRsvpForEvent,
         updateEventsList,
       }}

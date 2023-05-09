@@ -12,20 +12,27 @@ import {
   Container,
   Box,
   Heading,
+  HStack,
+  Stack,
+  Text,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import { isNil } from "ramda"
 import { toast } from "react-toastify"
-import { DownloadIcon } from "@chakra-ui/icons"
+import { CalendarIcon, DownloadIcon, TimeIcon } from "@chakra-ui/icons"
 import GoBack from "@/components/GoBack"
+import { GoLocation } from "react-icons/go"
+import queryString from "query-string"
 
 export default function ViewAttendees() {
   const router = useRouter()
-  const { eventId } = router.query
-  const { initDB, getEventAttendees } = useContext(AppContext)
+  const { eventId, data } = router.query
+  const { initDB, getEventAttendees, getEventWithEventId } =
+    useContext(AppContext)
   const [eventAttendees, setEventAttendees] = useState([])
+  const [eventData, setEventData] = useState({})
 
   const handleDownload = () => {
     const csvData = eventAttendees
@@ -50,6 +57,11 @@ export default function ViewAttendees() {
     ;(async () => {
       try {
         if (initDB) {
+          const _eventData = await getEventWithEventId(eventId)
+          console.log("view-attendees eventId", eventId)
+          setEventData(_eventData.shift())
+          console.log("view-attendees _eventData", _eventData)
+
           const _eventAttendees = await getEventAttendees(eventId)
           console.log("view-attendees _eventAttendees", _eventAttendees)
           setEventAttendees(_eventAttendees)
@@ -96,16 +108,22 @@ export default function ViewAttendees() {
             Change Cover
           </Button>
         </Box>
-        {/* <Box
-            mx="auto"
-            w={"full"}
-            maxW={"462px"}
-            borderColor="black"
-            borderWidth="1px"
-            boxShadow="8px 8px 0px"
-          >
 
-            </Box>   */}
+        <Stack spacing="8px">
+          <HStack>
+            <Heading>Event Name</Heading>
+            <HStack flex="1" ml="auto" justifyContent="flex-end">
+              <CalendarIcon />
+              <Text>{eventData?.data?.start_time}</Text>
+              <TimeIcon />
+              <Text>Time</Text>
+            </HStack>
+          </HStack>
+          <HStack justifyContent="flex-end">
+            <GoLocation />
+            <Text>Location</Text>
+          </HStack>
+        </Stack>
       </Container>
 
       {/* <TableContainer hidden={false}>
