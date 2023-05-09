@@ -40,6 +40,10 @@ export default function CardSmall({ event }) {
         <Box
           h="151px"
           bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
+          cursor="pointer"
+          onClick={() => {
+            handleViewEvent(event)
+          }}
         />
 
         <Stack spacing="8px">
