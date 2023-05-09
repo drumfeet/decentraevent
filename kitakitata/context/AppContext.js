@@ -723,6 +723,39 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getDateString = (timestamp) => {
+    if (isNaN(timestamp)) {
+      return ""
+    }
+
+    const MILLISECONDS = 1000
+    const date = new Date(timestamp * MILLISECONDS)
+    const dateString = date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+
+    return `${dateString}`
+  }
+
+  const getTimeString = (timestamp) => {
+    if (isNaN(timestamp)) {
+      return ""
+    }
+
+    const MILLISECONDS = 1000
+    const date = new Date(timestamp * MILLISECONDS)
+    const timeString = date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZoneName: "short",
+    })
+
+    return `${timeString}`
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -780,6 +813,8 @@ export const AppContextProvider = ({ children }) => {
         getEventWithEventId,
         getUserRsvpForEvent,
         updateEventsList,
+        getDateString,
+        getTimeString,
       }}
     >
       {children}

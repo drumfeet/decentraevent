@@ -35,8 +35,13 @@ import { GoLocation } from "react-icons/go"
 export default function ViewAttendees() {
   const router = useRouter()
   const { eventId } = router.query
-  const { initDB, getEventAttendees, getEventWithEventId } =
-    useContext(AppContext)
+  const {
+    initDB,
+    getEventAttendees,
+    getEventWithEventId,
+    getDateString,
+    getTimeString,
+  } = useContext(AppContext)
   const [eventAttendees, setEventAttendees] = useState([])
   const [eventData, setEventData] = useState({})
 
@@ -86,6 +91,8 @@ export default function ViewAttendees() {
           h="291px"
           bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
           position="relative"
+          mt="58px"
+          mb="38px"
         >
           <Button
             position="absolute"
@@ -112,9 +119,9 @@ export default function ViewAttendees() {
             </Heading>
             <HStack flex="1" ml="auto" justifyContent="flex-end">
               <CalendarIcon />
-              <Text>{eventData?.data?.start_time}</Text>
+              <Text>{getDateString(eventData?.data?.start_time)}</Text>
               <TimeIcon />
-              <Text>{eventData?.data?.start_time}</Text>
+              <Text>{getTimeString(eventData?.data?.start_time)}</Text>
             </HStack>
           </HStack>
           <HStack justifyContent="flex-end">
