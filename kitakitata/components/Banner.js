@@ -73,7 +73,7 @@ export const Illustration = (props) => {
       <path
         d="M51.7143 468.619V441H69.6667V471.381L95.9048 450.667L109.714 467.238L86.2381 486.571H118V508.667H95.9048L113.857 523.857L100.048 540.429L72.4286 516.952V555.619H50.3333V516.952L22.7143 540.429L8.90476 525.238L28.2381 508.667H2V486.571H36.5238L13.0476 467.238L28.2381 450.667L50.3333 468.619"
         stroke="black"
-        stroke-width="2.7619"
+        strokeWidth="2.7619"
       />
       <g filter="url(#filter0_d_259_12736)">
         <path
@@ -83,7 +83,7 @@ export const Illustration = (props) => {
         <path
           d="M529.323 309L442 348.349V457.773H550.885V479.335L587 405.487H529.323V309Z"
           stroke="black"
-          stroke-width="1.07807"
+          strokeWidth="1.07807"
         />
       </g>
       <g filter="url(#filter1_d_259_12736)">
@@ -111,7 +111,7 @@ export const Illustration = (props) => {
         width="205"
         height="73"
         stroke="black"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <rect x="566" y="140" width="205" height="73" fill="white" />
       <path
@@ -128,7 +128,7 @@ export const Illustration = (props) => {
         width="205"
         height="73"
         stroke="black"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <defs>
         <filter
@@ -138,9 +138,9 @@ export const Illustration = (props) => {
           width="155.027"
           height="180.03"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -172,9 +172,9 @@ export const Illustration = (props) => {
           width="158"
           height="170.5"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
