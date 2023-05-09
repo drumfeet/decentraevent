@@ -117,6 +117,7 @@ export default function EditEvent() {
                   placeholder="Event Title"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="organizer">
@@ -126,6 +127,7 @@ export default function EditEvent() {
                   placeholder="Organizer"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="location">
@@ -135,6 +137,7 @@ export default function EditEvent() {
                   placeholder="Location"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="start_time">
@@ -145,6 +148,7 @@ export default function EditEvent() {
                   size="md"
                   type="datetime-local"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="end_time">
@@ -155,6 +159,7 @@ export default function EditEvent() {
                   size="md"
                   type="datetime-local"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="event_details">
@@ -164,6 +169,7 @@ export default function EditEvent() {
                   placeholder="Details"
                   onChange={handleInputChange}
                   maxLength={"250"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
 

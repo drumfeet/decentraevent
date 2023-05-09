@@ -3,7 +3,7 @@ import { GoCloudUpload } from "react-icons/go"
 
 export default function UploadPhotoEvent() {
   return (
-    <Box borderWidth="1px" p="8px">
+    <Box borderWidth="1px" p="8px" borderColor="#98A2B3">
       <Stack align="center" justify="center" textAlign="center">
         <GoCloudUpload size="28px" />
         <Text fontSize="16px" fontWeight="500">

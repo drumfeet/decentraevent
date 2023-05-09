@@ -12,13 +12,11 @@ import {
   Divider,
   FormHelperText,
   Container,
-  Text,
 } from "@chakra-ui/react"
 import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
-import { GoCloudUpload } from "react-icons/go"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 
@@ -97,6 +95,7 @@ export default function CreateEvent() {
                   placeholder="Event Title"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="organizer">
@@ -104,6 +103,7 @@ export default function CreateEvent() {
                   placeholder="Organizer"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="location">
@@ -111,6 +111,7 @@ export default function CreateEvent() {
                   placeholder="Location"
                   onChange={handleInputChange}
                   maxLength={"100"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="start_time">
@@ -120,6 +121,7 @@ export default function CreateEvent() {
                   size="md"
                   type="datetime-local"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="end_time">
@@ -129,6 +131,7 @@ export default function CreateEvent() {
                   size="md"
                   type="datetime-local"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="event_details">
@@ -136,6 +139,7 @@ export default function CreateEvent() {
                   placeholder="Details"
                   onChange={handleInputChange}
                   maxLength={"250"}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
 

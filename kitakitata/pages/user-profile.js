@@ -130,6 +130,7 @@ export default function Profile() {
                   placeholder="Name"
                   type="text"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="email" isRequired>
@@ -138,6 +139,7 @@ export default function Profile() {
                   placeholder="your-email@example.com"
                   type="email"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="company">
@@ -146,6 +148,7 @@ export default function Profile() {
                   placeholder="Company"
                   type="text"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
               <FormControl id="job_title">
@@ -154,10 +157,11 @@ export default function Profile() {
                   placeholder="Job Title"
                   type="text"
                   onChange={handleInputChange}
+                  borderColor="#98A2B3"
                 />
               </FormControl>
 
-              <Box borderWidth="1px" p="8px">
+              <Box borderWidth="1px" p="8px" borderColor="#98A2B3">
                 <Stack align="center" justify="center" textAlign="center">
                   <GoCloudUpload size="28px" />
                   <Text fontSize="16px" fontWeight="500">
