@@ -9,6 +9,9 @@ import {
   Th,
   Tbody,
   Td,
+  Container,
+  Box,
+  Heading,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -16,6 +19,7 @@ import { useRouter } from "next/router"
 import { isNil } from "ramda"
 import { toast } from "react-toastify"
 import { DownloadIcon } from "@chakra-ui/icons"
+import GoBack from "@/components/GoBack"
 
 export default function ViewAttendees() {
   const router = useRouter()
@@ -59,18 +63,52 @@ export default function ViewAttendees() {
 
   return (
     <Layout>
-      <Flex justifyContent="flex-end">
-        <Button
-          size="lg"
-          variant="ghost"
-          onClick={handleDownload}
-          rightIcon={<DownloadIcon />}
-          alignSelf="flex-end"
+      <Container maxW={"8xl"}>
+        <Box justifyContent="flex-end" my="28px">
+          <Button
+            onClick={handleDownload}
+            rightIcon={<DownloadIcon />}
+            alignSelf="flex-end"
+          >
+            Download Attendees
+          </Button>
+        </Box>
+
+        <Box
+          h="291px"
+          bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
+          position="relative"
         >
-          Download Attendees
-        </Button>
-      </Flex>
-      <TableContainer hidden={false}>
+          <Button
+            position="absolute"
+            bottom="16px"
+            right="16px"
+            bg="rgba(255, 255, 255, 0.5)"
+            color="black.text"
+            fontWeight="400"
+            fontSize="16px"
+            _hover={{
+              borderColor: "white",
+              borderWidth: "1px",
+              boxShadow: "4px 4px 0px #000000",
+            }}
+          >
+            Change Cover
+          </Button>
+        </Box>
+        {/* <Box
+            mx="auto"
+            w={"full"}
+            maxW={"462px"}
+            borderColor="black"
+            borderWidth="1px"
+            boxShadow="8px 8px 0px"
+          >
+
+            </Box>   */}
+      </Container>
+
+      {/* <TableContainer hidden={false}>
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -92,7 +130,7 @@ export default function ViewAttendees() {
               ))}
           </Tbody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
     </Layout>
   )
 }
