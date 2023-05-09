@@ -39,7 +39,7 @@ export default function CardSmall({ event }) {
         {/* <Image src="#" fallbackSrc={IMG_FALLBACK} /> */}
         <Box
           h="151px"
-          bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)"
+          bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
           cursor="pointer"
           onClick={() => {
             handleViewEvent(event)
