@@ -119,7 +119,8 @@ export default function RainbowWallet() {
                         onClose={onClose}
                       >
                         <MenuButton as={Button} onClick={onOpen}>
-                          {account?.address.slice(0, 8)}
+                          {account?.address.slice(0, 4)}..
+                          {account?.address.slice(-4)}
                         </MenuButton>
                         <MenuList>
                           <MenuItem
