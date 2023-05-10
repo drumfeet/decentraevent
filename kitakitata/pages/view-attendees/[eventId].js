@@ -134,7 +134,7 @@ export default function ViewAttendees() {
             <Text>{eventData?.data?.location}</Text>
           </HStack>
 
-          <Stack>
+          <Stack border="1px solid #667085">
             <Box p="24px">
               <Text fontSize="18px" fontWeight="500">
                 Attendees
@@ -145,8 +145,10 @@ export default function ViewAttendees() {
             <Stack
               spacing={{ base: 4, md: 0 }}
               direction={{ base: "column", md: "row" }}
+              justifyContent={justifyContent}
+              p="24px"
             >
-              <InputGroup hidden={true}>
+              <InputGroup hidden={false}>
                 <InputLeftElement
                   pointerEvents="none"
                   children={<Search2Icon color="black.border" />}
