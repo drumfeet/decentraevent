@@ -20,6 +20,7 @@ import { toast } from "react-toastify"
 import GoBack from "@/components/GoBack"
 import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
 import { MdDeleteForever } from "react-icons/md"
+import { GoLocation } from "react-icons/go"
 
 export default function ViewEvent() {
   const {
@@ -108,68 +109,81 @@ export default function ViewEvent() {
             position="relative"
             mt="14px"
             mb="38px"
-          ></Box>
+          />
 
-          <Stack spacing="8px">
-            <Stack direction={{ base: "column", md: "row" }} mb="47px">
+          <Stack spacing="24px">
+            <Stack direction={{ base: "column", md: "row" }}>
               <Heading fontSize="28px" fontWeight="500">
                 {eventData?.data?.title}
               </Heading>
               <Spacer />
-              <VStack alignItems="flex-start">
-                <HStack>
-                  {isEventOwner ? (
-                    <>
-                      <IconButton
-                        icon={<DeleteIcon />}
-                        bg="white"
-                        color="black"
-                        _hover={{
-                          borderColor: "white",
-                          borderWidth: "1px",
-                          boxShadow: "4px 4px 0px #000000",
-                          bg: "black",
-                          color: "white",
-                        }}
-                        onClick={() => handleDeleteEventClick()}
-                      ></IconButton>
-                      <Button
-                        border="1px solid #000000"
-                        bg="white"
-                        color="black"
-                        py="14px"
-                        px="16px"
-                        _hover={{
-                          borderColor: "white",
-                          borderWidth: "1px",
-                          boxShadow: "4px 4px 0px #000000",
-                          bg: "black",
-                          color: "white",
-                        }}
-                        onClick={() => handleEditEventClick()}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        py="14px"
-                        px="16px"
-                        onClick={() => handleViewAttendeesClick()}
-                      >
-                        View Attendees
-                      </Button>
-                    </>
-                  ) : (
+              <HStack alignItems="flex-start">
+                {isEventOwner ? (
+                  <>
+                    <IconButton
+                      icon={<DeleteIcon />}
+                      bg="white"
+                      color="black"
+                      _hover={{
+                        borderColor: "white",
+                        borderWidth: "1px",
+                        boxShadow: "4px 4px 0px #000000",
+                        bg: "black",
+                        color: "white",
+                      }}
+                      onClick={() => handleDeleteEventClick()}
+                    ></IconButton>
+                    <Button
+                      border="1px solid #000000"
+                      bg="white"
+                      color="black"
+                      py="14px"
+                      px="16px"
+                      _hover={{
+                        borderColor: "white",
+                        borderWidth: "1px",
+                        boxShadow: "4px 4px 0px #000000",
+                        bg: "black",
+                        color: "white",
+                      }}
+                      onClick={() => handleEditEventClick()}
+                    >
+                      Edit
+                    </Button>
                     <Button
                       py="14px"
-                      px="58px"
-                      onClick={() => handleRsvpClick()}
+                      px="16px"
+                      onClick={() => handleViewAttendeesClick()}
                     >
-                      Join
+                      View Attendees
                     </Button>
-                  )}
-                </HStack>
-              </VStack>
+                  </>
+                ) : (
+                  <>
+                    {user ? (
+                      <Button
+                        py="14px"
+                        px="58px"
+                        onClick={() => handleRsvpClick()}
+                      >
+                        Join
+                      </Button>
+                    ) : null}
+                  </>
+                )}
+              </HStack>
             </Stack>
+
+            <HStack>
+              <CalendarIcon />
+              <Text>{getDateString(eventData?.data?.start_time)}</Text>
+              <TimeIcon />
+              <Text>{getTimeString(eventData?.data?.start_time)}</Text>
+            </HStack>
+            <HStack>
+              <GoLocation />
+              <Text>{eventData?.data?.location}</Text>
+            </HStack>
           </Stack>
 
           {/* <Text>ViewEvent Page</Text>
