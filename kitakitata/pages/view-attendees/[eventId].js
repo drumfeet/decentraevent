@@ -123,7 +123,7 @@ export default function ViewAttendees() {
               {eventData?.data?.title}
             </Heading>
             <Spacer />
-            <VStack alignItems="flex-start" justifyContent="flex-end">
+            <VStack alignItems="flex-start">
               <HStack>
                 <CalendarIcon />
                 <Text>{getDateString(eventData?.data?.start_time)}</Text>
