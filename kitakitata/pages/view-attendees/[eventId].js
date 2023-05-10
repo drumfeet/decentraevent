@@ -19,6 +19,7 @@ import {
   InputGroup,
   InputLeftElement,
   Spacer,
+  useBreakpointValue,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -44,6 +45,10 @@ export default function ViewAttendees() {
   } = useContext(AppContext)
   const [eventAttendees, setEventAttendees] = useState([])
   const [eventData, setEventData] = useState({})
+  const justifyContent = useBreakpointValue({
+    base: "flex-start",
+    md: "flex-end",
+  })
 
   const handleDownload = () => {
     const csvData = eventAttendees
@@ -111,20 +116,20 @@ export default function ViewAttendees() {
             Change Cover
           </Button>
         </Box>
-
         <Stack spacing="8px">
-          <HStack>
-            <Heading fontSize="28px" fontWeight="500">
+          <Stack direction={{ base: "column", md: "row" }}>
+            <Heading fontSize="28px" fontWeight="500" noOfLines={1}>
               {eventData?.data?.title}
             </Heading>
-            <HStack flex="1" ml="auto" justifyContent="flex-end">
+            <Spacer />
+            <HStack w="100%" justifyContent={justifyContent}>
               <CalendarIcon />
               <Text>{getDateString(eventData?.data?.start_time)}</Text>
               <TimeIcon />
               <Text>{getTimeString(eventData?.data?.start_time)}</Text>
             </HStack>
-          </HStack>
-          <HStack justifyContent="flex-end">
+          </Stack>
+          <HStack justifyContent={justifyContent}>
             <GoLocation />
             <Text>{eventData?.data?.location}</Text>
           </HStack>
