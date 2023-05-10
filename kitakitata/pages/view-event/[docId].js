@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Container,
+  Flex,
   HStack,
   Heading,
   IconButton,
@@ -19,7 +20,6 @@ import { isNil, not } from "ramda"
 import { toast } from "react-toastify"
 import GoBack from "@/components/GoBack"
 import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
-import { MdDeleteForever } from "react-icons/md"
 import { GoLocation } from "react-icons/go"
 
 export default function ViewEvent() {
@@ -62,8 +62,7 @@ export default function ViewEvent() {
   }
 
   const handleDeleteEventClick = async () => {
-    toast("delete")
-    // await deleteEvent(docId)
+    await deleteEvent(docId)
   }
 
   useEffect(() => {
@@ -185,6 +184,43 @@ export default function ViewEvent() {
               <Text>{eventData?.data?.location}</Text>
             </HStack>
           </Stack>
+
+          <Flex mt="55px" direction="column">
+            <Box display="inline-block" mb="55px">
+              <Box
+                display="inline-block"
+                p="16px"
+                fontSize="24px"
+                fontWeight="500"
+                borderBottom="1px solid #000000"
+              >
+                <Text>About Event</Text>
+              </Box>
+            </Box>
+
+            <Stack spacing="14px">
+              <Box>
+                <Text fontWeight="800">Owner</Text>
+                <Text>{eventData?.data?.user_address}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="800">Organizer</Text>
+                <Text>{eventData?.data?.organizer}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="800">End Date</Text>
+                <Text>{eventData?.data?.user_address}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="800">End Time</Text>
+                <Text>{getTimeString(eventData?.data?.end_time)}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="800">Details</Text>
+                <Text>{eventData?.data?.event_details}</Text>
+              </Box>
+            </Stack>
+          </Flex>
 
           {/* <Text>ViewEvent Page</Text>
           <Text>event_id: {eventData?.data?.event_id}</Text>
