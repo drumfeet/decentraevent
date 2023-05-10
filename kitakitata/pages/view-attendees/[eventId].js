@@ -20,6 +20,7 @@ import {
   InputLeftElement,
   Spacer,
   useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -117,21 +118,24 @@ export default function ViewAttendees() {
           </Button>
         </Box>
         <Stack spacing="8px">
-          <Stack direction={{ base: "column", md: "row" }}>
-            <Heading fontSize="28px" fontWeight="500" noOfLines={1}>
+          <Stack direction={{ base: "column", md: "row" }} mb="47px">
+            <Heading fontSize="28px" fontWeight="500">
               {eventData?.data?.title}
             </Heading>
-            <HStack w="100%" justifyContent={justifyContent}>
-              <CalendarIcon />
-              <Text>{getDateString(eventData?.data?.start_time)}</Text>
-              <TimeIcon />
-              <Text>{getTimeString(eventData?.data?.start_time)}</Text>
-            </HStack>
+            <Spacer />
+            <VStack alignItems="flex-start" justifyContent="flex-end">
+              <HStack>
+                <CalendarIcon />
+                <Text>{getDateString(eventData?.data?.start_time)}</Text>
+                <TimeIcon />
+                <Text>{getTimeString(eventData?.data?.start_time)}</Text>
+              </HStack>
+              <HStack>
+                <GoLocation />
+                <Text>{eventData?.data?.location}</Text>
+              </HStack>
+            </VStack>
           </Stack>
-          <HStack justifyContent={justifyContent}>
-            <GoLocation />
-            <Text>{eventData?.data?.location}</Text>
-          </HStack>
 
           <Stack border="1px solid #667085">
             <Box p="24px">
