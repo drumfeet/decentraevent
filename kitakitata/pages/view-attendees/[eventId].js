@@ -121,7 +121,6 @@ export default function ViewAttendees() {
             <Heading fontSize="28px" fontWeight="500" noOfLines={1}>
               {eventData?.data?.title}
             </Heading>
-            <Spacer />
             <HStack w="100%" justifyContent={justifyContent}>
               <CalendarIcon />
               <Text>{getDateString(eventData?.data?.start_time)}</Text>
@@ -160,7 +159,6 @@ export default function ViewAttendees() {
                   w={{ base: "100%", md: "400px" }}
                 />
               </InputGroup>
-              <Spacer />
               <Button
                 onClick={handleDownload}
                 rightIcon={<DownloadIcon />}
