@@ -3,9 +3,23 @@ import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
 import { useState } from "react"
-import { Box, Button, Container, Text } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  Container,
+  HStack,
+  Heading,
+  IconButton,
+  Spacer,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react"
 import { isNil, not } from "ramda"
 import { toast } from "react-toastify"
+import GoBack from "@/components/GoBack"
+import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
+import { MdDeleteForever } from "react-icons/md"
 
 export default function ViewEvent() {
   const {
@@ -16,6 +30,8 @@ export default function ViewEvent() {
     getUserRsvpForEvent,
     setIsLoginModalOpen,
     deleteEvent,
+    getDateString,
+    getTimeString,
   } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
@@ -45,7 +61,8 @@ export default function ViewEvent() {
   }
 
   const handleDeleteEventClick = async () => {
-    await deleteEvent(docId)
+    toast("delete")
+    // await deleteEvent(docId)
   }
 
   useEffect(() => {
@@ -80,8 +97,82 @@ export default function ViewEvent() {
   return (
     <>
       <Layout>
-        <Container maxW={"6xl"} my={28}>
-          <Text>ViewEvent Page</Text>
+        <Container maxW={"8xl"}>
+          <Box justifyContent="flex-start" my="28px">
+            <GoBack />
+          </Box>
+
+          <Box
+            h="291px"
+            bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
+            position="relative"
+            mt="14px"
+            mb="38px"
+          ></Box>
+
+          <Stack spacing="8px">
+            <Stack direction={{ base: "column", md: "row" }} mb="47px">
+              <Heading fontSize="28px" fontWeight="500">
+                {eventData?.data?.title}
+              </Heading>
+              <Spacer />
+              <VStack alignItems="flex-start">
+                <HStack>
+                  {isEventOwner ? (
+                    <>
+                      <IconButton
+                        icon={<DeleteIcon />}
+                        bg="white"
+                        color="black"
+                        _hover={{
+                          borderColor: "white",
+                          borderWidth: "1px",
+                          boxShadow: "4px 4px 0px #000000",
+                          bg: "black",
+                          color: "white",
+                        }}
+                        onClick={() => handleDeleteEventClick()}
+                      ></IconButton>
+                      <Button
+                        border="1px solid #000000"
+                        bg="white"
+                        color="black"
+                        py="14px"
+                        px="16px"
+                        _hover={{
+                          borderColor: "white",
+                          borderWidth: "1px",
+                          boxShadow: "4px 4px 0px #000000",
+                          bg: "black",
+                          color: "white",
+                        }}
+                        onClick={() => handleEditEventClick()}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        py="14px"
+                        px="16px"
+                        onClick={() => handleViewAttendeesClick()}
+                      >
+                        View Attendees
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      py="14px"
+                      px="58px"
+                      onClick={() => handleRsvpClick()}
+                    >
+                      Join
+                    </Button>
+                  )}
+                </HStack>
+              </VStack>
+            </Stack>
+          </Stack>
+
+          {/* <Text>ViewEvent Page</Text>
           <Text>event_id: {eventData?.data?.event_id}</Text>
           <Text>user_address: {eventData?.data?.user_address}</Text>
           <Text>date: {eventData?.data?.date}</Text>
@@ -124,7 +215,7 @@ export default function ViewEvent() {
                 Delete Event
               </Button>
             )}
-          </Box>
+          </Box> */}
         </Container>
       </Layout>
     </>
