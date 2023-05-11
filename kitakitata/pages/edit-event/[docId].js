@@ -180,7 +180,7 @@ export default function EditEvent() {
                   handleUpdateEventClick()
                 }}
               >
-                Create Event
+                Update Event
               </Button>
             </Stack>
           </Box>
