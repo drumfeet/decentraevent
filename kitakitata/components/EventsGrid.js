@@ -1,4 +1,12 @@
-import { Button, Flex, Grid, GridItem, HStack } from "@chakra-ui/react"
+import {
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Skeleton,
+  Stack,
+} from "@chakra-ui/react"
 import CardSmall from "./CardSmall"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -40,27 +48,41 @@ export default function EventsGrid({ showPagination = true }) {
 
   return (
     <>
-      <Grid
-        templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
-        gap={6}
-        justifyItems="center"
-      >
-        {eventsToShow.map((event) => {
-          return (
-            <GridItem
-              p="16px"
-              w="100%"
-              maxW="301px"
-              maxH="297px"
-              key={event.id}
-              borderWidth="1px"
-              borderColor="#1D2939"
-            >
-              <CardSmall event={event} />
-            </GridItem>
-          )
-        })}
-      </Grid>
+      {eventsToShow.length > 0 ? (
+        <Grid
+          templateColumns={[
+            "repeat(1, 1fr)",
+            "repeat(2, 1fr)",
+            "repeat(3, 1fr)",
+          ]}
+          gap={6}
+          justifyItems="center"
+        >
+          {eventsToShow.map((event) => {
+            return (
+              <GridItem
+                p="16px"
+                w="100%"
+                maxW="301px"
+                maxH="297px"
+                key={event.id}
+                borderWidth="1px"
+                borderColor="#1D2939"
+              >
+                <CardSmall event={event} />
+              </GridItem>
+            )
+          })}
+        </Grid>
+      ) : (
+        <Stack>
+          <Skeleton minH="50px" />
+          <Skeleton minH="50px" />
+          <Skeleton minH="50px" />
+          <Skeleton minH="50px" />
+          <Skeleton minH="50px" />
+        </Stack>
+      )}
 
       {showPagination && (
         <Flex justifyContent="space-between" alignItems="center" mt="8">
