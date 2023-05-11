@@ -128,7 +128,7 @@ export default function CreateEvent() {
                   borderColor="#98A2B3"
                 />
               </FormControl>
-              <FormControl id="places">
+              <FormControl id="places" hidden={true}>
                 <Input
                   placeholder="Google Places"
                   ref={ref}
