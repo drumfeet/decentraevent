@@ -98,8 +98,8 @@ export default function ViewEvent() {
     <>
       <Layout>
         <Container maxW={"8xl"}>
-          <Box justifyContent="flex-start" my="28px">
-            <GoBack />
+          <Box justifyContent="flex-start" mt="58px" mb="38px">
+            {/* <GoBack /> */}
           </Box>
 
           <Box
@@ -165,14 +165,13 @@ export default function ViewEvent() {
                         px="58px"
                         onClick={() => handleRsvpClick()}
                       >
-                        Join
+                        {userRsvpData?.isGoing ? "Leave" : "Join"}
                       </Button>
                     ) : null}
                   </>
                 )}
               </HStack>
             </Stack>
-
             <HStack>
               <CalendarIcon />
               <Text>{getDateString(eventData?.data?.start_time)}</Text>
@@ -221,51 +220,6 @@ export default function ViewEvent() {
               </Box>
             </Stack>
           </Flex>
-
-          {/* <Text>ViewEvent Page</Text>
-          <Text>event_id: {eventData?.data?.event_id}</Text>
-          <Text>user_address: {eventData?.data?.user_address}</Text>
-          <Text>date: {eventData?.data?.date}</Text>
-          <Text>event title: {eventData?.data?.title}</Text>
-          <Text>organizer: {eventData?.data?.organizer}</Text>
-          <Text>location: {eventData?.data?.location}</Text>
-          <Text>start_time: {eventData?.data?.start_time}</Text>
-          <Text>end_time: {eventData?.data?.end_time}</Text>
-          <Text>event_details: {eventData?.data?.event_details}</Text>
-          <Text>
-            Is user going to the event? {String(userRsvpData?.isGoing)}
-          </Text>
-          <Text>Is user owner of the event? {String(isEventOwner)}</Text>
-          <Button
-            disabled={true}
-            onClick={() => {
-              handleRsvpClick()
-            }}
-          >
-            {userRsvpData?.isGoing ? "Leave" : "Join"}
-          </Button>
-          <Text>
-            Only owner of the event can view attendees, edit/delete event
-          </Text>
-          <Box>
-            {isEventOwner && (
-              <Button onClick={() => handleViewAttendeesClick()}>
-                View Attendees
-              </Button>
-            )}
-          </Box>
-          <Box>
-            {isEventOwner && (
-              <Button onClick={() => handleEditEventClick()}>Edit Event</Button>
-            )}
-          </Box>
-          <Box>
-            {isEventOwner && (
-              <Button onClick={() => handleDeleteEventClick()}>
-                Delete Event
-              </Button>
-            )}
-          </Box> */}
         </Container>
       </Layout>
     </>
