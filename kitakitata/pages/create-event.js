@@ -28,7 +28,6 @@ import { Search2Icon } from "@chakra-ui/icons"
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
   const [eventData, setEventData] = useState({})
-  const [placeData, setPlaceData] = useState({})
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
 
   const handleSwitchChange = (e) => {
@@ -185,9 +184,14 @@ export default function CreateEvent() {
                   <FormHelperText>Location</FormHelperText>
                   <Input
                     placeholder="Location"
-                    onChange={handleInputChange}
                     maxLength={"150"}
                     borderColor="#98A2B3"
+                    onChange={(e) =>
+                      setEventData({
+                        ...eventData,
+                        location: { name: e.target.value },
+                      })
+                    }
                   />
                 </FormControl>
               )}
