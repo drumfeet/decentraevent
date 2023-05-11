@@ -39,7 +39,7 @@ export default function CreateEvent() {
       const locationData = {
         name: place?.name,
         place_id: place?.place_id,
-        formattedAddress: place?.formattedAddress,
+        formatted_address: place?.formatted_address,
         address_components: place?.address_components,
       }
       console.log("onPlaceSelected : locationData", locationData)
