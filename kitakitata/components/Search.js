@@ -38,7 +38,7 @@ export default function Search() {
           borderRadius={0}
         />
       </InputGroup>
-      <Button py="10px" px="50px" onClick={() => handlelSearchClick()}>
+      <Button py="10px" px="54px" onClick={() => handlelSearchClick()}>
         Search
       </Button>
     </Stack>
