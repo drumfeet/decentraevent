@@ -50,6 +50,9 @@ export default function ViewAttendees() {
     base: "flex-start",
     md: "flex-end",
   })
+  const handleChangeCoverClick = () => {
+    toast("Feature coming soon!")
+  }
 
   const handleDownload = () => {
     const csvData = eventAttendees
@@ -113,6 +116,7 @@ export default function ViewAttendees() {
               borderWidth: "1px",
               boxShadow: "4px 4px 0px #000000",
             }}
+            onClick={handleChangeCoverClick}
           >
             Change Cover
           </Button>
