@@ -7,7 +7,7 @@ export default function Feature() {
     <>
       <Container maxW="5xl">
         <Flex flexDirection="column" mt="88px" mb="58px">
-          <Heading textAlign="center" fontSize="48px">
+          <Heading textAlign="center" fontSize="48px" mb="32px">
             Find Events
           </Heading>
           <Search />

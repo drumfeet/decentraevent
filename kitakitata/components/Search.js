@@ -15,12 +15,8 @@ export default function Search() {
   }
 
   return (
-    <Stack
-      spacing={{ base: 4, md: 0 }}
-      direction={{ base: "column", md: "row" }}
-      mt={{ md: "16px" }}
-    >
-      <InputGroup mr={{ base: 0, md: "16px" }}>
+    <Stack direction={{ base: "column", md: "row" }}>
+      <InputGroup>
         <InputLeftElement
           pointerEvents="none"
           children={<CalendarIcon color="black.border" />}
