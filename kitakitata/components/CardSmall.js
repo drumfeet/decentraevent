@@ -30,7 +30,10 @@ export default function CardSmall({ event }) {
   }
 
   const handleViewEvent = (metadata) => {
-    window.open(`/view-event/${metadata.id}`, "_blank")
+    // window.open(`/view-event/${metadata.id}`, "_blank")
+
+    const title = metadata.data.title.replace(/ /g, "-")
+    window.open(`/${title}/${metadata.data.event_id}`, "_blank")
   }
 
   return (
