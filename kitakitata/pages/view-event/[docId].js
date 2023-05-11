@@ -198,10 +198,10 @@ export default function ViewEvent() {
             </Box>
 
             <Stack spacing="14px">
-              <Box>
+              {/* <Box>
                 <Text fontWeight="800">Owner</Text>
                 <Text>{eventData?.data?.user_address}</Text>
-              </Box>
+              </Box> */}
               <Box>
                 <Text fontWeight="800">Organizer</Text>
                 <Text>{eventData?.data?.organizer}</Text>
