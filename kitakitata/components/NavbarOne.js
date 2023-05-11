@@ -76,7 +76,7 @@ export default function NavbarOne() {
 
           {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
-              <Stack as={"nav"} spacing={4}>
+              <Stack as={"nav"} spacing={4} fontSize="18px" fontWeight="400">
                 {Links.map((link) => (
                   <NavLink key={link.name} to={link.url}>
                     {link.name}
