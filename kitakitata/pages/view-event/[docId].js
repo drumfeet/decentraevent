@@ -208,7 +208,7 @@ export default function ViewEvent() {
               </Box>
               <Box>
                 <Text fontWeight="800">End Date</Text>
-                <Text>{eventData?.data?.user_address}</Text>
+                <Text>{getDateString(eventData?.data?.end_time)}</Text>
               </Box>
               <Box>
                 <Text fontWeight="800">End Time</Text>

@@ -94,7 +94,7 @@ export default function CreateEvent() {
                 <Input
                   placeholder="Event Title"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"75"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -102,7 +102,7 @@ export default function CreateEvent() {
                 <Input
                   placeholder="Organizer"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"75"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -110,7 +110,7 @@ export default function CreateEvent() {
                 <Input
                   placeholder="Location"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"150"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -138,7 +138,7 @@ export default function CreateEvent() {
                 <Textarea
                   placeholder="Details"
                   onChange={handleInputChange}
-                  maxLength={"250"}
+                  maxLength={"800"}
                   borderColor="#98A2B3"
                 />
               </FormControl>

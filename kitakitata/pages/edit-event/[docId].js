@@ -116,7 +116,7 @@ export default function EditEvent() {
                   value={eventData?.title}
                   placeholder="Event Title"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"75"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -126,7 +126,7 @@ export default function EditEvent() {
                   value={eventData?.organizer}
                   placeholder="Organizer"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"75"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -136,7 +136,7 @@ export default function EditEvent() {
                   value={eventData?.location}
                   placeholder="Location"
                   onChange={handleInputChange}
-                  maxLength={"100"}
+                  maxLength={"150"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
@@ -168,7 +168,7 @@ export default function EditEvent() {
                   value={eventData?.event_details}
                   placeholder="Details"
                   onChange={handleInputChange}
-                  maxLength={"250"}
+                  maxLength={"800"}
                   borderColor="#98A2B3"
                 />
               </FormControl>
