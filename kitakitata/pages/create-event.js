@@ -12,25 +12,49 @@ import {
   Divider,
   FormHelperText,
   Container,
+  InputGroup,
+  InputLeftElement,
+  Text,
+  Switch,
+  Flex,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { usePlacesWidget } from "react-google-autocomplete"
+import { Search2Icon } from "@chakra-ui/icons"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
   const [eventData, setEventData] = useState({})
+  const [placeData, setPlaceData] = useState({})
+  const [useGooglePlaces, setUseGooglePlaces] = useState(false)
+
+  const handleSwitchChange = (e) => {
+    setUseGooglePlaces(e.target.checked)
+  }
 
   const { ref } = usePlacesWidget({
     apiKey:
-      process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ||
-      process.env.GOOGLE_PLACES_API_KEY,
+      process.env.GOOGLE_PLACES_API_KEY ||
+      process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY,
     onPlaceSelected: (place) => {
-      console.log(place)
+      const locationData = {
+        name: place?.name,
+        place_id: place?.place_id,
+        formattedAddress: place?.formattedAddress,
+        address_components: place?.address_components,
+      }
+      console.log("onPlaceSelected : locationData", locationData)
+      setEventData((eventData) => {
+        return {
+          ...eventData,
+          location: locationData,
+        }
+      })
     },
     options: {
       types: ["geocode", "establishment"],
@@ -67,6 +91,7 @@ export default function CreateEvent() {
     }
 
     const eventDataCopy = { ...eventData }
+    console.log("handleCreateEventClick() eventData", eventData)
     await createEvent(eventDataCopy)
   }
 
@@ -105,6 +130,7 @@ export default function CreateEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
+                <FormHelperText>Event Title</FormHelperText>
                 <Input
                   placeholder="Event Title"
                   onChange={handleInputChange}
@@ -113,6 +139,7 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
+                <FormHelperText>Organizer</FormHelperText>
                 <Input
                   placeholder="Organizer"
                   onChange={handleInputChange}
@@ -120,22 +147,91 @@ export default function CreateEvent() {
                   borderColor="#98A2B3"
                 />
               </FormControl>
-              <FormControl id="location">
-                <Input
-                  placeholder="Location"
-                  onChange={handleInputChange}
-                  maxLength={"150"}
-                  borderColor="#98A2B3"
+
+              {/* <Text>Google Location</Text>
+              <Switch
+                // ml={2}
+                isChecked={useGooglePlaces}
+                onChange={handleSwitchChange}
+              /> */}
+
+              <FormControl display="flex" alignItems="center">
+                <FormLabel>Google Location</FormLabel>
+                <Switch
+                  isChecked={useGooglePlaces}
+                  onChange={handleSwitchChange}
                 />
               </FormControl>
-              <FormControl id="places">
-                <Input
-                  placeholder="Google Places"
-                  ref={ref}
-                  maxLength={"150"}
-                  borderColor="#98A2B3"
-                />
-              </FormControl>
+
+              {useGooglePlaces ? (
+                <FormControl id="location">
+                  <FormHelperText>Google Location</FormHelperText>
+                  <InputGroup>
+                    <InputLeftElement>
+                      <Search2Icon color="gray.500" />
+                    </InputLeftElement>
+                    <Input
+                      placeholder="Google Places"
+                      borderColor="#98A2B3"
+                      ref={ref}
+                      onChange={(e) =>
+                        setEventData({
+                          ...eventData,
+                          location: { name: e.target.value },
+                        })
+                      }
+                    />
+                  </InputGroup>
+                </FormControl>
+              ) : (
+                <FormControl id="location">
+                  <FormHelperText>Location</FormHelperText>
+                  <Input
+                    placeholder="Location"
+                    onChange={handleInputChange}
+                    maxLength={"150"}
+                    borderColor="#98A2B3"
+                  />
+                </FormControl>
+              )}
+              {/* <FormControl
+              display="flex"
+               flexDirection="row" 
+              alignItems="center"
+              > */}
+
+              {/* </FormControl> */}
+
+              {/* <Stack>
+                <FormControl id="location">
+                  <FormHelperText>Location</FormHelperText>
+                  <Input
+                    placeholder="Location"
+                    onChange={handleInputChange}
+                    maxLength={"150"}
+                    borderColor="#98A2B3"
+                  />
+                </FormControl>
+                <FormControl id="location">
+                  <FormHelperText>Google Places</FormHelperText>
+                  <InputGroup>
+                    <InputLeftElement>
+                      <Search2Icon color="gray.500" />
+                    </InputLeftElement>
+                    <Input
+                      placeholder="Google Places"
+                      borderColor="#98A2B3"
+                      ref={ref}
+                      onChange={(e) =>
+                        setEventData({
+                          ...eventData,
+                          location: { name: e.target.value },
+                        })
+                      }
+                    />
+                  </InputGroup>
+                </FormControl>
+              </Stack> */}
               <FormControl id="start_time">
                 <FormHelperText>Local Start Time</FormHelperText>
                 <Input

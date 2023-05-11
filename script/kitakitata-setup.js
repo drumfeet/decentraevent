@@ -29,7 +29,7 @@ const schema_events = {
       type: "string",
     },
     location: {
-      type: "string",
+      type: "object",
     },
     start_time: {
       type: "number",
