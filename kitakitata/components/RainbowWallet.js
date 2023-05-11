@@ -122,7 +122,7 @@ export default function RainbowWallet() {
                           {account?.address.slice(0, 4)}..
                           {account?.address.slice(-4)}
                         </MenuButton>
-                        <MenuList>
+                        <MenuList fontSize="18px" fontWeight="400">
                           <MenuItem
                             onClick={async () => {
                               await router.push("/user-profile")
