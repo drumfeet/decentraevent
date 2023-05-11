@@ -16,7 +16,7 @@ import {
   InputLeftElement,
   Switch,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
@@ -29,10 +29,7 @@ export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
   const [eventData, setEventData] = useState({})
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
-
-  const handleSwitchChange = (e) => {
-    setUseGooglePlaces(e.target.checked)
-  }
+  const locationRef = useRef()
 
   const { ref } = usePlacesWidget({
     apiKey:
@@ -58,6 +55,17 @@ export default function CreateEvent() {
       fields: ["name", "place_id", "formatted_address", "address_components"],
     },
   })
+
+  const clearLocation = () => {
+    setEventData({ ...eventData, location: null })
+    ref.current.value = null
+    locationRef.current.value = null
+  }
+
+  const handleSwitchChange = (e) => {
+    setUseGooglePlaces(e.target.checked)
+    clearLocation()
+  }
 
   const isRequiredInputValid = () => {
     if (
@@ -154,38 +162,26 @@ export default function CreateEvent() {
                   Enable Google Maps
                 </FormLabel>
                 <Switch
+                  colorScheme="teal"
                   isChecked={useGooglePlaces}
                   onChange={handleSwitchChange}
                 />
               </FormControl>
 
-              {useGooglePlaces ? (
-                <FormControl id="location" style={{ marginTop: "0px" }}>
-                  <FormHelperText>Google Location</FormHelperText>
-                  <InputGroup>
-                    <InputLeftElement>
-                      <Search2Icon color="gray.500" />
-                    </InputLeftElement>
-                    <Input
-                      placeholder="Google Location"
-                      borderColor="#98A2B3"
-                      ref={ref}
-                      onChange={(e) =>
-                        setEventData({
-                          ...eventData,
-                          location: { name: e.target.value },
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </FormControl>
-              ) : (
-                <FormControl id="location" style={{ marginTop: "0px" }}>
-                  <FormHelperText>Location</FormHelperText>
+              <FormControl
+                id="location"
+                style={{ marginTop: "0px" }}
+                hidden={!useGooglePlaces}
+              >
+                <FormHelperText>Google Location</FormHelperText>
+                <InputGroup>
+                  <InputLeftElement>
+                    <Search2Icon color="gray.500" />
+                  </InputLeftElement>
                   <Input
-                    placeholder="Location"
-                    maxLength={"150"}
+                    placeholder="Google Location"
                     borderColor="#98A2B3"
+                    ref={ref}
                     onChange={(e) =>
                       setEventData({
                         ...eventData,
@@ -193,8 +189,28 @@ export default function CreateEvent() {
                       })
                     }
                   />
-                </FormControl>
-              )}
+                </InputGroup>
+              </FormControl>
+
+              <FormControl
+                id="location"
+                style={{ marginTop: "0px" }}
+                hidden={useGooglePlaces}
+              >
+                <FormHelperText>Location</FormHelperText>
+                <Input
+                  placeholder="Location"
+                  borderColor="#98A2B3"
+                  ref={locationRef}
+                  maxLength={"150"}
+                  onChange={(e) =>
+                    setEventData({
+                      ...eventData,
+                      location: { name: e.target.value },
+                    })
+                  }
+                />
+              </FormControl>
 
               <FormControl id="start_time">
                 <FormHelperText>Local Start Time</FormHelperText>
