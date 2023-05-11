@@ -16,6 +16,8 @@ import {
   Avatar,
   AvatarBadge,
   IconButton,
+  FormHelperText,
+  Center,
 } from "@chakra-ui/react"
 import GoBack from "@/components/GoBack"
 import { GoCloudUpload } from "react-icons/go"
@@ -109,55 +111,65 @@ export default function Profile() {
 
             <Stack spacing="24px" p="32px">
               <FormControl id="photo">
-                <Avatar size="lg" src="">
-                  <AvatarBadge
-                    as={IconButton}
-                    size="xs"
-                    rounded="full"
-                    top="-10px"
-                    aria-label="remove Photo"
-                    onClick={() => {
-                      toast("Feature coming soon!")
-                    }}
-                    icon={<SmallCloseIcon />}
-                  />
-                </Avatar>
+                <Center>
+                  <Avatar size="lg" src="">
+                    <AvatarBadge
+                      as={IconButton}
+                      size="xs"
+                      rounded="full"
+                      top="-10px"
+                      aria-label="remove Photo"
+                      onClick={() => {
+                        toast("Feature coming soon!")
+                      }}
+                      icon={<SmallCloseIcon />}
+                    />
+                  </Avatar>
+                </Center>
               </FormControl>
 
               <FormControl id="name" isRequired>
+                <FormHelperText>Name</FormHelperText>
                 <Input
                   value={userProfileData.name}
                   placeholder="Name"
                   type="text"
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
+                  maxLength={"75"}
                 />
               </FormControl>
               <FormControl id="email" isRequired>
+                <FormHelperText>Email</FormHelperText>
                 <Input
                   value={userProfileData.email}
                   placeholder="your-email@example.com"
                   type="email"
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
+                  maxLength={"75"}
                 />
               </FormControl>
               <FormControl id="company">
+                <FormHelperText>Company</FormHelperText>
                 <Input
                   value={userProfileData.company}
                   placeholder="Company"
                   type="text"
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
+                  maxLength={"75"}
                 />
               </FormControl>
               <FormControl id="job_title">
+                <FormHelperText>Job Title</FormHelperText>
                 <Input
                   value={userProfileData.job_title}
                   placeholder="Job Title"
                   type="text"
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
+                  maxLength={"75"}
                 />
               </FormControl>
 
