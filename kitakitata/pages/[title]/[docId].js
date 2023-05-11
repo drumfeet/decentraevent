@@ -79,6 +79,10 @@ export default function ViewEvent() {
   useEffect(() => {
     ;(async () => {
       if (user && initDB && eventData) {
+        const _placeId = eventData?.data.location.place_id
+        const _placeUrl = `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+        console.log(`placeUrl: ${_placeUrl}`)
+
         const _userRsvp = await getUserRsvpForEvent(
           user.wallet.toLowerCase(),
           eventData?.data?.event_id

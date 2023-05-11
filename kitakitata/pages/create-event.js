@@ -19,10 +19,24 @@ import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
+import { usePlacesWidget } from "react-google-autocomplete"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
   const [eventData, setEventData] = useState({})
+
+  const { ref } = usePlacesWidget({
+    apiKey:
+      process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY ||
+      process.env.GOOGLE_PLACES_API_KEY,
+    onPlaceSelected: (place) => {
+      console.log(place)
+    },
+    options: {
+      types: ["geocode", "establishment"],
+      fields: ["name", "place_id", "formatted_address", "address_components"],
+    },
+  })
 
   const isRequiredInputValid = () => {
     if (
@@ -110,6 +124,14 @@ export default function CreateEvent() {
                 <Input
                   placeholder="Location"
                   onChange={handleInputChange}
+                  maxLength={"150"}
+                  borderColor="#98A2B3"
+                />
+              </FormControl>
+              <FormControl id="places">
+                <Input
+                  placeholder="Google Places"
+                  ref={ref}
                   maxLength={"150"}
                   borderColor="#98A2B3"
                 />
