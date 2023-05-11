@@ -14,11 +14,9 @@ import {
   Container,
   InputGroup,
   InputLeftElement,
-  Text,
   Switch,
-  Flex,
 } from "@chakra-ui/react"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isEmpty, isNil } from "ramda"
 import { toast } from "react-toastify"
@@ -148,15 +146,14 @@ export default function CreateEvent() {
                 />
               </FormControl>
 
-              {/* <Text>Google Location</Text>
-              <Switch
-                // ml={2}
-                isChecked={useGooglePlaces}
-                onChange={handleSwitchChange}
-              /> */}
-
-              <FormControl display="flex" alignItems="center">
-                <FormLabel>Google Location</FormLabel>
+              <FormControl display="flex" id="switch">
+                <FormLabel
+                  style={{ marginBottom: "0px" }}
+                  fontSize="12px"
+                  fontWeight="400"
+                >
+                  Enable Google Maps
+                </FormLabel>
                 <Switch
                   isChecked={useGooglePlaces}
                   onChange={handleSwitchChange}
@@ -164,14 +161,14 @@ export default function CreateEvent() {
               </FormControl>
 
               {useGooglePlaces ? (
-                <FormControl id="location">
+                <FormControl id="location" style={{ marginTop: "0px" }}>
                   <FormHelperText>Google Location</FormHelperText>
                   <InputGroup>
                     <InputLeftElement>
                       <Search2Icon color="gray.500" />
                     </InputLeftElement>
                     <Input
-                      placeholder="Google Places"
+                      placeholder="Google Location"
                       borderColor="#98A2B3"
                       ref={ref}
                       onChange={(e) =>
@@ -184,7 +181,7 @@ export default function CreateEvent() {
                   </InputGroup>
                 </FormControl>
               ) : (
-                <FormControl id="location">
+                <FormControl id="location" style={{ marginTop: "0px" }}>
                   <FormHelperText>Location</FormHelperText>
                   <Input
                     placeholder="Location"
@@ -194,44 +191,7 @@ export default function CreateEvent() {
                   />
                 </FormControl>
               )}
-              {/* <FormControl
-              display="flex"
-               flexDirection="row" 
-              alignItems="center"
-              > */}
 
-              {/* </FormControl> */}
-
-              {/* <Stack>
-                <FormControl id="location">
-                  <FormHelperText>Location</FormHelperText>
-                  <Input
-                    placeholder="Location"
-                    onChange={handleInputChange}
-                    maxLength={"150"}
-                    borderColor="#98A2B3"
-                  />
-                </FormControl>
-                <FormControl id="location">
-                  <FormHelperText>Google Places</FormHelperText>
-                  <InputGroup>
-                    <InputLeftElement>
-                      <Search2Icon color="gray.500" />
-                    </InputLeftElement>
-                    <Input
-                      placeholder="Google Places"
-                      borderColor="#98A2B3"
-                      ref={ref}
-                      onChange={(e) =>
-                        setEventData({
-                          ...eventData,
-                          location: { name: e.target.value },
-                        })
-                      }
-                    />
-                  </InputGroup>
-                </FormControl>
-              </Stack> */}
               <FormControl id="start_time">
                 <FormHelperText>Local Start Time</FormHelperText>
                 <Input
