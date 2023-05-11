@@ -35,6 +35,14 @@ const overrides = {
           },
           borderRadius: "0",
         },
+        ghost: {
+          _hover: {
+            borderColor: "white",
+            borderWidth: "1px",
+            boxShadow: "4px 4px 0px black",
+            bg: "white",
+          },
+        },
       },
     },
     Input: {
