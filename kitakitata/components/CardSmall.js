@@ -71,7 +71,7 @@ export default function CardSmall({ event }) {
           </HStack>
           <HStack fontSize="xs" color="gray.500">
             <GoLocation />
-            <Text>{event?.data?.location}</Text>
+            <Text>{event?.data?.location?.name}</Text>
           </HStack>
           {/* <Flex justifyContent="flex-end">
           <ExternalLinkIcon

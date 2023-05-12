@@ -33,6 +33,7 @@ import {
   TimeIcon,
 } from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
+import Link from "next/link"
 
 export default function ViewAttendees() {
   const router = useRouter()
@@ -46,10 +47,13 @@ export default function ViewAttendees() {
   } = useContext(AppContext)
   const [eventAttendees, setEventAttendees] = useState([])
   const [eventData, setEventData] = useState({})
+  const [placeUrl, setPlaceUrl] = useState(null)
+
   const justifyContent = useBreakpointValue({
     base: "flex-start",
     md: "flex-end",
   })
+
   const handleChangeCoverClick = () => {
     toast("Feature coming soon!")
   }
@@ -72,6 +76,15 @@ export default function ViewAttendees() {
 
     console.log("<<handleDownload")
   }
+
+  useEffect(() => {
+    const _placeId = eventData?.data?.location?.place_id
+    const _placeUrl = _placeId
+      ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+      : null
+    setPlaceUrl(_placeUrl)
+    console.log(`placeUrl: ${_placeUrl}`)
+  }, [eventData])
 
   useEffect(() => {
     ;(async () => {
@@ -136,7 +149,24 @@ export default function ViewAttendees() {
               </HStack>
               <HStack>
                 <GoLocation />
-                <Text>{eventData?.data?.location}</Text>
+                {placeUrl ? (
+                  <Link href={placeUrl} target="_blank">
+                    <Text
+                      _hover={{
+                        px: "8px",
+                        borderColor: "black",
+                        borderWidth: "1px",
+                        boxShadow: "4px 4px 0px black",
+                        bg: "white",
+                      }}
+                      textDecoration="underline"
+                    >
+                      {eventData?.data?.location?.name}
+                    </Text>
+                  </Link>
+                ) : (
+                  <Text>{eventData?.data?.location?.name}</Text>
+                )}
               </HStack>
             </VStack>
           </Stack>

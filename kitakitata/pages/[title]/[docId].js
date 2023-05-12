@@ -21,6 +21,7 @@ import { toast } from "react-toastify"
 import GoBack from "@/components/GoBack"
 import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
+import Link from "next/link"
 
 export default function ViewEvent() {
   const {
@@ -40,6 +41,7 @@ export default function ViewEvent() {
   const [eventData, setEventData] = useState({})
   const [userRsvpData, setUserRsvpData] = useState({})
   const [isEventOwner, setIsEventOwner] = useState(false)
+  const [placeUrl, setPlaceUrl] = useState(null)
 
   const handleRsvpClick = async () => {
     if (isNil(user)) {
@@ -79,8 +81,11 @@ export default function ViewEvent() {
   useEffect(() => {
     ;(async () => {
       if (user && initDB && eventData) {
-        const _placeId = eventData?.data.location.place_id
-        const _placeUrl = `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+        const _placeId = eventData?.data?.location?.place_id
+        const _placeUrl = _placeId
+          ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+          : null
+        setPlaceUrl(_placeUrl)
         console.log(`placeUrl: ${_placeUrl}`)
 
         const _userRsvp = await getUserRsvpForEvent(
@@ -185,7 +190,24 @@ export default function ViewEvent() {
             </HStack>
             <HStack>
               <GoLocation />
-              <Text>{eventData?.data?.location}</Text>
+              {placeUrl ? (
+                <Link href={placeUrl} target="_blank">
+                  <Text
+                    _hover={{
+                      px: "8px",
+                      borderColor: "black",
+                      borderWidth: "1px",
+                      boxShadow: "4px 4px 0px black",
+                      bg: "white",
+                    }}
+                    textDecoration="underline"
+                  >
+                    {eventData?.data?.location?.name}
+                  </Text>
+                </Link>
+              ) : (
+                <Text>{eventData?.data?.location?.name}</Text>
+              )}
             </HStack>
           </Stack>
 
