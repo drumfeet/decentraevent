@@ -31,11 +31,12 @@ export default function EditEvent() {
   const [eventData, setEventData] = useState({
     title: "",
     organizer: "",
-    location: "",
+    location: {},
     start_time: TIME_NUMERIC,
     end_time: TIME_NUMERIC,
     event_details: "",
   })
+  const [placeUrl, setPlaceUrl] = useState(null)
 
   const handleInputChange = (event) => {
     setEventData({
@@ -62,6 +63,15 @@ export default function EditEvent() {
 
     return timeIsoNumeric
   }
+
+  useEffect(() => {
+    const _placeId = eventData?.data?.location?.place_id
+    const _placeUrl = _placeId
+      ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+      : null
+    setPlaceUrl(_placeUrl)
+    console.log(`placeUrl: ${_placeUrl}`)
+  }, [eventData])
 
   useEffect(() => {
     ;(async () => {
@@ -111,7 +121,7 @@ export default function EditEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
-                <FormHelperText>Event Title</FormHelperText>
+                <FormLabel>Event Title</FormLabel>
                 <Input
                   value={eventData?.title}
                   placeholder="Event Title"
@@ -121,7 +131,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
-                <FormHelperText>Organizer</FormHelperText>
+                <FormLabel>Organizer</FormLabel>
                 <Input
                   value={eventData?.organizer}
                   placeholder="Organizer"
@@ -131,9 +141,9 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="location">
-                <FormHelperText>Location</FormHelperText>
+                <FormLabel>Location</FormLabel>
                 <Input
-                  value={eventData?.location}
+                  value={eventData?.location?.name}
                   placeholder="Location"
                   onChange={handleInputChange}
                   maxLength={"150"}
@@ -141,7 +151,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="start_time">
-                <FormHelperText>Local Start Time</FormHelperText>
+                <FormLabel>Local Start Time</FormLabel>
                 <Input
                   value={eventData?.start_time}
                   placeholder="Select Start Time"
@@ -152,7 +162,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="end_time">
-                <FormHelperText>Local End Time</FormHelperText>
+                <FormLabel>Local End Time</FormLabel>
                 <Input
                   value={eventData?.end_time}
                   placeholder="Select End Time"
@@ -163,7 +173,7 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="event_details">
-                <FormHelperText>Details</FormHelperText>
+                <FormLabel>Details</FormLabel>
                 <Textarea
                   value={eventData?.event_details}
                   placeholder="Details"

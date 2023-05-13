@@ -135,7 +135,7 @@ export default function CreateEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
-                <FormHelperText>Event Title</FormHelperText>
+                <FormLabel>Event Title</FormLabel>
                 <Input
                   placeholder="Event Title"
                   onChange={handleInputChange}
@@ -144,7 +144,7 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
-                <FormHelperText>Organizer</FormHelperText>
+                <FormLabel>Organizer</FormLabel>
                 <Input
                   placeholder="Organizer"
                   onChange={handleInputChange}
@@ -173,7 +173,7 @@ export default function CreateEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={!useGooglePlaces}
               >
-                <FormHelperText>Google Location</FormHelperText>
+                <FormLabel>Google Location</FormLabel>
                 <InputGroup>
                   <InputLeftElement>
                     <Search2Icon color="gray.500" />
@@ -197,7 +197,7 @@ export default function CreateEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={useGooglePlaces}
               >
-                <FormHelperText>Location</FormHelperText>
+                <FormLabel>Location</FormLabel>
                 <Input
                   placeholder="Location"
                   borderColor="#98A2B3"
@@ -213,7 +213,7 @@ export default function CreateEvent() {
               </FormControl>
 
               <FormControl id="start_time">
-                <FormHelperText>Local Start Time</FormHelperText>
+                <FormLabel>Local Start Time</FormLabel>
                 <Input
                   placeholder="Select Start Time"
                   size="md"
@@ -223,7 +223,7 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="end_time">
-                <FormHelperText>Local End Time</FormHelperText>
+                <FormLabel>Local End Time</FormLabel>
                 <Input
                   placeholder="Select End Time"
                   size="md"
@@ -233,6 +233,7 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="event_details">
+                <FormLabel>Details</FormLabel>
                 <Textarea
                   placeholder="Details"
                   onChange={handleInputChange}
