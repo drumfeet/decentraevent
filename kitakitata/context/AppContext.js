@@ -11,7 +11,7 @@ import LitJsSdk from "@lit-protocol/sdk-browser"
 export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-  const COLLECTION_EVENTS = "events"
+  const COLLECTION_EVENTS = "sample"
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_USERS = "users"
   const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
@@ -756,6 +756,26 @@ export const AppContextProvider = ({ children }) => {
     return `${timeString}`
   }
 
+  const isRequiredEventDataValid = (_eventData) => {
+    const { title, location, start_time, end_time } = _eventData
+
+    if (
+      isNil(title) ||
+      isNil(location) ||
+      isNil(start_time) ||
+      isNil(end_time) ||
+      isEmpty(title) ||
+      isEmpty(location) ||
+      isEmpty(start_time) ||
+      isEmpty(end_time)
+    ) {
+      toast("Title, Location, Start & End Time are required")
+      return false
+    }
+
+    return true
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -815,6 +835,7 @@ export const AppContextProvider = ({ children }) => {
         updateEventsList,
         getDateString,
         getTimeString,
+        isRequiredEventDataValid,
       }}
     >
       {children}

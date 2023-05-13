@@ -100,10 +100,10 @@ export default function EditEvent() {
       return
     }
 
-    if (isRequiredEventDataValid()) {
+    if (isRequiredEventDataValid(eventData)) {
       const eventDataCopy = { ...eventData }
       console.log("handleUpdateEventClick() eventDataCopy", eventDataCopy)
-      // await updateEvent(docId, eventDataCopy)
+      await updateEvent(docId, eventDataCopy)
     }
   }
 

@@ -72,7 +72,7 @@ export default function CreateEvent() {
       return
     }
 
-    if (isRequiredEventDataValid()) {
+    if (isRequiredEventDataValid(eventData)) {
       const eventDataCopy = { ...eventData }
       console.log("handleCreateEventClick() eventData", eventData)
       await createEvent(eventDataCopy)
