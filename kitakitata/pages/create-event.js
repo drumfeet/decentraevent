@@ -14,19 +14,22 @@ import {
   InputGroup,
   InputLeftElement,
   Switch,
+  FormHelperText,
 } from "@chakra-ui/react"
-import { useContext, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isNil } from "ramda"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
+import Link from "next/link"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
     useContext(AppContext)
   const [eventData, setEventData] = useState({})
+  const [placeUrl, setPlaceUrl] = useState(null)
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
 
@@ -85,6 +88,17 @@ export default function CreateEvent() {
       [e.target.id]: e.target.value,
     })
   }
+
+  useEffect(() => {
+    const _placeId = eventData?.location?.place_id
+    console.log("useEffect eventData", eventData)
+    console.log(`_placeId: ${_placeId}`)
+    const _placeUrl = _placeId
+      ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+      : null
+    setPlaceUrl(_placeUrl)
+    console.log(`placeUrl: ${_placeUrl}`)
+  }, [eventData])
 
   return (
     <>
@@ -187,7 +201,21 @@ export default function CreateEvent() {
                   }
                 />
               </FormControl>
-
+              <FormControl style={{ marginTop: "0px" }}>
+                {placeUrl ? (
+                  <>
+                    <Link href={placeUrl} target="_blank">
+                      <FormHelperText
+                        textDecoration="underline"
+                        fontSize="12px"
+                        fontWeight="400"
+                      >
+                        View on Google Maps
+                      </FormHelperText>
+                    </Link>
+                  </>
+                ) : null}
+              </FormControl>
               <FormControl id="start_time">
                 <FormLabel>Local Start Time</FormLabel>
                 <Input

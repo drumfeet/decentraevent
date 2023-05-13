@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout"
 import {
-  Flex,
   Box,
   FormControl,
   FormLabel,
@@ -8,8 +7,6 @@ import {
   Stack,
   Button,
   Heading,
-  Text,
-  useColorModeValue,
   Textarea,
   Container,
   Divider,
@@ -26,6 +23,7 @@ import { usePlacesWidget } from "react-google-autocomplete"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { Search2Icon } from "@chakra-ui/icons"
+import Link from "next/link"
 
 export default function EditEvent() {
   const {
@@ -87,13 +85,6 @@ export default function EditEvent() {
     clearLocation()
   }
 
-  const handleInputChange = (event) => {
-    setEventData({
-      ...eventData,
-      [event.target.id]: event.target.value,
-    })
-  }
-
   const handleUpdateEventClick = async () => {
     if (isNil(user)) {
       setIsLoginModalOpen(true)
@@ -117,8 +108,17 @@ export default function EditEvent() {
     return timeIsoNumeric
   }
 
+  const handleInputChange = (event) => {
+    setEventData({
+      ...eventData,
+      [event.target.id]: event.target.value,
+    })
+  }
+
   useEffect(() => {
-    const _placeId = eventData?.data?.location?.place_id
+    const _placeId = eventData?.location?.place_id
+    console.log("useEffect eventData", eventData)
+    console.log(`_placeId: ${_placeId}`)
     const _placeUrl = _placeId
       ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
       : null
@@ -194,7 +194,11 @@ export default function EditEvent() {
                   borderColor="#98A2B3"
                 />
               </FormControl>
-              <FormControl display="flex" id="switch">
+              <FormControl
+                //  display="flex"
+                style={{ marginBottom: "0px", display: "inline-flex" }}
+                id="switch"
+              >
                 <FormLabel
                   style={{ marginBottom: "0px" }}
                   fontSize="12px"
@@ -250,17 +254,21 @@ export default function EditEvent() {
                   }
                 />
               </FormControl>
-
-              {/* <FormControl id="location">
-                <FormLabel>Location</FormLabel>
-                <Input
-                  value={eventData?.location?.name}
-                  placeholder="Location"
-                  onChange={handleInputChange}
-                  maxLength={"150"}
-                  borderColor="#98A2B3"
-                />
-              </FormControl> */}
+              <FormControl style={{ marginTop: "0px" }}>
+                {placeUrl ? (
+                  <>
+                    <Link href={placeUrl} target="_blank">
+                      <FormHelperText
+                        textDecoration="underline"
+                        fontSize="12px"
+                        fontWeight="400"
+                      >
+                        View on Google Maps
+                      </FormHelperText>
+                    </Link>
+                  </>
+                ) : null}
+              </FormControl>
               <FormControl id="start_time">
                 <FormLabel>Local Start Time</FormLabel>
                 <Input
