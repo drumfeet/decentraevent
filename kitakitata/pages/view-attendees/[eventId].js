@@ -94,8 +94,8 @@ export default function ViewAttendees() {
         if (initDB) {
           const _eventData = await getEventWithEventId(eventId)
           console.log("view-attendees eventId", eventId)
-          setEventData(_eventData.shift())
           console.log("view-attendees _eventData", _eventData)
+          setEventData(_eventData.shift())
 
           const _eventAttendees = await getEventAttendees(eventId)
           console.log("view-attendees _eventAttendees", _eventAttendees)

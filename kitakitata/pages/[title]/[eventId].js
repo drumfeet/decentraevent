@@ -14,11 +14,8 @@ import {
   Spacer,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
-import { toast } from "react-toastify"
-import GoBack from "@/components/GoBack"
 import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
 import Link from "next/link"
@@ -26,7 +23,6 @@ import Link from "next/link"
 export default function ViewEvent() {
   const {
     initDB,
-    getEvent,
     getEventWithEventId,
     user,
     setUserRsvpForEvent,
@@ -37,7 +33,7 @@ export default function ViewEvent() {
     getTimeString,
   } = useContext(AppContext)
   const router = useRouter()
-  const { docId } = router.query
+  const { eventId } = router.query
   const [eventData, setEventData] = useState({})
   const [userRsvpData, setUserRsvpData] = useState({})
   const [isEventOwner, setIsEventOwner] = useState(false)
@@ -65,15 +61,15 @@ export default function ViewEvent() {
   }
 
   const handleDeleteEventClick = async () => {
-    await deleteEvent(docId)
+    await deleteEvent(eventData.id)
   }
 
   useEffect(() => {
     ;(async () => {
       if (initDB) {
-        const _eventData = await getEventWithEventId(docId)
-        setEventData(_eventData.shift())
+        const _eventData = await getEventWithEventId(eventId)
         console.log("ViewEvent _eventData", _eventData)
+        setEventData(_eventData.shift())
       }
     })()
   }, [initDB])
