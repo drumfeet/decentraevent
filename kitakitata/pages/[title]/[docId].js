@@ -82,6 +82,8 @@ export default function ViewEvent() {
     ;(async () => {
       if (user && initDB && eventData) {
         const _placeId = eventData?.data?.location?.place_id
+        console.log("useEffect eventData", eventData)
+        console.log(`_placeId: ${_placeId}`)
         const _placeUrl = _placeId
           ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
           : null
