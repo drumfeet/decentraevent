@@ -129,7 +129,7 @@ export default function EditEvent() {
   useEffect(() => {
     ;(async () => {
       if (initDB) {
-        const _event = await getEvent(docId)
+        const _event = await getEventWithDocId(docId)
         if (!isNil(_event?.data)) {
           setEventData({
             ...eventData,

@@ -245,14 +245,14 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEvent = async (docId) => {
+  const getEventWithDocId = async (docId) => {
     try {
       const _event = await db.cget(COLLECTION_EVENTS, docId)
-      console.log("getEvent() _event", _event)
+      console.log("getEventWithDocId() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
-      console.error("getEvent", e)
+      console.error("getEventWithDocId", e)
     }
   }
 
