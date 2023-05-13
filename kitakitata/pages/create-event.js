@@ -10,7 +10,6 @@ import {
   Textarea,
   Tooltip,
   Divider,
-  FormHelperText,
   Container,
   InputGroup,
   InputLeftElement,
@@ -18,15 +17,15 @@ import {
 } from "@chakra-ui/react"
 import { useContext, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
-import { isEmpty, isNil } from "ramda"
-import { toast } from "react-toastify"
+import { isNil } from "ramda"
 import GoBack from "@/components/GoBack"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 
 export default function CreateEvent() {
-  const { createEvent, user, setIsLoginModalOpen } = useContext(AppContext)
+  const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
+    useContext(AppContext)
   const [eventData, setEventData] = useState({})
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
@@ -62,27 +61,9 @@ export default function CreateEvent() {
     locationRef.current.value = null
   }
 
-  const handleSwitchChange = (e) => {
+  const handleLocationSwitchChange = (e) => {
     setUseGooglePlaces(e.target.checked)
     clearLocation()
-  }
-
-  const isRequiredInputValid = () => {
-    if (
-      isNil(eventData.title) ||
-      isNil(eventData.location) ||
-      isNil(eventData.start_time) ||
-      isNil(eventData.end_time) ||
-      isEmpty(eventData.title) ||
-      isEmpty(eventData.location) ||
-      isEmpty(eventData.start_time) ||
-      isEmpty(eventData.end_time)
-    ) {
-      toast("Title, Location, Start & End Time are required")
-      return false
-    }
-
-    return true
   }
 
   const handleCreateEventClick = async () => {
@@ -91,13 +72,11 @@ export default function CreateEvent() {
       return
     }
 
-    if (!isRequiredInputValid()) {
-      return
+    if (isRequiredEventDataValid()) {
+      const eventDataCopy = { ...eventData }
+      console.log("handleCreateEventClick() eventData", eventData)
+      await createEvent(eventDataCopy)
     }
-
-    const eventDataCopy = { ...eventData }
-    console.log("handleCreateEventClick() eventData", eventData)
-    await createEvent(eventDataCopy)
   }
 
   const handleInputChange = (e) => {
@@ -152,7 +131,6 @@ export default function CreateEvent() {
                   borderColor="#98A2B3"
                 />
               </FormControl>
-
               <FormControl display="flex" id="switch">
                 <FormLabel
                   style={{ marginBottom: "0px" }}
@@ -164,10 +142,9 @@ export default function CreateEvent() {
                 <Switch
                   colorScheme="teal"
                   isChecked={useGooglePlaces}
-                  onChange={handleSwitchChange}
+                  onChange={handleLocationSwitchChange}
                 />
               </FormControl>
-
               <FormControl
                 id="location"
                 style={{ marginTop: "0px" }}
@@ -191,7 +168,6 @@ export default function CreateEvent() {
                   />
                 </InputGroup>
               </FormControl>
-
               <FormControl
                 id="location"
                 style={{ marginTop: "0px" }}
