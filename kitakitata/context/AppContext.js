@@ -829,7 +829,7 @@ export const AppContextProvider = ({ children }) => {
         contractTxId,
         isLoginModalOpen,
         setIsLoginModalOpen,
-        getEvent,
+        getEventWithDocId,
         getEventWithEventId,
         getUserRsvpForEvent,
         updateEventsList,

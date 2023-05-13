@@ -29,7 +29,7 @@ export default function EditEvent() {
   const {
     initDB,
     updateEvent,
-    getEvent,
+    getEventWithDocId,
     user,
     setIsLoginModalOpen,
     isRequiredEventDataValid,
