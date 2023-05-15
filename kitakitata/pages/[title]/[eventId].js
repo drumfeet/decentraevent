@@ -76,7 +76,7 @@ export default function ViewEvent() {
 
   useEffect(() => {
     ;(async () => {
-      if (user && initDB && eventData) {
+      if (initDB && eventData) {
         const _placeId = eventData?.data?.location?.place_id
         console.log("useEffect eventData", eventData)
         console.log(`_placeId: ${_placeId}`)
@@ -86,12 +86,14 @@ export default function ViewEvent() {
         setPlaceUrl(_placeUrl)
         console.log(`placeUrl: ${_placeUrl}`)
 
-        const _userRsvp = await getUserRsvpForEvent(
-          user.wallet.toLowerCase(),
-          eventData?.data?.event_id
-        )
-        console.log("ViewEvent _userRsvp", _userRsvp)
-        setUserRsvpData(_userRsvp)
+        if (user) {
+          const _userRsvp = await getUserRsvpForEvent(
+            user.wallet.toLowerCase(),
+            eventData?.data?.event_id
+          )
+          console.log("ViewEvent _userRsvp", _userRsvp)
+          setUserRsvpData(_userRsvp)
+        }
       }
     })()
   }, [eventData])
