@@ -10,6 +10,7 @@ const schema_events = {
     "title",
     "location",
     "start_time",
+    "end_time",
   ],
   properties: {
     event_id: {
@@ -28,7 +29,7 @@ const schema_events = {
       type: "string",
     },
     location: {
-      type: "string",
+      type: "object",
     },
     start_time: {
       type: "number",
@@ -140,12 +141,6 @@ const schema_rsvp = {
     date: {
       type: "number",
     },
-    is_going: {
-      type: "boolean",
-    },
-    is_liked: {
-      type: "boolean",
-    },
     lit: {
       encryptedData: { type: "string" },
       encryptedSymmetricKey: { type: "array", items: { type: "number" } },
@@ -155,7 +150,7 @@ const schema_rsvp = {
 }
 
 const rules_rsvp = {
-  let: {
+  "let create,update": {
     docId: [
       "join",
       "-",
@@ -235,6 +230,9 @@ const schema_users = {
     },
     date: {
       type: "number",
+    },
+    display_name: {
+      type: "string",
     },
     lit: {
       encryptedData: { type: "string" },

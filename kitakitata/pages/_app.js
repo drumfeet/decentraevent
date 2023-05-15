@@ -1,5 +1,6 @@
 import { AppContextProvider } from "@/context/AppContext"
 import { ChakraProvider } from "@chakra-ui/react"
+import theme from "@/styles/theme"
 
 import "@rainbow-me/rainbowkit/styles.css"
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit"
@@ -9,10 +10,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 import { ToastContainer } from "react-toastify"
 
-const { chains, provider } = configureChains(
-  [mainnet, polygon, optimism, arbitrum],
-  [publicProvider()]
-)
+const { chains, provider } = configureChains([polygon], [publicProvider()])
 const { connectors } = getDefaultWallets({
   appName: "Kitakitata",
   chains,
@@ -29,7 +27,7 @@ export default function App({ Component, pageProps }) {
       <ToastContainer />
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
-          <ChakraProvider>
+          <ChakraProvider theme={theme}>
             <AppContextProvider>
               <Component {...pageProps} />
             </AppContextProvider>

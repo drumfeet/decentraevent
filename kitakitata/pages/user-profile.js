@@ -1,42 +1,46 @@
 import Layout from "@/components/Layout"
 import { AppContext } from "@/context/AppContext"
-import { isNil } from "ramda"
+import { isEmpty, isNil } from "ramda"
 import { useContext, useEffect, useState } from "react"
-
 import { toast } from "react-toastify"
 import {
   Button,
-  Flex,
   FormControl,
-  FormLabel,
   Heading,
   Input,
   Stack,
-  useColorModeValue,
+  Container,
+  Box,
+  Divider,
+  Text,
   Avatar,
   AvatarBadge,
   IconButton,
+  FormHelperText,
   Center,
 } from "@chakra-ui/react"
+import GoBack from "@/components/GoBack"
+import { GoCloudUpload } from "react-icons/go"
 import { SmallCloseIcon } from "@chakra-ui/icons"
 
 export default function Profile() {
-  const { handleProfileUpdate } = useContext(AppContext)
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [company, setCompany] = useState()
-  const [jobTitle, setJobTitle] = useState()
-  const { user, initDB, getUserProfile, isLoading, setIsLoading } =
+  const { setUserProfile } = useContext(AppContext)
+  const { user, initDB, getUserProfile, isLoading, setIsLoginModalOpen } =
     useContext(AppContext)
-
-  const handleNameChange = (e) => setName(e.target.value)
-  const handleEmailChange = (e) => setEmail(e.target.value)
-  const handleCompanyChange = (e) => setCompany(e.target.value)
-  const handleJobTitleChange = (e) => setJobTitle(e.target.value)
+  const [userProfileData, setUserProfileData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    job_title: "",
+  })
 
   const validateInputs = () => {
-    const newErrors = {}
-    if (isNil(name) || isNil(email)) {
+    if (
+      isNil(userProfileData.name) ||
+      isNil(userProfileData.email) ||
+      isEmpty(userProfileData.name) ||
+      isEmpty(userProfileData.email)
+    ) {
       toast("Name & Email are required")
       return false
     }
@@ -44,139 +48,157 @@ export default function Profile() {
     return true
   }
 
+  const handleSubmitClick = async () => {
+    const isValid = validateInputs()
+    if (isValid) {
+      if (isNil(user)) {
+        setIsLoginModalOpen(true)
+      } else {
+        setUserProfile(userProfileData)
+      }
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setUserProfileData({
+      ...userProfileData,
+      [e.target.id]: e.target.value || "",
+    })
+  }
+
   useEffect(() => {
     ;(async () => {
-      try {
-        if (initDB && user) {
-          const { name, email, company, job_title } = await getUserProfile()
-          setName(name)
-          setEmail(email)
-          setCompany(company)
-          setJobTitle(job_title)
-        }
-      } catch (e) {}
+      if (initDB && user) {
+        const _userProfileData = await getUserProfile()
+        setUserProfileData({
+          ...userProfileData,
+          name: _userProfileData?.name || "",
+          email: _userProfileData?.email || "",
+          company: _userProfileData?.company || "",
+          job_title: _userProfileData?.job_title || "",
+        })
+        console.log("setUserProfileData() _userProfileData", _userProfileData)
+      }
     })()
-  }, [user])
+  }, [user, initDB])
 
   return (
     <>
       <Layout>
-        <Flex
-          minH={"100vh"}
-          align={"center"}
-          justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
-        >
-          <Stack
-            spacing={4}
+        <Container maxW={"8xl"}>
+          <Box justifyContent="flex-start" my="28px">
+            <GoBack />
+          </Box>
+
+          <Box
+            mx="auto"
             w={"full"}
-            maxW={"md"}
-            bg={useColorModeValue("white", "gray.700")}
-            rounded={"xl"}
-            boxShadow={"lg"}
-            p={6}
-            my={12}
+            maxW={"462px"}
+            borderColor="black"
+            borderWidth="1px"
+            boxShadow="8px 8px 0px"
           >
-            <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
+            <Heading
+              fontSize="24px"
+              fontWeight="500"
+              color="black.text"
+              p="32px"
+              textAlign="center"
+            >
               User Profile
             </Heading>
-            <FormControl id="name">
-              <Stack direction={["column", "row"]} spacing={6}>
+            <Divider borderColor="black" />
+
+            <Stack spacing="24px" p="32px">
+              <FormControl id="photo">
                 <Center>
-                  <Avatar size="xl" src="">
+                  <Avatar size="lg" src="">
                     <AvatarBadge
                       as={IconButton}
-                      size="sm"
+                      size="xs"
                       rounded="full"
                       top="-10px"
-                      colorScheme="red"
                       aria-label="remove Photo"
                       onClick={() => {
-                        toast("working on it soon")
+                        toast("Feature coming soon!")
                       }}
                       icon={<SmallCloseIcon />}
                     />
                   </Avatar>
                 </Center>
-                <Center w="full">
-                  <Button
-                    w="full"
-                    onClick={() => {
-                      toast("working on it soon")
-                    }}
-                  >
-                    Change Photo
-                  </Button>
-                </Center>
-              </Stack>
-            </FormControl>
-            <FormControl id="name" isRequired>
-              <FormLabel>Name</FormLabel>
-              <Input
-                defaultValue={name}
-                placeholder="Name"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleNameChange}
-              />
-            </FormControl>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
-              <Input
-                defaultValue={email}
-                placeholder="your-email@example.com"
-                _placeholder={{ color: "gray.500" }}
-                type="email"
-                onChange={handleEmailChange}
-              />
-            </FormControl>
-            <FormControl id="company">
-              <FormLabel>Company</FormLabel>
-              <Input
-                defaultValue={company}
-                placeholder="Company"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleCompanyChange}
-              />
-            </FormControl>
-            <FormControl id="jobTitle">
-              <FormLabel>Job Title</FormLabel>
-              <Input
-                defaultValue={jobTitle}
-                placeholder="Job Title"
-                _placeholder={{ color: "gray.500" }}
-                type="text"
-                onChange={handleJobTitleChange}
-              />
-            </FormControl>
-            <Stack spacing={6} direction={["column", "row"]}>
+              </FormControl>
+
+              <FormControl id="name" isRequired>
+                <FormHelperText>Name</FormHelperText>
+                <Input
+                  value={userProfileData.name}
+                  placeholder="Name"
+                  type="text"
+                  onChange={handleInputChange}
+                  borderColor="#98A2B3"
+                  maxLength={"75"}
+                />
+              </FormControl>
+              <FormControl id="email" isRequired>
+                <FormHelperText>Email</FormHelperText>
+                <Input
+                  value={userProfileData.email}
+                  placeholder="your-email@example.com"
+                  type="email"
+                  onChange={handleInputChange}
+                  borderColor="#98A2B3"
+                  maxLength={"75"}
+                />
+              </FormControl>
+              <FormControl id="company">
+                <FormHelperText>Company</FormHelperText>
+                <Input
+                  value={userProfileData.company}
+                  placeholder="Company"
+                  type="text"
+                  onChange={handleInputChange}
+                  borderColor="#98A2B3"
+                  maxLength={"75"}
+                />
+              </FormControl>
+              <FormControl id="job_title">
+                <FormHelperText>Job Title</FormHelperText>
+                <Input
+                  value={userProfileData.job_title}
+                  placeholder="Job Title"
+                  type="text"
+                  onChange={handleInputChange}
+                  borderColor="#98A2B3"
+                  maxLength={"75"}
+                />
+              </FormControl>
+
+              <Box borderWidth="1px" p="8px" borderColor="#98A2B3">
+                <Stack align="center" justify="center" textAlign="center">
+                  <GoCloudUpload size="28px" />
+                  <Text fontSize="16px" fontWeight="500">
+                    This feature is not yet available
+                  </Text>
+                  <Text fontSize="14px">Upload profile picture</Text>
+                  <Text fontSize="12px">Click to upload or drag and drop</Text>
+                  <Text fontSize="10px">
+                    SVG, PNG, JPG or GIF (max. 800x400px)
+                  </Text>
+                </Stack>
+              </Box>
+
               <Button
                 isLoading={isLoading}
-                bg={"blue.400"}
                 color={"white"}
-                w="full"
-                _hover={{
-                  bg: "blue.500",
-                }}
                 onClick={() => {
-                  const isValid = validateInputs()
-                  if (isValid) {
-                    let userProfileData = {
-                      name: name,
-                      email: email,
-                      job_title: jobTitle,
-                      company: company,
-                    }
-                    handleProfileUpdate(userProfileData)
-                  }
+                  handleSubmitClick()
                 }}
               >
                 Submit
               </Button>
             </Stack>
-          </Stack>
-        </Flex>
+          </Box>
+        </Container>
       </Layout>
     </>
   )

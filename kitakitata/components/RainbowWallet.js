@@ -7,15 +7,28 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton,
+  Text,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
+import LoginOption from "./LoginOption"
 
 export default function RainbowWallet() {
-  const { login, logout, db, handleLensLogin } = useContext(AppContext)
+  const { login, logout, db, isLoginModalOpen, setIsLoginModalOpen } =
+    useContext(AppContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
+
+  const handleLoginModalOpen = () => {
+    console.log("handleLoginModalOpen")
+    setIsLoginModalOpen(true)
+  }
+
+  const handleLoginModalClose = () => {
+    console.log("handleLoginModalClose")
+    setIsLoginModalOpen(false)
+  }
 
   return (
     <>
@@ -50,59 +63,66 @@ export default function RainbowWallet() {
             }
           }, [account])
 
-          return (
-            <div
-              {...(!ready && {
+          const conditionalProps = !ready
+            ? {
                 "aria-hidden": true,
                 style: {
                   opacity: 0,
                   pointerEvents: "none",
                   userSelect: "none",
                 },
-              })}
-            >
+              }
+            : {}
+
+          return (
+            <>
+              <LoginOption
+                isOpen={isLoginModalOpen}
+                onClose={handleLoginModalClose}
+                openConnectModal={openConnectModal}
+              />
+
               {(() => {
                 if (!connected) {
                   return (
                     <>
-                      <Menu isOpen={isOpen} onClose={onClose}>
-                        <MenuButton onClick={onOpen}>Login</MenuButton>
-                        <MenuList>
-                          <MenuItem
-                            onClick={() => {
-                              openConnectModal()
-                            }}
-                          >
-                            EVM
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              handleLensLogin()
-                            }}
-                          >
-                            Lens
-                          </MenuItem>
-                        </MenuList>
-                      </Menu>
+                      <Button
+                        {...conditionalProps}
+                        px="51px"
+                        py="14px"
+                        onClick={() => {
+                          handleLoginModalOpen()
+                        }}
+                      >
+                        Login
+                      </Button>
                     </>
                   )
-                } else {
                 }
                 if (chain?.unsupported) {
                   return (
-                    <button onClick={openChainModal} type="button">
+                    <Button
+                      {...conditionalProps}
+                      onClick={openChainModal}
+                      type="button"
+                    >
                       Wrong network
-                    </button>
+                    </Button>
                   )
                 }
                 return (
                   <div style={{ display: "flex", gap: 12 }}>
                     <>
-                      <Menu isOpen={isOpen} onClose={onClose}>
-                        <MenuButton onClick={onOpen}>
-                          {account?.address.slice(0, 8)}
+                      <Menu
+                        {...conditionalProps}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                      >
+                        <MenuButton as={Button} onClick={onOpen}>
+                          {account?.address.slice(0, 4)}..
+                          {account?.address.slice(-4)}
                         </MenuButton>
-                        <MenuList>
+                        <MenuList fontSize="18px" fontWeight="400">
                           <MenuItem
                             onClick={async () => {
                               await router.push("/user-profile")
@@ -123,7 +143,7 @@ export default function RainbowWallet() {
                   </div>
                 )
               })()}
-            </div>
+            </>
           )
         }}
       </ConnectButton.Custom>
