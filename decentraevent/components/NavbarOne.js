@@ -39,7 +39,12 @@ export default function NavbarOne() {
   return (
     <>
       <Box bgGradient="linear-gradient(100deg, rgba(226,218,253,1) 0%, rgba(237,205,227,1) 99%)">
-        <Container maxW={"8xl"} py="16px" px="14px">
+        <Container
+          maxW={{ base: "100%", sm: "85vw" }}
+          // maxW={"8xl"}
+          py="16px"
+          px="14px"
+        >
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
             <IconButton
               size={"md"}

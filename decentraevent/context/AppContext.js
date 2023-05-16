@@ -723,6 +723,26 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const hasUserProfile = async () => {
+    setIsLoading(true)
+    let _hasUserProfile = false
+
+    try {
+      const userProfileData = await db.get(
+        COLLECTION_USERS,
+        user.wallet.toLowerCase()
+      )
+      console.log("hasUserProfile userProfileData", userProfileData)
+      _hasUserProfile = !!userProfileData
+    } catch (e) {
+      toast(e.message)
+      console.error("getUserProfile", e)
+    } finally {
+      setIsLoading(false)
+      return _hasUserProfile
+    }
+  }
+
   const getDateString = (timestamp) => {
     if (isNaN(timestamp)) {
       return ""
@@ -823,6 +843,7 @@ export const AppContextProvider = ({ children }) => {
         loginWithLens,
         setUserProfile,
         getUserProfile,
+        hasUserProfile,
         eventAttendees,
         setEventAttendees,
         getEventAttendees,
