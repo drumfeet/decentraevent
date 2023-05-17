@@ -31,6 +31,8 @@ export default function ViewEvent() {
     deleteEvent,
     getDateString,
     getTimeString,
+    isLoading,
+    setIsLoading,
   } = useContext(AppContext)
   const router = useRouter()
   const { eventId } = router.query
@@ -63,6 +65,10 @@ export default function ViewEvent() {
   const handleDeleteEventClick = async () => {
     await deleteEvent(eventData.id)
   }
+
+  useEffect(() => {
+    setIsLoading(true)
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -174,6 +180,7 @@ export default function ViewEvent() {
                         py="14px"
                         px="58px"
                         onClick={() => handleRsvpClick()}
+                        isLoading={isLoading}
                       >
                         {userRsvpData?.isGoing ? "Leave" : "Join"}
                       </Button>
