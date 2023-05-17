@@ -11,14 +11,25 @@ import {
   HStack,
   Heading,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
-import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
+import {
+  CalendarIcon,
+  DeleteIcon,
+  ExternalLinkIcon,
+  TimeIcon,
+  TriangleDownIcon,
+} from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 export default function ViewEvent() {
   const {
@@ -64,6 +75,10 @@ export default function ViewEvent() {
 
   const handleDeleteEventClick = async () => {
     await deleteEvent(eventData.id)
+  }
+
+  const handleShareClick = () => {
+    toast("Feature coming soon!")
   }
 
   useEffect(() => {
@@ -185,6 +200,26 @@ export default function ViewEvent() {
                         {userRsvpData?.isGoing ? "Leave" : "Join"}
                       </Button>
                     ) : null}
+
+                    <Menu>
+                      <MenuButton
+                        _loading={{ pointerEvents: "none" }}
+                        isLoading={isLoading}
+                        as={IconButton}
+                      >
+                        <TriangleDownIcon />
+                      </MenuButton>
+                      <MenuList fontSize="18px" fontWeight="400">
+                        <MenuItem
+                          icon={<ExternalLinkIcon />}
+                          onClick={async () => {
+                            handleShareClick()
+                          }}
+                        >
+                          Share
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
                   </>
                 )}
               </HStack>
