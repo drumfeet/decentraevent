@@ -443,6 +443,31 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const sendEmail = async (email, title) => {
+    const data = {
+      recipient: email,
+      sender: "events@decentraevent.xyz",
+      subject: `[DecentraEvent] ${title}`,
+      text: "I appreciate you letting me know you'll be there.",
+    }
+    try {
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((v) => v.json())
+      console.log("response", response)
+
+      if (response.error) {
+        throw new Error(response.error)
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const handleUserGoing = async (docId, metadata, userAddress, isUserGoing) => {
     const userProfile = await getUserProfile()
     const { name, email } = userProfile ?? {}
@@ -531,6 +556,7 @@ export const AppContextProvider = ({ children }) => {
       throw new Error("Error! " + tx.error)
     }
 
+    sendEmail(email, metadata.data.title)
     setDryWriteTx(tx)
     toast("Event attendance confirmed")
   }
