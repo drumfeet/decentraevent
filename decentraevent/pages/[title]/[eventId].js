@@ -203,6 +203,7 @@ export default function ViewEvent() {
 
                     <Menu>
                       <MenuButton
+                        hidden={true}
                         _loading={{ pointerEvents: "none" }}
                         isLoading={isLoading}
                         as={IconButton}
