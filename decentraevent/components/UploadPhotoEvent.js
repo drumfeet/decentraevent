@@ -1,12 +1,15 @@
 import { Box, Text } from "@chakra-ui/react"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { GoCloudUpload } from "react-icons/go"
 import { toast } from "react-toastify"
 
 export default function UploadPhotoEvent() {
+  const [acceptedFile, setAcceptedFile] = useState()
+
   const onDrop = useCallback((acceptedFiles) => {
     console.log("onDrop() acceptedFiles", acceptedFiles)
+    setAcceptedFile(acceptedFiles)
   }, [])
 
   const onDropRejected = useCallback((rejectedFiles) => {
@@ -40,13 +43,20 @@ export default function UploadPhotoEvent() {
         >
           <GoCloudUpload size="28px" />
           {isDragActive ? (
-            <Text fontSize="14px">Drop image file to upload</Text>
+            <Text fontSize="14px">Drop image file here</Text>
           ) : (
             <Text fontSize="14px">Upload photo for event</Text>
           )}
           <Text fontSize="12px">Click to upload or drag and drop</Text>
           <Text fontSize="10px">SVG, PNG, JPG (max. 800x400px)</Text>
         </Box>
+        {acceptedFile && (
+          <>
+            <Text fontSize="12px" fontWeight="400" mt="4px">
+              {acceptedFile[0].name}
+            </Text>
+          </>
+        )}
       </div>
     </>
   )
