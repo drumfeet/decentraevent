@@ -23,6 +23,7 @@ import { isNil, not } from "ramda"
 import {
   CalendarIcon,
   DeleteIcon,
+  EditIcon,
   ExternalLinkIcon,
   TimeIcon,
   TriangleDownIcon,
@@ -148,7 +149,7 @@ export default function ViewEvent() {
               </Heading>
               <Spacer />
               <HStack alignItems="flex-start">
-                {isEventOwner ? (
+                {isEventOwner && (
                   <>
                     <IconButton
                       icon={<DeleteIcon />}
@@ -162,7 +163,20 @@ export default function ViewEvent() {
                         color: "white",
                       }}
                       onClick={() => handleDeleteEventClick()}
-                    ></IconButton>
+                    />
+                    <IconButton
+                      icon={<EditIcon />}
+                      bg="white"
+                      color="black"
+                      _hover={{
+                        borderColor: "white",
+                        borderWidth: "1px",
+                        boxShadow: "4px 4px 0px #000000",
+                        bg: "black",
+                        color: "white",
+                      }}
+                      onClick={() => handleEditEventClick()}
+                    />
                     <Button
                       border="1px solid #000000"
                       bg="white"
@@ -176,53 +190,51 @@ export default function ViewEvent() {
                         bg: "black",
                         color: "white",
                       }}
-                      onClick={() => handleEditEventClick()}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      py="14px"
-                      px="16px"
                       onClick={() => handleViewAttendeesClick()}
                     >
                       View Attendees
                     </Button>
-                  </>
-                ) : (
-                  <>
-                    {user ? (
-                      <Button
-                        py="14px"
-                        px="58px"
-                        onClick={() => handleRsvpClick()}
-                        isLoading={isLoading}
-                      >
-                        {userRsvpData?.isGoing ? "Leave" : "Join"}
-                      </Button>
-                    ) : null}
-
-                    <Menu>
-                      <MenuButton
-                        hidden={true}
-                        _loading={{ pointerEvents: "none" }}
-                        isLoading={isLoading}
-                        as={IconButton}
-                      >
-                        <TriangleDownIcon />
-                      </MenuButton>
-                      <MenuList fontSize="18px" fontWeight="400">
-                        <MenuItem
-                          icon={<ExternalLinkIcon />}
-                          onClick={async () => {
-                            handleShareClick()
-                          }}
-                        >
-                          Share
-                        </MenuItem>
-                      </MenuList>
-                    </Menu>
+                    {/* <Button
+                      py="14px"
+                      px="16px"
+                      onClick={() => handleRsvpClick()}
+                    >
+                      Join
+                    </Button> */}
                   </>
                 )}
+
+                {user ? (
+                  <Button
+                    py="14px"
+                    px="58px"
+                    onClick={() => handleRsvpClick()}
+                    isLoading={isLoading}
+                  >
+                    {userRsvpData?.isGoing ? "Leave" : "Join"}
+                  </Button>
+                ) : null}
+
+                <Menu>
+                  <MenuButton
+                    hidden={true}
+                    _loading={{ pointerEvents: "none" }}
+                    isLoading={isLoading}
+                    as={IconButton}
+                  >
+                    <TriangleDownIcon />
+                  </MenuButton>
+                  <MenuList fontSize="18px" fontWeight="400">
+                    <MenuItem
+                      icon={<ExternalLinkIcon />}
+                      onClick={async () => {
+                        handleShareClick()
+                      }}
+                    >
+                      Share
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </HStack>
             </Stack>
             <HStack>
