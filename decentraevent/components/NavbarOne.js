@@ -57,7 +57,7 @@ export default function NavbarOne() {
               <Box>
                 <Link href="/">
                   <Text fontSize="24px" fontWeight="500">
-                    Kitakitata
+                    DecentraEvent
                   </Text>
                 </Link>
               </Box>

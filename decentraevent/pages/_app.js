@@ -12,7 +12,7 @@ import { ToastContainer } from "react-toastify"
 
 const { chains, provider } = configureChains([polygon], [publicProvider()])
 const { connectors } = getDefaultWallets({
-  appName: "Kitakitata",
+  appName: "DecentraEvent",
   chains,
 })
 const wagmiClient = createClient({

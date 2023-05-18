@@ -1,5 +1,5 @@
 {
-  "name": "kitakitata",
+  "name": "DecentraEvent",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "go": "next build && next start"
   },
   "dependencies": {
+    "@bundlr-network/client": "^0.11.2",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
