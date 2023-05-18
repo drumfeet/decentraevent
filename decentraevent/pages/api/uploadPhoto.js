@@ -7,7 +7,7 @@ export default async (req, res) => {
   const bundlr = new Bundlr.default(
     "http://node1.bundlr.network",
     "arweave",
-    JSON.parse(process.env.BUNDLR_PRIVATEKEY)
+    JSON.parse(process.env.AR_PRIVATEKEY)
   )
 
   const fileToUpload = ""
