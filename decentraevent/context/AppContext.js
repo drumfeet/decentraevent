@@ -450,11 +450,11 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const sendEmail = async (email, title) => {
+  const sendEmail = async (email, metadata) => {
     const data = {
       recipient: email,
       sender: "events@decentraevent.xyz",
-      subject: `[DecentraEvent] ${title}`,
+      subject: `[DecentraEvent] ${metadata.data.title}`,
       text: "I appreciate you letting me know you'll be there.",
     }
     try {
@@ -463,15 +463,18 @@ export const AppContextProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ data, metadata }),
       }).then((v) => v.json())
-      console.log("response", response)
+      console.log("sendEmail() response", response)
 
       if (response.error) {
         throw new Error(response.error)
+      } else {
+        toast("Email invite sent successfully!")
       }
     } catch (e) {
       console.log(e)
+      toast(e)
     }
   }
 
@@ -563,7 +566,7 @@ export const AppContextProvider = ({ children }) => {
       throw new Error("Error! " + tx.error)
     }
 
-    sendEmail(email, metadata.data.title)
+    sendEmail(email, metadata)
     toast("Event attendance confirmed")
   }
 
