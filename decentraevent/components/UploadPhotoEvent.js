@@ -21,6 +21,7 @@ export default function UploadPhotoEvent() {
     onDrop,
     onDropRejected,
     maxFiles: 1,
+    maxSize: 2 * 1024 * 1024, // Set the maximum file size to 2MB
     accept: {
       "image/png": [".png"],
       "image/jpeg": [".jpg", ".jpeg"],
