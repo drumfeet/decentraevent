@@ -1,8 +1,9 @@
 export default async (req, res) => {
   if (req.method === "POST") {
-    const { data, eventData } = req.body
+    const { acceptedFile, eventData } = req.body
     let error = null
     let success = false
+    let tx = null
 
     try {
       success = true
@@ -10,7 +11,7 @@ export default async (req, res) => {
       console.log(e)
       error = "" + e
     } finally {
-      res.status(200).json({ success, error })
+      res.status(200).json({ success, error, tx: acceptedFile })
     }
   } else {
     res.status(405).json({ error: "Method not allowed" })
