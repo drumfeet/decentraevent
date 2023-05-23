@@ -33,6 +33,8 @@ export default function CreateEvent() {
   const [placeUrl, setPlaceUrl] = useState(null)
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
+  const [file, setFile] = useState()
+  const [mimeType, setMimeType] = useState()
 
   const { ref } = usePlacesWidget({
     apiKey: process.env.GOOGLE_PLACES_API_KEY,
@@ -111,6 +113,48 @@ export default function CreateEvent() {
       toast(e)
     }
   }
+
+  const handleFileChange = async (e) => {
+    if (e.target.files) {
+      setFile(e.target.files[0])
+      setMimeType(e.target.files[0]?.type ?? "application/octet-stream")
+    }
+  }
+
+  const handleUploadFile = async () => {
+    try {
+      if (!file) {
+        toast("file is null")
+        return
+      }
+      const buffer = await file.arrayBuffer()
+      console.log("buffer", buffer)
+
+      const response = await fetch("/api/uploadFile", {
+        method: "POST",
+        body: buffer,
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
+      })
+      const responseJson = await response.json()
+      console.log("handleUploadFile() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        console.log("Image uploaded successfully!")
+        toast("Image uploaded successfully!")
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+    }
+  }
+
+  useEffect(() => {
+    console.log("useEffect", file)
+  }, [file])
 
   useEffect(() => {
     const _placeId = eventData?.location?.place_id
@@ -280,6 +324,7 @@ export default function CreateEvent() {
                   />
                 </Tooltip>
               </FormControl>
+              {/* <input type="file" onChange={handleFileChange} /> */}
               <Button
                 py="14px"
                 onClick={() => {
