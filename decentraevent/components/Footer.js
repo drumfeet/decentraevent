@@ -373,7 +373,7 @@ export default function Footer() {
               </Link>
             </Text>
             <Stack direction={"row"} spacing="28px">
-              <SocialButton href="#">
+              <SocialButton href="https://twitter.com/DecentraEvent">
                 <FaTwitter />
               </SocialButton>
               <SocialButton href={`https://github.com/drumfeet/decentraevent`}>
