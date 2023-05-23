@@ -87,6 +87,35 @@ export default function CreateEvent() {
     })
   }
 
+  const handleUploadPhoto = async () => {
+    try {
+      console.log("handleUploadPhoto() acceptedFile", acceptedFile)
+      const response = await fetch("/api/uploadPhoto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ acceptedFile, eventData }),
+      })
+      const responseJson = await response.json()
+      console.log("handleUploadPhoto() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        toast("Image uploaded successfully!")
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+    }
+  }
+
+  useEffect(() => {
+    toast("useffect")
+    console.log(`useEffect() ${file}`)
+  }, [file])
+
   useEffect(() => {
     const _placeId = eventData?.location?.place_id
     console.log("useEffect eventData", eventData)
