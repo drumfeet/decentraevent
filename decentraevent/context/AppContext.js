@@ -145,6 +145,29 @@ export const AppContextProvider = ({ children }) => {
     return !isNaN(timestamp) && timestamp >= 0
   }
 
+  const uploadPhoto = async (eventData) => {
+    try {
+      const response = await fetch("/api/uploadPhoto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ eventData }),
+      })
+      const responseJson = await response.json()
+      console.log("uploadPhoto() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        toast("Image uploaded successfully!")
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+    }
+  }
+
   const createEvent = async (eventData) => {
     const MILLISECONDS = 1000
     setIsLoading(true)
@@ -464,11 +487,12 @@ export const AppContextProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ data, metadata }),
-      }).then((v) => v.json())
-      console.log("sendEmail() response", response)
+      })
+      const responseJson = await response.json()
+      console.log("sendEmail() responseJson", responseJson)
 
-      if (response.error) {
-        throw new Error(response.error)
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
       } else {
         toast("Email invite sent successfully!")
       }
