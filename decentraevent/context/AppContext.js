@@ -24,7 +24,6 @@ export const AppContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [eventAttendees, setEventAttendees] = useState({})
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const [acceptedFile, setAcceptedFile] = useState()
 
   const setupWeaveDB = async () => {
     try {
@@ -144,30 +143,6 @@ export const AppContextProvider = ({ children }) => {
   const isTimestampNumeric = (str) => {
     const timestamp = Number(str)
     return !isNaN(timestamp) && timestamp >= 0
-  }
-
-  const uploadPhoto = async (eventData) => {
-    try {
-      console.log("uploadPhoto() acceptedFile", acceptedFile)
-      const response = await fetch("/api/uploadPhoto", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ acceptedFile, eventData }),
-      })
-      const responseJson = await response.json()
-      console.log("uploadPhoto() responseJson", responseJson)
-
-      if (responseJson.error) {
-        throw new Error(responseJson.error)
-      } else {
-        toast("Image uploaded successfully!")
-      }
-    } catch (e) {
-      console.log(e)
-      toast(e)
-    }
   }
 
   const createEvent = async (eventData) => {
@@ -900,8 +875,6 @@ export const AppContextProvider = ({ children }) => {
         getDateString,
         getTimeString,
         isRequiredEventDataValid,
-        acceptedFile,
-        setAcceptedFile,
       }}
     >
       {children}

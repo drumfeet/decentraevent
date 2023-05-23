@@ -24,6 +24,7 @@ import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
@@ -89,13 +90,12 @@ export default function CreateEvent() {
 
   const handleUploadPhoto = async () => {
     try {
-      console.log("handleUploadPhoto() acceptedFile", acceptedFile)
       const response = await fetch("/api/uploadPhoto", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ acceptedFile, eventData }),
+        body: JSON.stringify({ eventData }),
       })
       const responseJson = await response.json()
       console.log("handleUploadPhoto() responseJson", responseJson)
@@ -103,6 +103,7 @@ export default function CreateEvent() {
       if (responseJson.error) {
         throw new Error(responseJson.error)
       } else {
+        console.log("Image uploaded successfully!")
         toast("Image uploaded successfully!")
       }
     } catch (e) {
@@ -110,11 +111,6 @@ export default function CreateEvent() {
       toast(e)
     }
   }
-
-  useEffect(() => {
-    toast("useffect")
-    console.log(`useEffect() ${file}`)
-  }, [file])
 
   useEffect(() => {
     const _placeId = eventData?.location?.place_id

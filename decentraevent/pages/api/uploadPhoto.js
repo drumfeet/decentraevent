@@ -2,7 +2,7 @@ import { Storage } from "@google-cloud/storage"
 
 export default async (req, res) => {
   if (req.method === "POST") {
-    const { acceptedFile, eventData } = req.body
+    // const { eventData } = req.body
     let error = null
     let success = false
 
@@ -21,22 +21,22 @@ export default async (req, res) => {
       const fileName = ""
       const filePath = ""
 
-      bucket.upload(
-        filePath,
-        {
-          destination: `events/${fileName}`,
-        },
-        function (err, file) {
-          dataTest = file
-          if (err) {
-            error = err
-            console.error(`Error uploading image: ${err}`)
-          } else {
-            success = true
-            console.log(`Image uploaded to ${bucketName}.`)
-          }
-        }
-      )
+      // bucket.upload(
+      //   filePath,
+      //   {
+      //     destination: `events/${fileName}`,
+      //   },
+      //   function (err, file) {
+      //     dataTest = file
+      //     if (err) {
+      //       error = err
+      //       console.error(`Error uploading image: ${err}`)
+      //     } else {
+      //       success = true
+      //       console.log(`Image uploaded to ${bucketName}.`)
+      //     }
+      //   }
+      // )
     } catch (e) {
       console.log(e)
       error = "" + e
