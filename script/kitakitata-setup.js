@@ -234,9 +234,9 @@ const schema_users = {
     date: {
       type: "number",
     },
-    display_name: {
-      type: "string",
-    },
+    // display_name: {
+    //   type: "string",
+    // },
     lit: {
       encryptedData: { type: "string" },
       encryptedSymmetricKey: { type: "array", items: { type: "number" } },
