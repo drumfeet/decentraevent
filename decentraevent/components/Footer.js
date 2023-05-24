@@ -355,7 +355,7 @@ export default function Footer() {
           >
             <Flex direction={{ base: "column", md: "row" }} alignItems="center">
               <Text fontSize="24px" fontWeight="bold" mr="8px">
-                Kitakitata
+                DecentraEvent
               </Text>
               <Text color="black.footer" fontSize="16px">
                 © 2023 All rights reserved.
@@ -373,10 +373,10 @@ export default function Footer() {
               </Link>
             </Text>
             <Stack direction={"row"} spacing="28px">
-              <SocialButton href="#">
+              <SocialButton href="https://twitter.com/DecentraEvent">
                 <FaTwitter />
               </SocialButton>
-              <SocialButton href={`https://github.com/drumfeet/kitakitata`}>
+              <SocialButton href={`https://github.com/drumfeet/decentraevent`}>
                 <FaGithub />
               </SocialButton>
               <SocialButton

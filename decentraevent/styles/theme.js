@@ -34,6 +34,9 @@ const overrides = {
             bg: "black",
           },
           borderRadius: "0",
+          _loading: {
+            pointerEvents: "none",
+          },
         },
         ghost: {
           _hover: {
@@ -41,6 +44,9 @@ const overrides = {
             borderWidth: "1px",
             boxShadow: "4px 4px 0px black",
             bg: "white",
+          },
+          _loading: {
+            pointerEvents: "none",
           },
         },
       },

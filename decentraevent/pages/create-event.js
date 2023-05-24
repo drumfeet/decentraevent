@@ -15,15 +15,18 @@ import {
   InputLeftElement,
   Switch,
   FormHelperText,
+  Text,
 } from "@chakra-ui/react"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isNil } from "ramda"
 import GoBack from "@/components/GoBack"
-import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 import Link from "next/link"
+import { toast } from "react-toastify"
+import { useDropzone } from "react-dropzone"
+import { GoCloudUpload } from "react-icons/go"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
@@ -32,11 +35,33 @@ export default function CreateEvent() {
   const [placeUrl, setPlaceUrl] = useState(null)
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
+  const [file, setFile] = useState()
+  const [acceptedFile, setAcceptedFile] = useState()
+
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log("onDrop() acceptedFiles", acceptedFiles)
+    setAcceptedFile(acceptedFiles[0])
+  }, [])
+
+  const onDropRejected = useCallback((rejectedFiles) => {
+    console.log("onDropRejected() rejectedFiles", rejectedFiles)
+    toast(`${rejectedFiles[0].file.name} image file is not accepted`)
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    onDropRejected,
+    maxFiles: 1,
+    maxSize: 2 * 1024 * 1024, // Set the maximum file size to 2MB
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/svg+xml": [".svg"],
+    },
+  })
 
   const { ref } = usePlacesWidget({
-    apiKey:
-      process.env.GOOGLE_PLACES_API_KEY ||
-      process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY,
+    apiKey: process.env.GOOGLE_PLACES_API_KEY,
     onPlaceSelected: (place) => {
       const locationData = {
         name: place?.name,
@@ -76,7 +101,10 @@ export default function CreateEvent() {
     }
 
     if (isRequiredEventDataValid(eventData)) {
-      const eventDataCopy = { ...eventData }
+      toast(acceptedFile ? "Uploading mage file" : "Image file is null")
+      const _image_id = await getImageId()
+      const eventDataCopy = { ...eventData, image_id: _image_id }
+      console.log("handleCreateEventClick() eventDataCopy", eventDataCopy)
       console.log("handleCreateEventClick() eventData", eventData)
       await createEvent(eventDataCopy)
     }
@@ -87,6 +115,54 @@ export default function CreateEvent() {
       ...eventData,
       [e.target.id]: e.target.value,
     })
+  }
+
+  const handleUploadPhoto = async () => {
+    try {
+      const response = await fetch("/api/uploadPhoto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ eventData }),
+      })
+      const responseJson = await response.json()
+      console.log("handleUploadPhoto() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        console.log("Image uploaded successfully!")
+        toast("Image uploaded successfully!")
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+    }
+  }
+
+  const getImageId = async () => {
+    try {
+      const buffer = Buffer.from(await acceptedFile.arrayBuffer())
+      const response = await fetch("/api/uploadFile", {
+        method: "POST",
+        body: JSON.stringify({ bufferData: buffer }),
+      })
+      const responseJson = await response.json()
+      console.log("getImageId() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        console.log("Image uploaded successfully!")
+        toast("Image uploaded successfully!")
+        return responseJson.tx.id
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+      return null
+    }
   }
 
   useEffect(() => {
@@ -246,7 +322,38 @@ export default function CreateEvent() {
                 />
               </FormControl>
 
-              <UploadPhotoEvent />
+              <>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <Box
+                    borderWidth="1px"
+                    p="8px"
+                    borderColor="#98A2B3"
+                    _hover={{
+                      boxShadow: "4px 4px 0px black",
+                      bg: "white",
+                    }}
+                  >
+                    <GoCloudUpload size="28px" />
+                    {isDragActive ? (
+                      <Text fontSize="14px">Drop image file here</Text>
+                    ) : (
+                      <Text fontSize="14px">Upload photo for event</Text>
+                    )}
+                    <Text fontSize="12px">
+                      Click to upload or drag and drop
+                    </Text>
+                    <Text fontSize="10px">SVG, PNG, JPG (max. 800x400px)</Text>
+                  </Box>
+                  {acceptedFile && (
+                    <>
+                      <Text fontSize="12px" fontWeight="400" mt="4px">
+                        {acceptedFile.name}
+                      </Text>
+                    </>
+                  )}
+                </div>
+              </>
               <FormControl id="event_admins" hidden={true}>
                 <FormLabel>Event Admins</FormLabel>
                 <Tooltip label="Enter a comma-separated list of wallet addresses that is an admin of the event.">

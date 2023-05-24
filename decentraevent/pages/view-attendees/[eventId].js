@@ -62,7 +62,7 @@ export default function ViewAttendees() {
     const csvData = eventAttendees
       .map(
         (attendee) =>
-          `${attendee?.decrypted.name},${attendee?.decrypted.email},${attendee?.decrypted.user_address},${attendee?.decrypted.isGoing}`
+          `${attendee?.decrypted.name},${attendee?.decrypted.email},${attendee?.decrypted.user_address},${attendee?.decrypted.company},${attendee?.decrypted.job_title}`
       )
       .join("\n")
 
@@ -217,6 +217,8 @@ export default function ViewAttendees() {
                     <Th>Name</Th>
                     <Th>Email</Th>
                     <Th>Wallet</Th>
+                    <Th>Company</Th>
+                    <Th>Job Title</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -226,6 +228,8 @@ export default function ViewAttendees() {
                         <Td>{attendee?.decrypted.name}</Td>
                         <Td>{attendee?.decrypted.email}</Td>
                         <Td>{attendee?.decrypted.user_address}</Td>
+                        <Td>{attendee?.decrypted.company}</Td>
+                        <Td>{attendee?.decrypted.job_title}</Td>
                       </Tr>
                     ))}
                 </Tbody>

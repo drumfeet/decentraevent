@@ -1,5 +1,5 @@
 {
-  "name": "kitakitata",
+  "name": "DecentraEvent",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,21 +10,25 @@
     "go": "next build && next start"
   },
   "dependencies": {
+    "@bundlr-network/client": "^0.11.2",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@google-cloud/storage": "^6.10.1",
     "@lit-protocol/sdk-browser": "^1.1.250",
     "@rainbow-me/rainbowkit": "^0.12.1",
+    "@sendgrid/mail": "^7.7.0",
     "buffer": "^6.0.3",
     "ethers": "^5.7.2",
     "framer-motion": "^10.3.1",
     "localforage": "^1.10.0",
     "nanoid": "^4.0.2",
-    "next": "13.3.1",
+    "next": "^13.4.2",
     "ramda": "^0.28.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-google-autocomplete": "^2.7.3",
     "react-icons": "^4.8.0",
     "react-toastify": "^9.1.1",

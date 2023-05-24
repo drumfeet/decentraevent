@@ -21,7 +21,6 @@ export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [events, setEvents] = useState([])
   const [userRsvp, setUserRsvp] = useState()
-  const [dryWriteTx, setDryWriteTx] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [eventAttendees, setEventAttendees] = useState({})
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
@@ -169,7 +168,6 @@ export const AppContextProvider = ({ children }) => {
         throw new Error("Error! " + tx.error)
       }
 
-      setDryWriteTx(tx)
       toast("Event created successfully")
       await router.push("/show-events")
     } catch (e) {
@@ -213,7 +211,6 @@ export const AppContextProvider = ({ children }) => {
         throw new Error("Error! " + tx.error)
       }
 
-      setDryWriteTx(tx)
       toast("Event updated successfully")
       await router.push("/show-events")
     } catch (e) {
@@ -234,7 +231,6 @@ export const AppContextProvider = ({ children }) => {
         throw new Error("Error! " + tx.error)
       }
 
-      setDryWriteTx(tx)
       toast("Event deleted successfully")
       await router.push("/show-events")
     } catch (e) {
@@ -246,6 +242,7 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const getEventWithDocId = async (docId) => {
+    setIsLoading(true)
     try {
       const _event = await db.cget(COLLECTION_EVENTS, docId)
       console.log("getEventWithDocId() _event", _event)
@@ -253,10 +250,13 @@ export const AppContextProvider = ({ children }) => {
     } catch (e) {
       toast(e.message)
       console.error("getEventWithDocId", e)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const getEventWithEventId = async (eventId) => {
+    setIsLoading(true)
     try {
       const _event = await db.cget(
         COLLECTION_EVENTS,
@@ -268,6 +268,8 @@ export const AppContextProvider = ({ children }) => {
     } catch (e) {
       toast(e.message)
       console.error("getEventWithEventId", e)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -341,6 +343,7 @@ export const AppContextProvider = ({ children }) => {
   }
 
   const updateEventsList = async (showAllEvents = true) => {
+    setIsLoading(true)
     try {
       let _events
       if (showAllEvents) {
@@ -357,10 +360,13 @@ export const AppContextProvider = ({ children }) => {
     } catch (e) {
       toast(e.message)
       console.error("updateEventsList", e)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const getUserRsvpForEvent = async (userWalletAddress, eventId) => {
+    setIsLoading(true)
     let jsonData
     try {
       console.log("getUserRsvpForEvent() eventId", eventId)
@@ -419,6 +425,7 @@ export const AppContextProvider = ({ children }) => {
       toast(e.message)
       console.error("getUserRsvpForEvent", e)
     } finally {
+      setIsLoading(false)
       return jsonData
     }
   }
@@ -440,6 +447,35 @@ export const AppContextProvider = ({ children }) => {
       console.error(`setUserRsvpForEvent() catch: ${e}`)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const sendEmail = async (email, metadata) => {
+    const data = {
+      recipient: email,
+      sender: "events@decentraevent.xyz",
+      subject: `[DecentraEvent] ${metadata.data.title}`,
+      text: "I appreciate you letting me know you'll be there.",
+    }
+    try {
+      const response = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data, metadata }),
+      })
+      const responseJson = await response.json()
+      console.log("sendEmail() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        toast("Email invite sent successfully!")
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
     }
   }
 
@@ -531,7 +567,7 @@ export const AppContextProvider = ({ children }) => {
       throw new Error("Error! " + tx.error)
     }
 
-    setDryWriteTx(tx)
+    sendEmail(email, metadata)
     toast("Event attendance confirmed")
   }
 
@@ -541,7 +577,6 @@ export const AppContextProvider = ({ children }) => {
       throw new Error("Error! " + tx.error)
     }
 
-    setDryWriteTx(tx)
     toast("Event attendance removed")
   }
 
@@ -648,7 +683,6 @@ export const AppContextProvider = ({ children }) => {
         throw new Error("Error! " + tx.error)
       }
 
-      setDryWriteTx(tx)
       toast("Profile updated successfully")
     } catch (e) {
       toast(e.message)
@@ -723,6 +757,26 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const hasUserProfile = async () => {
+    setIsLoading(true)
+    let _hasUserProfile = false
+
+    try {
+      const userProfileData = await db.get(
+        COLLECTION_USERS,
+        user.wallet.toLowerCase()
+      )
+      console.log("hasUserProfile userProfileData", userProfileData)
+      _hasUserProfile = !!userProfileData
+    } catch (e) {
+      toast(e.message)
+      console.error("getUserProfile", e)
+    } finally {
+      setIsLoading(false)
+      return _hasUserProfile
+    }
+  }
+
   const getDateString = (timestamp) => {
     if (isNaN(timestamp)) {
       return ""
@@ -781,22 +835,6 @@ export const AppContextProvider = ({ children }) => {
     setupWeaveDB()
   }, [])
 
-  useEffect(() => {
-    ;(async () => {
-      try {
-        if (initDB) {
-          const _txResult = await dryWriteTx.getResult()
-          console.log("useEffect _txResult", _txResult)
-          await updateEventsList(true)
-        }
-      } catch (e) {
-        toast(e.message)
-        console.error("useEffect dryWriteTx catch()", e)
-      }
-      setIsLoading(false)
-    })()
-  }, [dryWriteTx])
-
   return (
     <AppContext.Provider
       value={{
@@ -823,6 +861,7 @@ export const AppContextProvider = ({ children }) => {
         loginWithLens,
         setUserProfile,
         getUserProfile,
+        hasUserProfile,
         eventAttendees,
         setEventAttendees,
         getEventAttendees,

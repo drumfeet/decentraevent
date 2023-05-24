@@ -50,9 +50,7 @@ export default function EditEvent() {
   const locationRef = useRef()
 
   const { ref } = usePlacesWidget({
-    apiKey:
-      process.env.GOOGLE_PLACES_API_KEY ||
-      process.env.NEXT_PUBLIC_GOOGLE_PLACES_API_KEY,
+    apiKey: process.env.GOOGLE_PLACES_API_KEY,
     onPlaceSelected: (place) => {
       const locationData = {
         name: place?.name,

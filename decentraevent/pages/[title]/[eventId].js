@@ -11,14 +11,26 @@ import {
   HStack,
   Heading,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
-import { CalendarIcon, DeleteIcon, TimeIcon } from "@chakra-ui/icons"
+import {
+  CalendarIcon,
+  DeleteIcon,
+  EditIcon,
+  ExternalLinkIcon,
+  TimeIcon,
+  TriangleDownIcon,
+} from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
 import Link from "next/link"
+import { toast } from "react-toastify"
 
 export default function ViewEvent() {
   const {
@@ -31,6 +43,8 @@ export default function ViewEvent() {
     deleteEvent,
     getDateString,
     getTimeString,
+    isLoading,
+    setIsLoading,
   } = useContext(AppContext)
   const router = useRouter()
   const { eventId } = router.query
@@ -63,6 +77,14 @@ export default function ViewEvent() {
   const handleDeleteEventClick = async () => {
     await deleteEvent(eventData.id)
   }
+
+  const handleShareClick = () => {
+    toast("Feature coming soon!")
+  }
+
+  useEffect(() => {
+    setIsLoading(true)
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -127,7 +149,7 @@ export default function ViewEvent() {
               </Heading>
               <Spacer />
               <HStack alignItems="flex-start">
-                {isEventOwner ? (
+                {isEventOwner && (
                   <>
                     <IconButton
                       icon={<DeleteIcon />}
@@ -141,7 +163,20 @@ export default function ViewEvent() {
                         color: "white",
                       }}
                       onClick={() => handleDeleteEventClick()}
-                    ></IconButton>
+                    />
+                    <IconButton
+                      icon={<EditIcon />}
+                      bg="white"
+                      color="black"
+                      _hover={{
+                        borderColor: "white",
+                        borderWidth: "1px",
+                        boxShadow: "4px 4px 0px #000000",
+                        bg: "black",
+                        color: "white",
+                      }}
+                      onClick={() => handleEditEventClick()}
+                    />
                     <Button
                       border="1px solid #000000"
                       bg="white"
@@ -155,31 +190,51 @@ export default function ViewEvent() {
                         bg: "black",
                         color: "white",
                       }}
-                      onClick={() => handleEditEventClick()}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      py="14px"
-                      px="16px"
                       onClick={() => handleViewAttendeesClick()}
                     >
                       View Attendees
                     </Button>
-                  </>
-                ) : (
-                  <>
-                    {user ? (
-                      <Button
-                        py="14px"
-                        px="58px"
-                        onClick={() => handleRsvpClick()}
-                      >
-                        {userRsvpData?.isGoing ? "Leave" : "Join"}
-                      </Button>
-                    ) : null}
+                    {/* <Button
+                      py="14px"
+                      px="16px"
+                      onClick={() => handleRsvpClick()}
+                    >
+                      Join
+                    </Button> */}
                   </>
                 )}
+
+                {user ? (
+                  <Button
+                    py="14px"
+                    px="58px"
+                    onClick={() => handleRsvpClick()}
+                    isLoading={isLoading}
+                  >
+                    {userRsvpData?.isGoing ? "Leave" : "Join"}
+                  </Button>
+                ) : null}
+
+                <Menu>
+                  <MenuButton
+                    hidden={true}
+                    _loading={{ pointerEvents: "none" }}
+                    isLoading={isLoading}
+                    as={IconButton}
+                  >
+                    <TriangleDownIcon />
+                  </MenuButton>
+                  <MenuList fontSize="18px" fontWeight="400">
+                    <MenuItem
+                      icon={<ExternalLinkIcon />}
+                      onClick={async () => {
+                        handleShareClick()
+                      }}
+                    >
+                      Share
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </HStack>
             </Stack>
             <HStack>
