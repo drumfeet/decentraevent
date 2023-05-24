@@ -40,6 +40,9 @@ const schema_events = {
     event_details: {
       type: "string",
     },
+    image_id: {
+      type: "string",
+    },
   },
 }
 

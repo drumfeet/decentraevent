@@ -8,8 +8,10 @@ export default async (req, res) => {
     try {
       const bundlr = new Bundlr(
         "http://node1.bundlr.network",
-        "arweave",
-        JSON.parse(process.env.AR_PRIVATEKEY)
+        "matic",
+        process.env.MATIC_PRIVAYEKEY
+        // "arweave",
+        // JSON.parse(process.env.AR_PRIVAYEKEY)
       )
 
       const bundlrTx = await bundlr.upload(bufferData, {
@@ -24,7 +26,7 @@ export default async (req, res) => {
     } catch (e) {
       const error = "Error uploading file! " + e
       console.log(error)
-      res.status(500).json({ error, tx: bundlrTx })
+      res.status(500).json({ error })
     }
   } else {
     res.status(405).json({ error: "Method not allowed" })
