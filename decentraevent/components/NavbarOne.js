@@ -13,6 +13,7 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
 import RainbowWallet from "./RainbowWallet"
+import LogoSVG from "./Logo"
 
 const Links = [{ name: "Events", url: "/show-events" }]
 
@@ -56,9 +57,13 @@ export default function NavbarOne() {
             <HStack spacing={8} alignItems={"center"}>
               <Box>
                 <Link href="/">
-                  <Text fontSize="24px" fontWeight="500">
-                    DecentraEvent
-                  </Text>
+                  <Flex alignItems="center">
+                    <LogoSVG />
+
+                    <Text ml="22px" fontSize="24px" fontWeight="500">
+                      DecentraEvent
+                    </Text>
+                  </Flex>
                 </Link>
               </Box>
               <HStack
