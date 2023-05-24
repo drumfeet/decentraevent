@@ -25,6 +25,8 @@ import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 import Link from "next/link"
 import { toast } from "react-toastify"
+import { WebBundlr } from "@bundlr-network/client"
+import { useProvider, useSigner } from "wagmi"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
@@ -35,6 +37,10 @@ export default function CreateEvent() {
   const locationRef = useRef()
   const [file, setFile] = useState()
   const [mimeType, setMimeType] = useState()
+  const [imgStream, setImgStream] = useState()
+  const provider = useProvider()
+  const { data: rainbowKitSigner, isError, isLoading } = useSigner()
+  provider.getSigner = () => rainbowKitSigner
 
   const { ref } = usePlacesWidget({
     apiKey: process.env.GOOGLE_PLACES_API_KEY,
@@ -116,8 +122,24 @@ export default function CreateEvent() {
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
+      console.log("handleFileChange()", e)
+      setImgStream(fileReaderStream(e.target.files[0]))
       setFile(e.target.files[0])
       setMimeType(e.target.files[0]?.type ?? "application/octet-stream")
+    }
+  }
+
+  const handleUploadBrowser = async () => {
+    try {
+      const bundlr = new WebBundlr(
+        "http://node1.bundlr.network",
+        "matic",
+        provider
+      )
+      await bundlr.ready()
+      console.log("bundlr", bundlr)
+    } catch (e) {
+      console.log("handleUploadBrowser", e)
     }
   }
 

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         JSON.parse(process.env.AR_PRIVATEKEY)
       )
 
-      txBundlr = await bundlr.upload(buffer, {
+      bundlrTx = await bundlr.upload(buffer, {
         tags: [{ name: "Content-Type", value: "image/png" }],
       })
     } catch (e) {
