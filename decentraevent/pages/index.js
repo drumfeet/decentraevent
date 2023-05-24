@@ -55,7 +55,7 @@ export default function Home() {
       <NavbarOne />
       <Head>
         <title>DecentraEvent</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icon_tab.svg" />
       </Head>
       <Banner />
       <Feature />
