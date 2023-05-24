@@ -25,8 +25,6 @@ import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 import Link from "next/link"
 import { toast } from "react-toastify"
-import { WebBundlr } from "@bundlr-network/client"
-import { useProvider, useSigner } from "wagmi"
 
 export default function CreateEvent() {
   const { createEvent, user, setIsLoginModalOpen, isRequiredEventDataValid } =
@@ -36,11 +34,6 @@ export default function CreateEvent() {
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
   const [file, setFile] = useState()
-  const [mimeType, setMimeType] = useState()
-  const [imgStream, setImgStream] = useState()
-  const provider = useProvider()
-  const { data: rainbowKitSigner, isError, isLoading } = useSigner()
-  provider.getSigner = () => rainbowKitSigner
 
   const { ref } = usePlacesWidget({
     apiKey: process.env.GOOGLE_PLACES_API_KEY,
@@ -122,10 +115,7 @@ export default function CreateEvent() {
 
   const handleFileChange = async (e) => {
     if (e.target.files) {
-      console.log("handleFileChange()", e)
-      setImgStream(fileReaderStream(e.target.files[0]))
       setFile(e.target.files[0])
-      setMimeType(e.target.files[0]?.type ?? "application/octet-stream")
     }
   }
 
@@ -145,19 +135,12 @@ export default function CreateEvent() {
 
   const handleUploadFile = async () => {
     try {
-      if (!file) {
-        toast("file is null")
-        return
-      }
-      const buffer = await file.arrayBuffer()
-      console.log("buffer", buffer)
+      toast(file ? "Uploading mage file" : "Image file is null")
 
+      const buffer = Buffer.from(await file.arrayBuffer())
       const response = await fetch("/api/uploadFile", {
         method: "POST",
-        body: buffer,
-        headers: {
-          "Content-Type": "application/octet-stream",
-        },
+        body: JSON.stringify({ bufferData: buffer }),
       })
       const responseJson = await response.json()
       console.log("handleUploadFile() responseJson", responseJson)
@@ -165,6 +148,10 @@ export default function CreateEvent() {
       if (responseJson.error) {
         throw new Error(responseJson.error)
       } else {
+        setEventData({
+          ...eventData,
+          bundlrId: responseJson.tx.id,
+        })
         console.log("Image uploaded successfully!")
         toast("Image uploaded successfully!")
       }
@@ -173,10 +160,6 @@ export default function CreateEvent() {
       toast(e)
     }
   }
-
-  useEffect(() => {
-    console.log("useEffect", file)
-  }, [file])
 
   useEffect(() => {
     const _placeId = eventData?.location?.place_id
@@ -346,7 +329,7 @@ export default function CreateEvent() {
                   />
                 </Tooltip>
               </FormControl>
-              {/* <input type="file" onChange={handleFileChange} /> */}
+              <input type="file" onChange={handleFileChange} />
               <Button
                 py="14px"
                 onClick={() => {
