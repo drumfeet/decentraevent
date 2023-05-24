@@ -1,11 +1,9 @@
 import Bundlr from "@bundlr-network/client"
 
-export default async function handler(req, res) {
+export default async (req, res) => {
   if (req.method === "POST") {
-    let error = null
-    let success = false
-    let bundlrTx = null
-    const buffer = await Buffer.from(req.body)
+    const body = JSON.parse(req.body)
+    const bufferData = Buffer.from(body.bufferData, "base64")
 
     try {
       const bundlr = new Bundlr(
@@ -14,18 +12,19 @@ export default async function handler(req, res) {
         JSON.parse(process.env.AR_PRIVATEKEY)
       )
 
-      bundlrTx = await bundlr.upload(buffer, {
+      const bundlrTx = await bundlr.upload(bufferData, {
         tags: [{ name: "Content-Type", value: "image/png" }],
       })
-    } catch (e) {
-      console.log(e)
-      error = "" + e
-    } finally {
+
+      const success = !!bundlrTx
       res.status(200).json({
         success,
-        error,
         tx: bundlrTx,
       })
+    } catch (e) {
+      const error = "Error uploading file! " + e
+      console.log(error)
+      res.status(500).json({ error, tx: bundlrTx })
     }
   } else {
     res.status(405).json({ error: "Method not allowed" })
