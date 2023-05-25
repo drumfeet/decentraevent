@@ -1,4 +1,3 @@
-import Head from "next/head"
 import Banner from "@/components/Banner"
 import Feature from "@/components/Feature"
 import Footer from "@/components/Footer"
@@ -53,10 +52,6 @@ export default function Home() {
       )}
 
       <NavbarOne />
-      <Head>
-        <title>DecentraEvent</title>
-        <link rel="icon" href="/icon_tab.svg" />
-      </Head>
       <Banner />
       <Feature />
       <Footer />
