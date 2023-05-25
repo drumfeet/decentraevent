@@ -844,7 +844,6 @@ export const AppContextProvider = ({ children }) => {
         throw new Error(responseJson.error)
       } else {
         console.log("Image uploaded successfully!")
-        toast("Image uploaded successfully!")
         return responseJson.tx.id
       }
     } catch (e) {

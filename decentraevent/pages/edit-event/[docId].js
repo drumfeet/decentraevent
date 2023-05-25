@@ -34,6 +34,7 @@ export default function EditEvent() {
     setIsLoginModalOpen,
     isRequiredEventDataValid,
     getPhotoBundlrId,
+    isLoading,
   } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
@@ -315,6 +316,7 @@ export default function EditEvent() {
                 onClick={() => {
                   handleUpdateEventClick()
                 }}
+                isLoading={isLoading}
               >
                 Update Event
               </Button>

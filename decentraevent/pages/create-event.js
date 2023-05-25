@@ -15,9 +15,8 @@ import {
   InputLeftElement,
   Switch,
   FormHelperText,
-  Text,
 } from "@chakra-ui/react"
-import { useCallback, useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { isNil } from "ramda"
 import GoBack from "@/components/GoBack"
@@ -25,8 +24,6 @@ import { usePlacesWidget } from "react-google-autocomplete"
 import { Search2Icon } from "@chakra-ui/icons"
 import Link from "next/link"
 import { toast } from "react-toastify"
-import { useDropzone } from "react-dropzone"
-import { GoCloudUpload } from "react-icons/go"
 import UploadPhotoEvent from "@/components/UploadPhotoEvent"
 
 export default function CreateEvent() {
@@ -36,6 +33,7 @@ export default function CreateEvent() {
     setIsLoginModalOpen,
     isRequiredEventDataValid,
     getPhotoBundlrId,
+    isLoading,
   } = useContext(AppContext)
   const [eventData, setEventData] = useState({})
   const [placeUrl, setPlaceUrl] = useState(null)
@@ -302,6 +300,7 @@ export default function CreateEvent() {
                 onClick={() => {
                   handleCreateEventClick()
                 }}
+                isLoading={isLoading}
               >
                 Create Event
               </Button>
