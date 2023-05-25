@@ -1,12 +1,5 @@
 import { CalendarIcon, TimeIcon } from "@chakra-ui/icons"
-import {
-  Box,
-  HStack,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react"
+import { Box, HStack, Heading, Image, Stack, Text } from "@chakra-ui/react"
 import { GoLocation } from "react-icons/go"
 import { useState } from "react"
 
@@ -53,11 +46,12 @@ export default function CardSmall({ event }) {
   return (
     <>
       <Box>
-        {event.data.image_id ? "yes" : "no"}
         {imageLoaded ? (
           <Image
             src={urlImage}
             alt="Image"
+            h="151px"
+            objectFit="contain"
             onError={handleImageError}
             cursor="pointer"
             onClick={() => {
