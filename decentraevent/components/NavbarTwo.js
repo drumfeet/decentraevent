@@ -50,7 +50,7 @@ export default function NavbarTwo() {
               onClick={isOpen ? onClose : onOpen}
             />
             <HStack spacing={8} alignItems={"center"}>
-              <Box>
+              <Box display={{ base: "none", md: "block" }}>
                 <Link href="/">
                   <Flex alignItems="center">
                     <LogoSVG />
