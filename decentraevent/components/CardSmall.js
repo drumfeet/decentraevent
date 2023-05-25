@@ -4,7 +4,6 @@ import { GoLocation } from "react-icons/go"
 import { useState } from "react"
 
 export default function CardSmall({ event }) {
-  const IMG_FALLBACK = "https://via.placeholder.com/293x160"
   const MILLISECONDS = 1000
   const [imageLoaded, setImageLoaded] = useState(true)
   const urlImage = `https://arweave.net/${event?.data?.image_id}`

@@ -1,13 +1,5 @@
 import { AppContext } from "@/context/AppContext"
-import {
-  Flex,
-  Heading,
-  Text,
-  Button,
-  Icon,
-  Box,
-  Divider,
-} from "@chakra-ui/react"
+import { Flex, Heading, Text, Button, Box } from "@chakra-ui/react"
 import { useContext } from "react"
 
 export default function Banner() {
@@ -57,7 +49,7 @@ export default function Banner() {
   )
 }
 
-export const Illustration = (props) => {
+export const Illustration = () => {
   return (
     <svg
       width="909"
@@ -97,12 +89,17 @@ export const Illustration = (props) => {
         />
       </g>
       <rect x="424" y="264" width="205" height="73" fill="white" />
+      <defs>
+        <clipPath id="circleClip">
+          <circle cx="461" cy="300" r="24" />
+        </clipPath>
+      </defs>
       <image
         x="437"
         y="276"
         width="48"
         height="48"
-        rx="24"
+        clip-path="url(#circleClip)"
         href="https://drive.google.com/uc?id=1pkLk5_ibn-7D1ISI2VpnvyNZpdY8H-bF"
       />
       <path
