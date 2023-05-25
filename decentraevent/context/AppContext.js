@@ -830,6 +830,30 @@ export const AppContextProvider = ({ children }) => {
     return true
   }
 
+  const getPhotoBundlrId = async (acceptedFile) => {
+    try {
+      const buffer = Buffer.from(await acceptedFile.arrayBuffer())
+      const response = await fetch("/api/uploadFile", {
+        method: "POST",
+        body: JSON.stringify({ bufferData: buffer }),
+      })
+      const responseJson = await response.json()
+      console.log("getPhotoBundlrId() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        console.log("Image uploaded successfully!")
+        toast("Image uploaded successfully!")
+        return responseJson.tx.id
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+      return null
+    }
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -875,6 +899,7 @@ export const AppContextProvider = ({ children }) => {
         getDateString,
         getTimeString,
         isRequiredEventDataValid,
+        getPhotoBundlrId,
       }}
     >
       {children}

@@ -33,6 +33,7 @@ export default function EditEvent() {
     user,
     setIsLoginModalOpen,
     isRequiredEventDataValid,
+    getPhotoBundlrId,
   } = useContext(AppContext)
   const router = useRouter()
   const { docId } = router.query
@@ -48,6 +49,12 @@ export default function EditEvent() {
   const [placeUrl, setPlaceUrl] = useState(null)
   const [useGooglePlaces, setUseGooglePlaces] = useState(false)
   const locationRef = useRef()
+  const [acceptedFile, setAcceptedFile] = useState()
+
+  const updatePhotoEvent = (acceptedFiles) => {
+    console.log("updatePhotoEvent() acceptedFiles", acceptedFiles)
+    setAcceptedFile(acceptedFiles[0])
+  }
 
   const { ref } = usePlacesWidget({
     apiKey: process.env.GOOGLE_PLACES_API_KEY,
@@ -90,8 +97,10 @@ export default function EditEvent() {
     }
 
     if (isRequiredEventDataValid(eventData)) {
-      const eventDataCopy = { ...eventData }
+      const _image_id = await getPhotoBundlrId(acceptedFile)
+      const eventDataCopy = { ...eventData, image_id: _image_id }
       console.log("handleUpdateEventClick() eventDataCopy", eventDataCopy)
+      console.log("handleUpdateEventClick() eventData", eventData)
       await updateEvent(docId, eventDataCopy)
     }
   }
@@ -300,7 +309,7 @@ export default function EditEvent() {
                 />
               </FormControl>
 
-              <UploadPhotoEvent />
+              <UploadPhotoEvent updatePhotoEvent={updatePhotoEvent} />
               <Button
                 py="14px"
                 onClick={() => {

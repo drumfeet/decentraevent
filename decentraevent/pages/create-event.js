@@ -101,7 +101,6 @@ export default function CreateEvent() {
     }
 
     if (isRequiredEventDataValid(eventData)) {
-      toast(acceptedFile ? "Uploading mage file" : "Image file is null")
       const _image_id = await getImageId()
       const eventDataCopy = { ...eventData, image_id: _image_id }
       console.log("handleCreateEventClick() eventDataCopy", eventDataCopy)
