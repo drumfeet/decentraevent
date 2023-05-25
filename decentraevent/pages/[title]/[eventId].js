@@ -57,6 +57,7 @@ export default function ViewEvent() {
   const [urlImage, setUrlImage] = useState("")
 
   const handleImageError = () => {
+    toast("Unable to load image from Arweave")
     setImageLoaded(false)
   }
 

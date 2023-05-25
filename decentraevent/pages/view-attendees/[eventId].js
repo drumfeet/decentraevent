@@ -21,6 +21,7 @@ import {
   Spacer,
   useBreakpointValue,
   VStack,
+  Image,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -48,6 +49,13 @@ export default function ViewAttendees() {
   const [eventAttendees, setEventAttendees] = useState([])
   const [eventData, setEventData] = useState({})
   const [placeUrl, setPlaceUrl] = useState(null)
+  const [imageLoaded, setImageLoaded] = useState(true)
+  const [urlImage, setUrlImage] = useState("")
+
+  const handleImageError = () => {
+    toast("Unable to load image from Arweave")
+    setImageLoaded(false)
+  }
 
   const justifyContent = useBreakpointValue({
     base: "flex-start",
@@ -78,14 +86,17 @@ export default function ViewAttendees() {
   }
 
   useEffect(() => {
-    const _placeId = eventData?.data?.location?.place_id
-    console.log("useEffect eventData", eventData)
-    console.log(`_placeId: ${_placeId}`)
-    const _placeUrl = _placeId
-      ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
-      : null
-    setPlaceUrl(_placeUrl)
-    console.log(`placeUrl: ${_placeUrl}`)
+    if (eventData) {
+      setUrlImage(`https://arweave.net/${eventData?.data?.image_id}`)
+      const _placeId = eventData?.data?.location?.place_id
+      console.log("useEffect eventData", eventData)
+      console.log(`_placeId: ${_placeId}`)
+      const _placeUrl = _placeId
+        ? `https://www.google.com/maps/place/?q=place_id:${_placeId}`
+        : null
+      setPlaceUrl(_placeUrl)
+      console.log(`placeUrl: ${_placeUrl}`)
+    }
   }, [eventData])
 
   useEffect(() => {
@@ -111,7 +122,26 @@ export default function ViewAttendees() {
   return (
     <Layout>
       <Container maxW={"8xl"}>
-        <Box
+        {imageLoaded ? (
+          <Image
+            src={urlImage}
+            alt="Image"
+            h="291px"
+            objectFit="contain"
+            onError={handleImageError}
+            position="relative"
+          />
+        ) : (
+          <Box
+            h="291px"
+            bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
+            position="relative"
+            mt="58px"
+            mb="38px"
+          />
+        )}
+
+        {/* <Box
           h="291px"
           bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
           position="relative"
@@ -135,7 +165,7 @@ export default function ViewAttendees() {
           >
             Change Cover
           </Button>
-        </Box>
+        </Box> */}
         <Stack spacing="8px">
           <Stack direction={{ base: "column", md: "row" }} mb="47px">
             <Heading fontSize="28px" fontWeight="500">
