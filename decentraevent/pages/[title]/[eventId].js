@@ -53,11 +53,10 @@ export default function ViewEvent() {
   const [userRsvpData, setUserRsvpData] = useState({})
   const [isEventOwner, setIsEventOwner] = useState(false)
   const [placeUrl, setPlaceUrl] = useState(null)
-  const [imageLoaded, setImageLoaded] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(false)
   const [urlImage, setUrlImage] = useState("")
 
   const handleImageError = () => {
-    toast("Unable to load image from Arweave")
     setImageLoaded(false)
   }
 
@@ -108,6 +107,7 @@ export default function ViewEvent() {
     ;(async () => {
       if (initDB && eventData) {
         setUrlImage(`https://arweave.net/${eventData?.data?.image_id}`)
+        setImageLoaded(true)
         const _placeId = eventData?.data?.location?.place_id
         console.log("useEffect eventData", eventData)
         console.log(`_placeId: ${_placeId}`)
@@ -158,7 +158,18 @@ export default function ViewEvent() {
               position="relative"
               mt="14px"
               mb="38px"
-            />
+            >
+              <Text
+                position="absolute"
+                bottom="16px"
+                right="16px"
+                color="white"
+                fontWeight="400"
+                fontSize="14px"
+              >
+                Image is not available
+              </Text>
+            </Box>
           )}
 
           <Stack spacing="24px">
