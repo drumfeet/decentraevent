@@ -130,6 +130,8 @@ export default function ViewAttendees() {
             objectFit="contain"
             onError={handleImageError}
             position="relative"
+            mt="58px"
+            mb="38px"
           />
         ) : (
           <Box

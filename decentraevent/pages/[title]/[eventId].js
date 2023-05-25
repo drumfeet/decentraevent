@@ -150,6 +150,8 @@ export default function ViewEvent() {
               objectFit="contain"
               onError={handleImageError}
               position="relative"
+              mt="14px"
+              mb="38px"
             />
           ) : (
             <Box
