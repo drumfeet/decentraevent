@@ -54,7 +54,7 @@ export default function CreateEvent() {
         name: place?.name,
         place_id: place?.place_id,
         formatted_address: place?.formatted_address,
-        address_components: place?.address_components,
+        // address_components: place?.address_components,
       }
       console.log("onPlaceSelected : locationData", locationData)
       setEventData((eventData) => {
@@ -66,7 +66,12 @@ export default function CreateEvent() {
     },
     options: {
       types: ["geocode", "establishment"],
-      fields: ["name", "place_id", "formatted_address", "address_components"],
+      fields: [
+        "name",
+        "place_id",
+        "formatted_address",
+        // "address_components"
+      ],
     },
   })
 
