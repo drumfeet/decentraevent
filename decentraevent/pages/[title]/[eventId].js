@@ -11,6 +11,7 @@ import {
   HStack,
   Heading,
   IconButton,
+  Image,
   Menu,
   MenuButton,
   MenuItem,
@@ -52,6 +53,12 @@ export default function ViewEvent() {
   const [userRsvpData, setUserRsvpData] = useState({})
   const [isEventOwner, setIsEventOwner] = useState(false)
   const [placeUrl, setPlaceUrl] = useState(null)
+  const [imageLoaded, setImageLoaded] = useState(true)
+  const [urlImage, setUrlImage] = useState("")
+
+  const handleImageError = () => {
+    setImageLoaded(false)
+  }
 
   const handleRsvpClick = async () => {
     if (isNil(user)) {
@@ -99,6 +106,7 @@ export default function ViewEvent() {
   useEffect(() => {
     ;(async () => {
       if (initDB && eventData) {
+        setUrlImage(`https://arweave.net/${eventData?.data?.image_id}`)
         const _placeId = eventData?.data?.location?.place_id
         console.log("useEffect eventData", eventData)
         console.log(`_placeId: ${_placeId}`)
@@ -133,14 +141,24 @@ export default function ViewEvent() {
           <Box justifyContent="flex-start" mt="58px" mb="38px">
             {/* <GoBack /> */}
           </Box>
-
-          <Box
-            h="291px"
-            bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
-            position="relative"
-            mt="14px"
-            mb="38px"
-          />
+          {imageLoaded ? (
+            <Image
+              src={urlImage}
+              alt="Image"
+              h="291px"
+              objectFit="contain"
+              onError={handleImageError}
+              position="relative"
+            />
+          ) : (
+            <Box
+              h="291px"
+              bgGradient="linear-gradient(90deg, #A163B9 0%, #874DA1 14.06%, #593980 27.2%, #413A78 40.39%, #3D5584 52.48%, #426F93 64.13%, #518BA4 74.25%, #5EA6B5 83.04%, #5FAFBB 90.95%, #67B5BC 97.99%)"
+              position="relative"
+              mt="14px"
+              mb="38px"
+            />
+          )}
 
           <Stack spacing="24px">
             <Stack direction={{ base: "column", md: "row" }}>
