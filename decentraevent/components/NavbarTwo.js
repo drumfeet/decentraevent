@@ -50,11 +50,16 @@ export default function NavbarTwo() {
               onClick={isOpen ? onClose : onOpen}
             />
             <HStack spacing={8} alignItems={"center"}>
-              <Box display={{ base: "none", md: "block" }}>
+              <Box>
                 <Link href="/">
                   <Flex alignItems="center">
                     <LogoSVG />
-                    <Text ml="22px" fontSize="24px" fontWeight="500">
+                    <Text
+                      ml="22px"
+                      fontSize="24px"
+                      fontWeight="500"
+                      display={{ base: "none", md: "block" }}
+                    >
                       DecentraEvent
                     </Text>
                   </Flex>
