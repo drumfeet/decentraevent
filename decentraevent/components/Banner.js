@@ -65,7 +65,7 @@ export const Illustration = () => {
       <path
         d="M51.7143 468.619V441H69.6667V471.381L95.9048 450.667L109.714 467.238L86.2381 486.571H118V508.667H95.9048L113.857 523.857L100.048 540.429L72.4286 516.952V555.619H50.3333V516.952L22.7143 540.429L8.90476 525.238L28.2381 508.667H2V486.571H36.5238L13.0476 467.238L28.2381 450.667L50.3333 468.619"
         stroke="black"
-        stroke-width="2.7619"
+        strokeWidth="2.7619"
       />
       <g filter="url(#filter0_d_0_1)">
         <path
@@ -75,7 +75,7 @@ export const Illustration = () => {
         <path
           d="M481.323 300L394 339.349V448.773H502.885V470.335L539 396.487H481.323V300Z"
           stroke="black"
-          stroke-width="1.07807"
+          strokeWidth="1.07807"
         />
       </g>
       <g filter="url(#filter1_d_0_1)">
@@ -99,7 +99,7 @@ export const Illustration = () => {
         y="276"
         width="48"
         height="48"
-        clip-path="url(#circleClip)"
+        clipPath="url(#circleClip)"
         href="https://drive.google.com/uc?id=1pkLk5_ibn-7D1ISI2VpnvyNZpdY8H-bF"
       />
       <path
@@ -116,7 +116,7 @@ export const Illustration = () => {
         width="205"
         height="73"
         stroke="black"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <rect x="518" y="131" width="205" height="73" fill="white" />
       <defs>
@@ -129,7 +129,7 @@ export const Illustration = () => {
         y="143"
         width="48"
         height="48"
-        clip-path="url(#circleClip2)"
+        clipPath="url(#circleClip2)"
         href="https://drive.google.com/uc?id=19v8hgHJ7frQq6V9mimvvB_UiHs5Zk690"
       />
       <path
@@ -146,7 +146,7 @@ export const Illustration = () => {
         width="205"
         height="73"
         stroke="black"
-        stroke-width="2"
+        strokeWidth="2"
       />
       <defs>
         <filter
@@ -156,9 +156,9 @@ export const Illustration = () => {
           width="155.027"
           height="180.03"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -190,9 +190,9 @@ export const Illustration = () => {
           width="158"
           height="170.5"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
