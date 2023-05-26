@@ -46,6 +46,7 @@ export default function ViewEvent() {
     getTimeString,
     isLoading,
     setIsLoading,
+    getRsvpCount,
   } = useContext(AppContext)
   const router = useRouter()
   const { eventId } = router.query
@@ -55,6 +56,7 @@ export default function ViewEvent() {
   const [placeUrl, setPlaceUrl] = useState(null)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [urlImage, setUrlImage] = useState("")
+  const [numAttendees, setNumAttendees] = useState("")
 
   const handleImageError = () => {
     setImageLoaded(false)
@@ -99,6 +101,10 @@ export default function ViewEvent() {
         const _eventData = await getEventWithEventId(eventId)
         console.log("ViewEvent _eventData", _eventData)
         setEventData(_eventData.shift())
+
+        const _rsvpCount = await getRsvpCount(eventId)
+        console.log("ViewEvent _rsvpCount", _rsvpCount)
+        setNumAttendees(_rsvpCount)
       }
     })()
   }, [initDB])
@@ -316,6 +322,11 @@ export default function ViewEvent() {
                 <Text fontWeight="800">Owner</Text>
                 <Text>{eventData?.data?.user_address}</Text>
               </Box> */}
+
+              <Box>
+                <Text fontWeight="800">RSVP Count</Text>
+                <Text>{numAttendees}</Text>
+              </Box>
               <Box>
                 <Text fontWeight="800">Organizer</Text>
                 <Text>{eventData?.data?.organizer}</Text>

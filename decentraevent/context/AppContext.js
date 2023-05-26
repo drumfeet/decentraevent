@@ -853,6 +853,27 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getRsvpCount = async (eventId) => {
+    setIsLoading(true)
+    let _rsvpCount = 0
+
+    try {
+      const _rsvp = await db.cget(
+        COLLECTION_RSVP,
+        ["event_id"],
+        ["event_id", "==", eventId]
+      )
+      console.log("getRsvpCount() _rsvp", _rsvp)
+      _rsvpCount = String(_rsvp?.length)
+    } catch (e) {
+      toast(e.message)
+      console.error("getRsvpCount", e)
+    } finally {
+      setIsLoading(false)
+      return _rsvpCount
+    }
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -899,6 +920,7 @@ export const AppContextProvider = ({ children }) => {
         getTimeString,
         isRequiredEventDataValid,
         getPhotoBundlrId,
+        getRsvpCount,
       }}
     >
       {children}
