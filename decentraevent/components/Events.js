@@ -1,4 +1,4 @@
-import { Flex, Container, Heading } from "@chakra-ui/react"
+import { Flex, Container } from "@chakra-ui/react"
 import Search from "./Search"
 import EventsGrid from "./EventsGrid"
 

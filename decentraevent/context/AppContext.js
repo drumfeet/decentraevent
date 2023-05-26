@@ -830,6 +830,50 @@ export const AppContextProvider = ({ children }) => {
     return true
   }
 
+  const getPhotoBundlrId = async (acceptedFile) => {
+    try {
+      const buffer = Buffer.from(await acceptedFile.arrayBuffer())
+      const response = await fetch("/api/uploadFile", {
+        method: "POST",
+        body: JSON.stringify({ bufferData: buffer }),
+      })
+      const responseJson = await response.json()
+      console.log("getPhotoBundlrId() responseJson", responseJson)
+
+      if (responseJson.error) {
+        throw new Error(responseJson.error)
+      } else {
+        console.log("Image uploaded successfully!")
+        return responseJson.tx.id
+      }
+    } catch (e) {
+      console.log(e)
+      toast(e)
+      return null
+    }
+  }
+
+  const getRsvpCount = async (eventId) => {
+    setIsLoading(true)
+    let _rsvpCount = 0
+
+    try {
+      const _rsvp = await db.cget(
+        COLLECTION_RSVP,
+        ["event_id"],
+        ["event_id", "==", eventId]
+      )
+      console.log("getRsvpCount() _rsvp", _rsvp)
+      _rsvpCount = String(_rsvp?.length)
+    } catch (e) {
+      toast(e.message)
+      console.error("getRsvpCount", e)
+    } finally {
+      setIsLoading(false)
+      return _rsvpCount
+    }
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -875,6 +919,8 @@ export const AppContextProvider = ({ children }) => {
         getDateString,
         getTimeString,
         isRequiredEventDataValid,
+        getPhotoBundlrId,
+        getRsvpCount,
       }}
     >
       {children}

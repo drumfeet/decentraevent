@@ -1,4 +1,3 @@
-import Head from "next/head"
 import Banner from "@/components/Banner"
 import Feature from "@/components/Feature"
 import Footer from "@/components/Footer"
@@ -7,6 +6,7 @@ import ConfirmationAlert from "@/components/ConfirmationAlert"
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
+import Head from "next/head"
 
 export default function Home() {
   const { user, initDB, hasUserProfile } = useContext(AppContext)
@@ -40,6 +40,10 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>DecentraEvent</title>
+        <link rel="icon" href="/icon_tab.svg" />
+      </Head>
       {showAlert && (
         <ConfirmationAlert
           isOpen={showAlert}
@@ -53,10 +57,6 @@ export default function Home() {
       )}
 
       <NavbarOne />
-      <Head>
-        <title>DecentraEvent</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Banner />
       <Feature />
       <Footer />
