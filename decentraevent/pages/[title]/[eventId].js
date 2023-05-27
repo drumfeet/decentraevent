@@ -248,6 +248,10 @@ export default function ViewEvent() {
                     px="58px"
                     onClick={() => handleRsvpClick()}
                     isLoading={isLoading}
+                    isDisabled={
+                      rsvpCount >= eventData?.data?.rsvp_limit &&
+                      !userRsvpData?.isGoing
+                    }
                   >
                     {userRsvpData?.isGoing ? "Leave" : "Join"}
                   </Button>
