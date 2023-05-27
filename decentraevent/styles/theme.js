@@ -20,6 +20,13 @@ const colors = {
 const overrides = {
   components: {
     Button: {
+      baseStyle: {
+        _disabled: {
+          _hover: {
+            color: "black",
+          },
+        },
+      },
       variants: {
         solid: {
           bg: "black",
