@@ -43,6 +43,9 @@ const schema_events = {
     image_id: {
       type: "string",
     },
+    rsvp_limit: {
+      type: "number",
+    },
   },
 }
 

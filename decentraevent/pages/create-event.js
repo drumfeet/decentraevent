@@ -93,8 +93,11 @@ export default function CreateEvent() {
     }
 
     if (isRequiredEventDataValid(eventData)) {
-      const _image_id = await getPhotoBundlrId(acceptedFile)
-      const eventDataCopy = { ...eventData, image_id: _image_id }
+      const eventDataCopy = { ...eventData }
+      if (acceptedFile) {
+        const _image_id = await getPhotoBundlrId(acceptedFile)
+        eventDataCopy.image_id = _image_id
+      }
       console.log("handleCreateEventClick() eventDataCopy", eventDataCopy)
       console.log("handleCreateEventClick() eventData", eventData)
       await createEvent(eventDataCopy)
@@ -105,6 +108,13 @@ export default function CreateEvent() {
     setEventData({
       ...eventData,
       [e.target.id]: e.target.value,
+    })
+  }
+
+  const handleInputChangeNum = (e) => {
+    setEventData({
+      ...eventData,
+      [e.target.id]: parseInt(e.target.value),
     })
   }
 
@@ -278,6 +288,18 @@ export default function CreateEvent() {
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
                 />
+              </FormControl>
+              <FormControl id="rsvp_limit">
+                <FormLabel>RSVP Limit</FormLabel>
+                <Tooltip label="Max # of attendees" placement="top">
+                  <Input
+                    placeholder="RSVP Limit"
+                    size="md"
+                    type="number"
+                    onChange={handleInputChangeNum}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
               </FormControl>
               <FormControl id="event_details">
                 <FormLabel>Details</FormLabel>
