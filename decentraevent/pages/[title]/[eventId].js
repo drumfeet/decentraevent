@@ -56,7 +56,7 @@ export default function ViewEvent() {
   const [placeUrl, setPlaceUrl] = useState(null)
   const [imageLoaded, setImageLoaded] = useState(false)
   const [urlImage, setUrlImage] = useState("")
-  const [numAttendees, setNumAttendees] = useState("")
+  const [rsvpCount, setRsvpCount] = useState("")
 
   const handleImageError = () => {
     setImageLoaded(false)
@@ -104,7 +104,7 @@ export default function ViewEvent() {
 
         const _rsvpCount = await getRsvpCount(eventId)
         console.log("ViewEvent _rsvpCount", _rsvpCount)
-        setNumAttendees(_rsvpCount)
+        setRsvpCount(_rsvpCount)
       }
     })()
   }, [initDB])
@@ -325,7 +325,11 @@ export default function ViewEvent() {
 
               <Box>
                 <Text fontWeight="800">RSVP Count</Text>
-                <Text>{numAttendees}</Text>
+                <Text>{rsvpCount}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="800">RSVP Limit</Text>
+                <Text>{eventData?.data?.rsvp_limit}</Text>
               </Box>
               <Box>
                 <Text fontWeight="800">Organizer</Text>
