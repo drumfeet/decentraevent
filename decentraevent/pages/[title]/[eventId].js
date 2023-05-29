@@ -187,96 +187,88 @@ export default function ViewEvent() {
               </Heading>
               <Spacer />
               <HStack alignItems="flex-start">
-                {isEventOwner && (
+                {user ? (
                   <>
-                    <IconButton
-                      icon={<DeleteIcon />}
-                      bg="white"
-                      color="black"
-                      _hover={{
-                        borderColor: "white",
-                        borderWidth: "1px",
-                        boxShadow: "4px 4px 0px #000000",
-                        bg: "black",
-                        color: "white",
-                      }}
-                      onClick={() => handleDeleteEventClick()}
-                    />
-                    <IconButton
-                      icon={<EditIcon />}
-                      bg="white"
-                      color="black"
-                      _hover={{
-                        borderColor: "white",
-                        borderWidth: "1px",
-                        boxShadow: "4px 4px 0px #000000",
-                        bg: "black",
-                        color: "white",
-                      }}
-                      onClick={() => handleEditEventClick()}
-                    />
+                    {isEventOwner && (
+                      <>
+                        <Button
+                          border="1px solid #000000"
+                          bg="white"
+                          color="black"
+                          py="14px"
+                          px="16px"
+                          _hover={{
+                            borderColor: "white",
+                            borderWidth: "1px",
+                            boxShadow: "4px 4px 0px #000000",
+                            bg: "black",
+                            color: "white",
+                          }}
+                          onClick={() => handleViewAttendeesClick()}
+                        >
+                          View Attendees
+                        </Button>
+                      </>
+                    )}
                     <Button
-                      border="1px solid #000000"
-                      bg="white"
-                      color="black"
                       py="14px"
-                      px="16px"
-                      _hover={{
-                        borderColor: "white",
-                        borderWidth: "1px",
-                        boxShadow: "4px 4px 0px #000000",
-                        bg: "black",
-                        color: "white",
-                      }}
-                      onClick={() => handleViewAttendeesClick()}
-                    >
-                      View Attendees
-                    </Button>
-                    {/* <Button
-                      py="14px"
-                      px="16px"
+                      px="58px"
                       onClick={() => handleRsvpClick()}
+                      isLoading={isLoading}
+                      isDisabled={
+                        rsvpCount >= eventData?.data?.rsvp_limit &&
+                        !userRsvpData?.isGoing
+                      }
                     >
-                      Join
-                    </Button> */}
+                      {userRsvpData?.isGoing ? "Leave" : "Join"}
+                    </Button>
+                    <Menu>
+                      <MenuButton
+                        _loading={{ pointerEvents: "none" }}
+                        isLoading={isLoading}
+                        as={IconButton}
+                      >
+                        <TriangleDownIcon />
+                      </MenuButton>
+                      <MenuList fontSize="18px" fontWeight="400">
+                        <MenuItem
+                          icon={<ExternalLinkIcon />}
+                          onClick={async () => {
+                            handleShareClick()
+                          }}
+                        >
+                          Share
+                        </MenuItem>
+
+                        {isEventOwner && (
+                          <>
+                            <MenuItem
+                              icon={
+                                <DeleteIcon
+                                  onClick={() => handleDeleteEventClick()}
+                                />
+                              }
+                            >
+                              Delete
+                            </MenuItem>
+                            <MenuItem
+                              icon={<EditIcon />}
+                              onClick={() => handleEditEventClick()}
+                            >
+                              Edit
+                            </MenuItem>
+                          </>
+                        )}
+                      </MenuList>
+                    </Menu>
+                  </>
+                ) : (
+                  <>
+                    <Button py="14px" px="58px" onClick={handleShareClick}>
+                      Share
+                    </Button>
                   </>
                 )}
-
-                {user ? (
-                  <Button
-                    py="14px"
-                    px="58px"
-                    onClick={() => handleRsvpClick()}
-                    isLoading={isLoading}
-                    isDisabled={
-                      rsvpCount >= eventData?.data?.rsvp_limit &&
-                      !userRsvpData?.isGoing
-                    }
-                  >
-                    {userRsvpData?.isGoing ? "Leave" : "Join"}
-                  </Button>
-                ) : null}
-
-                <Menu>
-                  <MenuButton
-                    hidden={true}
-                    _loading={{ pointerEvents: "none" }}
-                    isLoading={isLoading}
-                    as={IconButton}
-                  >
-                    <TriangleDownIcon />
-                  </MenuButton>
-                  <MenuList fontSize="18px" fontWeight="400">
-                    <MenuItem
-                      icon={<ExternalLinkIcon />}
-                      onClick={async () => {
-                        handleShareClick()
-                      }}
-                    >
-                      Share
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
               </HStack>
             </Stack>
             <HStack>
