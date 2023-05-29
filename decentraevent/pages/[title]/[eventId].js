@@ -65,12 +65,13 @@ export default function ViewEvent() {
   const handleRsvpClick = async () => {
     if (isNil(user)) {
       setIsLoginModalOpen(true)
-    } else {
-      const isGoing = not(userRsvpData?.isGoing)
-      console.log("handleRsvpClick() isGoing", isGoing)
-      setUserRsvpForEvent(eventData, isGoing)
-      setUserRsvpData({ ...userRsvpData, isGoing: isGoing })
+      return
     }
+    const isGoing = not(userRsvpData?.isGoing)
+    console.log("handleRsvpClick() isGoing", isGoing)
+    setUserRsvpForEvent(eventData, isGoing)
+    setUserRsvpData({ ...userRsvpData, isGoing: isGoing })
+    setRsvpCount(isGoing ? rsvpCount + 1 : rsvpCount - 1)
   }
 
   const handleViewAttendeesClick = () => {
