@@ -333,7 +333,7 @@ export default function ViewEvent() {
               </Box>
               <Box>
                 <Text fontWeight="800">RSVP Limit</Text>
-                <Text>{eventData?.data?.rsvp_limit}</Text>
+                <Text>{eventData?.data?.rsvp_limit || "-"}</Text>
               </Box>
               <Box>
                 <Text fontWeight="800">Organizer</Text>
