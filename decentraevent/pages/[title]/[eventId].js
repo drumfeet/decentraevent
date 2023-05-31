@@ -23,6 +23,7 @@ import {
 import { isNil, not } from "ramda"
 import {
   CalendarIcon,
+  ChatIcon,
   DeleteIcon,
   EditIcon,
   ExternalLinkIcon,
@@ -88,7 +89,23 @@ export default function ViewEvent() {
     await deleteEvent(eventData.id)
   }
 
-  const handleShareClick = () => {
+  const handleShareClick = async () => {
+    try {
+      if (!navigator.clipboard) {
+        throw new Error("Clipboard API not supported")
+      }
+
+      const url = window.location.href
+      navigator.clipboard.writeText(url)
+
+      toast("URL copied to clipboard!")
+    } catch (e) {
+      console.error("Failed to copy URL: ", e)
+      toast(`Failed to copy URL: ${e}`)
+    }
+  }
+
+  const handleMessageClick = () => {
     toast("Feature coming soon!")
   }
 
@@ -239,6 +256,14 @@ export default function ViewEvent() {
                           }}
                         >
                           Share
+                        </MenuItem>
+                        <MenuItem
+                          icon={<ChatIcon />}
+                          onClick={async () => {
+                            handleMessageClick()
+                          }}
+                        >
+                          Message
                         </MenuItem>
 
                         {isEventOwner && (
