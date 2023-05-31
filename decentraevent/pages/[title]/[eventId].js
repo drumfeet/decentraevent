@@ -13,7 +13,6 @@ import {
   Heading,
   IconButton,
   Image,
-  Input,
   List,
   ListItem,
   Menu,
@@ -24,7 +23,6 @@ import {
   Stack,
   Text,
   Textarea,
-  VStack,
 } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
 import {
@@ -102,6 +100,7 @@ export default function ViewEvent() {
     }
 
     try {
+      setIsLoading(true)
       const docId = nanoid()
       const commentObj = {
         user_address: db.signer(),
@@ -169,7 +168,10 @@ export default function ViewEvent() {
     }
   }
 
-  const handleMessageClick = () => {
+  const handleMessageClick = async () => {
+    // await router.push({
+    //   pathname: `/msg/${eventId}`,
+    // })
     toast("Feature coming soon!")
   }
 
