@@ -140,6 +140,43 @@ export default function ViewEvent() {
     )
   }
 
+  const Details = () => {
+    return (
+      <>
+        <Stack spacing="14px">
+          <Box>
+            <Text fontWeight="800">RSVP Count</Text>
+            <Text>{rsvpCount}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="800">RSVP Limit</Text>
+            <Text>{eventData?.data?.rsvp_limit || "-"}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="800">Organizer</Text>
+            <Text>{eventData?.data?.organizer}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="800">End Date</Text>
+            <Text>{getDateString(eventData?.data?.end_time)}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="800">End Time</Text>
+            <Text>{getTimeString(eventData?.data?.end_time)}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="800">Details</Text>
+            <Text>{eventData?.data?.event_details}</Text>
+          </Box>
+        </Stack>
+      </>
+    )
+  }
+
+  const Comments = () => {
+    return <>Comments Section</>
+  }
+
   useEffect(() => {
     setIsLoading(true)
   }, [])
@@ -365,33 +402,7 @@ export default function ViewEvent() {
 
           <Flex mt="55px" direction="column">
             <Tabs />
-
-            <Stack spacing="14px">
-              <Box>
-                <Text fontWeight="800">RSVP Count</Text>
-                <Text>{rsvpCount}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="800">RSVP Limit</Text>
-                <Text>{eventData?.data?.rsvp_limit || "-"}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="800">Organizer</Text>
-                <Text>{eventData?.data?.organizer}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="800">End Date</Text>
-                <Text>{getDateString(eventData?.data?.end_time)}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="800">End Time</Text>
-                <Text>{getTimeString(eventData?.data?.end_time)}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="800">Details</Text>
-                <Text>{eventData?.data?.event_details}</Text>
-              </Box>
-            </Stack>
+            <Details />
           </Flex>
         </Container>
       </Layout>
