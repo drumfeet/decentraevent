@@ -20,7 +20,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import { isNil, not } from "ramda"
+import { isNil, map, not } from "ramda"
 import {
   CalendarIcon,
   ChatIcon,
@@ -58,6 +58,8 @@ export default function ViewEvent() {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [urlImage, setUrlImage] = useState("")
   const [rsvpCount, setRsvpCount] = useState("")
+  const [tab, setTab] = useState("Details")
+  const tabs = isNil(user) ? ["Details"] : ["Details", "Comments"]
 
   const handleImageError = () => {
     setImageLoaded(false)
@@ -109,6 +111,35 @@ export default function ViewEvent() {
     toast("Feature coming soon!")
   }
 
+  const Tabs = () => {
+    return (
+      <>
+        <Flex>
+          {map((v) => (
+            <Box
+              mr="28px"
+              my="55px"
+              p="16px"
+              fontSize="24px"
+              fontWeight="500"
+              onClick={() => setTab(v)}
+              borderBottom={tab === v ? "1px solid #000000" : ""}
+              cursor="pointer"
+              _hover={{
+                textDecoration: "none",
+                borderColor: "black",
+                borderWidth: "1px",
+                boxShadow: "4px 4px 0px #000000",
+              }}
+            >
+              {v}
+            </Box>
+          ))(tabs)}
+        </Flex>
+      </>
+    )
+  }
+
   useEffect(() => {
     setIsLoading(true)
   }, [])
@@ -158,6 +189,12 @@ export default function ViewEvent() {
       setIsEventOwner(!!user && user.wallet.toLowerCase() === eventData?.setter)
     })()
   }, [user, eventData])
+
+  useEffect(() => {
+    if (tab === "Comments") {
+      toast("Feature coming soon!")
+    }
+  }, [tab])
 
   return (
     <>
@@ -327,24 +364,9 @@ export default function ViewEvent() {
           </Stack>
 
           <Flex mt="55px" direction="column">
-            <Box display="inline-block" mb="55px">
-              <Box
-                display="inline-block"
-                p="16px"
-                fontSize="24px"
-                fontWeight="500"
-                borderBottom="1px solid #000000"
-              >
-                <Text>About Event</Text>
-              </Box>
-            </Box>
+            <Tabs />
 
             <Stack spacing="14px">
-              {/* <Box>
-                <Text fontWeight="800">Owner</Text>
-                <Text>{eventData?.data?.user_address}</Text>
-              </Box> */}
-
               <Box>
                 <Text fontWeight="800">RSVP Count</Text>
                 <Text>{rsvpCount}</Text>
