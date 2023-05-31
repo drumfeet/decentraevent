@@ -30,7 +30,7 @@ export default function EditEvent() {
   const {
     initDB,
     updateEvent,
-    getEventWithDocId,
+    getEventByDocId,
     user,
     setIsLoginModalOpen,
     isRequiredEventDataValid,
@@ -153,7 +153,7 @@ export default function EditEvent() {
   useEffect(() => {
     ;(async () => {
       if (initDB) {
-        const _event = await getEventWithDocId(docId)
+        const _event = await getEventByDocId(docId)
         if (!isNil(_event?.data)) {
           setEventData({
             ...eventData,

@@ -243,21 +243,21 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEventWithDocId = async (docId) => {
+  const getEventByDocId = async (docId) => {
     setIsLoading(true)
     try {
       const _event = await db.cget(COLLECTION_EVENTS, docId)
-      console.log("getEventWithDocId() _event", _event)
+      console.log("getEventByDocId() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
-      console.error("getEventWithDocId", e)
+      console.error("getEventByDocId", e)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const getEventWithEventId = async (eventId) => {
+  const getEventByEventId = async (eventId) => {
     setIsLoading(true)
     try {
       const _event = await db.cget(
@@ -265,11 +265,11 @@ export const AppContextProvider = ({ children }) => {
         ["event_id"],
         ["event_id", "==", eventId]
       )
-      console.log("getEventWithEventId() _event", _event)
+      console.log("getEventByEventId() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
-      console.error("getEventWithEventId", e)
+      console.error("getEventByEventId", e)
     } finally {
       setIsLoading(false)
     }
@@ -914,8 +914,8 @@ export const AppContextProvider = ({ children }) => {
         contractTxId,
         isLoginModalOpen,
         setIsLoginModalOpen,
-        getEventWithDocId,
-        getEventWithEventId,
+        getEventByDocId,
+        getEventByEventId,
         getUserRsvpForEvent,
         updateEventsList,
         getDateString,

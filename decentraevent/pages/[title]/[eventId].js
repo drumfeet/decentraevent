@@ -37,7 +37,7 @@ import { toast } from "react-toastify"
 export default function ViewEvent() {
   const {
     initDB,
-    getEventWithEventId,
+    getEventByEventId,
     user,
     setUserRsvpForEvent,
     getUserRsvpForEvent,
@@ -116,7 +116,7 @@ export default function ViewEvent() {
   useEffect(() => {
     ;(async () => {
       if (initDB) {
-        const _eventData = await getEventWithEventId(eventId)
+        const _eventData = await getEventByEventId(eventId)
         console.log("ViewEvent _eventData", _eventData)
         setEventData(_eventData.shift())
 
