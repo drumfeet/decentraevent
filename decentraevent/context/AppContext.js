@@ -82,7 +82,7 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const login = async (wallet_address) => {
+  const login = async (wallet_address, onSuccess) => {
     console.log(">>login()", wallet_address)
 
     try {
@@ -95,7 +95,7 @@ export const AppContextProvider = ({ children }) => {
         ;({ tx, identity, err } = await db.createTempAddress(wallet_address))
         const linked = await db.getAddressLink(identity.address)
         if (isNil(linked)) {
-          alert("something went wrong")
+          toast("something went wrong")
           return
         }
       } else {
@@ -104,6 +104,7 @@ export const AppContextProvider = ({ children }) => {
           wallet: wallet_address,
           privateKey: identity.privateKey,
         })
+        onSuccess()
         return
       }
       if (!isNil(tx) && isNil(tx.err)) {
@@ -118,6 +119,7 @@ export const AppContextProvider = ({ children }) => {
           wallet: wallet_address,
           privateKey: identity.privateKey,
         })
+        onSuccess()
       }
     } catch (e) {
       console.error("login", e)

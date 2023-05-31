@@ -1,5 +1,5 @@
 import { isNil } from "ramda"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import {
@@ -19,6 +19,8 @@ export default function RainbowWallet() {
     useContext(AppContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const router = useRouter()
+  const [userSignedTx, setUserSignedTx] = useState(false)
+  const [isConnected, setIsConnected] = useState(false)
 
   const handleLoginModalOpen = () => {
     console.log("handleLoginModalOpen")
@@ -28,6 +30,11 @@ export default function RainbowWallet() {
   const handleLoginModalClose = () => {
     console.log("handleLoginModalClose")
     setIsLoginModalOpen(false)
+  }
+
+  const onLoginSuccess = () => {
+    console.log(">>onLoginSuccess()")
+    setUserSignedTx(true)
   }
 
   return (
@@ -53,12 +60,15 @@ export default function RainbowWallet() {
           useEffect(() => {
             console.log("useEffect connected", connected)
             if (connected) {
-              login(account?.address)
+              setIsConnected(true)
+              login(account?.address, onLoginSuccess)
             }
           }, [connected])
 
           useEffect(() => {
             if (isNil(account)) {
+              setUserSignedTx(false)
+              setIsConnected(false)
               logout()
             }
           }, [account])
@@ -80,6 +90,8 @@ export default function RainbowWallet() {
                 isOpen={isLoginModalOpen}
                 onClose={handleLoginModalClose}
                 openConnectModal={openConnectModal}
+                isConnected={isConnected}
+                userSignedTx={userSignedTx}
               />
 
               {(() => {
@@ -95,6 +107,21 @@ export default function RainbowWallet() {
                         }}
                       >
                         Login
+                      </Button>
+                    </>
+                  )
+                } else if (connected && !userSignedTx) {
+                  return (
+                    <>
+                      <Button
+                        {...conditionalProps}
+                        px="51px"
+                        py="14px"
+                        onClick={() => {
+                          login(account?.address, onLoginSuccess)
+                        }}
+                      >
+                        Sign Tx
                       </Button>
                     </>
                   )
