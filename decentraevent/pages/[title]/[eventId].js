@@ -75,11 +75,11 @@ export default function ViewEvent() {
     setIsLoading(true)
 
     try {
-      const _comments = await db.cget(COLLECTION_COMMENTS, [
-        "event_id",
-        "==",
-        eventId,
-      ],  ["date", "desc"])
+      const _comments = await db.cget(
+        COLLECTION_COMMENTS,
+        ["event_id", "==", eventId],
+        ["date", "desc"]
+      )
       setComments(_comments)
       console.log(_comments)
     } catch (e) {
