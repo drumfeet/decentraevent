@@ -14,6 +14,7 @@ export const AppContextProvider = ({ children }) => {
   const COLLECTION_EVENTS = "sample"
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_USERS = "users"
+  const COLLECTION_MESSAGES = "messages"
   const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
   const router = useRouter()
   const [db, setDb] = useState(null)
@@ -876,6 +877,55 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getMessages = async (eventId) => {
+    setIsLoading(true)
+
+    try {
+      const _messages = await db.cget(
+        COLLECTION_MESSAGES,
+        ["event_id", "==", eventId],
+        ["date", "desc"]
+      )
+      console.log("getMessages()", _messages)
+      return _messages
+    } catch (e) {
+      toast(e.message)
+      console.error(`getMessages() catch: ${e}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const setNewMessage = async (_msg, eventId, onSuccess) => {
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      const docId = nanoid()
+      const messageObj = {
+        user_address: db.signer(),
+        date: db.ts(),
+        event_id: eventId,
+        msg: _msg,
+      }
+
+      const tx = await db.upsert(messageObj, COLLECTION_MESSAGES, docId, user)
+      if (tx.error) {
+        throw new Error("Error! " + tx.error)
+      }
+      onSuccess()
+    } catch (e) {
+      toast(e.message)
+      console.error(`setNewMessage() catch: ${e}`)
+      return []
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -923,6 +973,8 @@ export const AppContextProvider = ({ children }) => {
         isRequiredEventDataValid,
         getPhotoBundlrId,
         getRsvpCount,
+        getMessages,
+        setNewMessage,
       }}
     >
       {children}
