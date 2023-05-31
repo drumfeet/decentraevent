@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
 import { useState } from "react"
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -13,6 +14,8 @@ import {
   IconButton,
   Image,
   Input,
+  List,
+  ListItem,
   Menu,
   MenuButton,
   MenuItem,
@@ -20,6 +23,8 @@ import {
   Spacer,
   Stack,
   Text,
+  Textarea,
+  VStack,
 } from "@chakra-ui/react"
 import { isNil, not } from "ramda"
 import {
@@ -234,16 +239,42 @@ export default function ViewEvent() {
   const Comments = () => {
     return (
       <>
-        <Input
+        <Textarea
+          maxLength={"800"}
           placeholder="Write a comment"
           onChange={(e) => (commentRef.current = e.target.value)}
         />
         <Button onClick={handleSubmitClick}>Submit</Button>
-        <ul>
+
+        <List pt="88px">
           {comments.map((item, index) => (
-            <li key={index}>{item.data.comment}</li>
+            <ListItem key={index} mb="24px">
+              <Flex>
+                <Avatar size="md" />
+                <Flex
+                  p="4px"
+                  ml="18px"
+                  flexDirection="column"
+                  fontWeight="500"
+                  fontSize="14px"
+                >
+                  <Box>
+                    {item.data.user_address.slice(0, 8)}.....
+                    {item.data.user_address.slice(-5)}
+                  </Box>
+                  <Box>
+                    {getDateString(item.data.date)}{" "}
+                    {getTimeString(item.data.date)}
+                  </Box>
+                  <Spacer />
+                  <Text py="18px" fontWeight="400" fontSize="16px">
+                    {item.data.comment}
+                  </Text>
+                </Flex>
+              </Flex>
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </>
     )
   }
