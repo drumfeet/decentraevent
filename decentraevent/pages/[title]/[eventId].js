@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { AppContext } from "@/context/AppContext"
 import { useRouter } from "next/router"
 import Layout from "@/components/Layout"
@@ -12,6 +12,7 @@ import {
   Heading,
   IconButton,
   Image,
+  Input,
   Menu,
   MenuButton,
   MenuItem,
@@ -20,7 +21,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react"
-import { isNil, map, not } from "ramda"
+import { isNil, not } from "ramda"
 import {
   CalendarIcon,
   ChatIcon,
@@ -33,8 +34,10 @@ import {
 import { GoLocation } from "react-icons/go"
 import Link from "next/link"
 import { toast } from "react-toastify"
+import { nanoid } from "nanoid"
 
 export default function ViewEvent() {
+  const COLLECTION_COMMENTS = "comments"
   const {
     initDB,
     getEventByEventId,
@@ -48,6 +51,7 @@ export default function ViewEvent() {
     isLoading,
     setIsLoading,
     getRsvpCount,
+    db,
   } = useContext(AppContext)
   const router = useRouter()
   const { eventId } = router.query
@@ -59,7 +63,60 @@ export default function ViewEvent() {
   const [urlImage, setUrlImage] = useState("")
   const [rsvpCount, setRsvpCount] = useState("")
   const [tab, setTab] = useState("Details")
-  const tabs = isNil(user) ? ["Details"] : ["Details", "Comments"]
+  const tabs = isNil(user)
+    ? ["Details"]
+    : !isNil(db)
+    ? ["Details", "Comments"]
+    : ["Details"]
+  const [comments, setComments] = useState([])
+  const commentRef = useRef()
+
+  const getComments = async () => {
+    setIsLoading(true)
+
+    try {
+      const _comments = await db.cget(COLLECTION_COMMENTS, [
+        "event_id",
+        "==",
+        eventId,
+      ],  ["date", "desc"])
+      setComments(_comments)
+      console.log(_comments)
+    } catch (e) {
+      toast(e.message)
+      console.error(`getComments() catch: ${e}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSubmitClick = async () => {
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+      return
+    }
+
+    try {
+      const docId = nanoid()
+      const commentObj = {
+        user_address: db.signer(),
+        date: db.ts(),
+        event_id: eventId,
+        comment: commentRef.current,
+      }
+
+      const tx = await db.upsert(commentObj, COLLECTION_COMMENTS, docId, user)
+      if (tx.error) {
+        throw new Error("Error! " + tx.error)
+      }
+      getComments()
+    } catch (e) {
+      toast(e.message)
+      console.error(`handleSubmitClick() catch: ${e}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleImageError = () => {
     setImageLoaded(false)
@@ -115,15 +172,16 @@ export default function ViewEvent() {
     return (
       <>
         <Flex>
-          {map((v) => (
+          {tabs.map((item, index) => (
             <Box
+              key={index}
               mr="28px"
               my="55px"
               p="16px"
               fontSize="24px"
               fontWeight="500"
-              onClick={() => setTab(v)}
-              borderBottom={tab === v ? "1px solid #000000" : ""}
+              onClick={() => setTab(item)}
+              borderBottom={tab === item ? "1px solid #000000" : ""}
               cursor="pointer"
               _hover={{
                 textDecoration: "none",
@@ -132,9 +190,9 @@ export default function ViewEvent() {
                 boxShadow: "4px 4px 0px #000000",
               }}
             >
-              {v}
+              {item}
             </Box>
-          ))(tabs)}
+          ))}
         </Flex>
       </>
     )
@@ -174,7 +232,20 @@ export default function ViewEvent() {
   }
 
   const Comments = () => {
-    return <>Comments Section</>
+    return (
+      <>
+        <Input
+          placeholder="Write a comment"
+          onChange={(e) => (commentRef.current = e.target.value)}
+        />
+        <Button onClick={handleSubmitClick}>Submit</Button>
+        <ul>
+          {comments.map((item, index) => (
+            <li key={index}>{item.data.comment}</li>
+          ))}
+        </ul>
+      </>
+    )
   }
 
   useEffect(() => {
@@ -229,7 +300,7 @@ export default function ViewEvent() {
 
   useEffect(() => {
     if (tab === "Comments") {
-      toast("Feature coming soon!")
+      getComments()
     }
   }, [tab])
 
@@ -402,7 +473,11 @@ export default function ViewEvent() {
 
           <Flex mt="55px" direction="column">
             <Tabs />
-            <Details />
+            {tab === "Details" ? (
+              <Details />
+            ) : (
+              <>{!isNil(db) && <Comments />}</>
+            )}
           </Flex>
         </Container>
       </Layout>
