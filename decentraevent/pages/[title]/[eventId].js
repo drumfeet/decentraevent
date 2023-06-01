@@ -447,6 +447,12 @@ export default function ViewEvent() {
                         {isEventOwner && (
                           <>
                             <MenuItem
+                              icon={<EditIcon />}
+                              onClick={() => handleEditEventClick()}
+                            >
+                              Edit
+                            </MenuItem>
+                            <MenuItem
                               icon={
                                 <DeleteIcon
                                   onClick={() => handleDeleteEventClick()}
@@ -454,12 +460,6 @@ export default function ViewEvent() {
                               }
                             >
                               Delete
-                            </MenuItem>
-                            <MenuItem
-                              icon={<EditIcon />}
-                              onClick={() => handleEditEventClick()}
-                            >
-                              Edit
                             </MenuItem>
                           </>
                         )}
