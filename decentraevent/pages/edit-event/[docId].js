@@ -14,6 +14,7 @@ import {
   Switch,
   InputGroup,
   InputLeftElement,
+  Tooltip,
 } from "@chakra-ui/react"
 import { useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from "@/context/AppContext"
@@ -29,7 +30,7 @@ export default function EditEvent() {
   const {
     initDB,
     updateEvent,
-    getEventWithDocId,
+    getEventByDocId,
     user,
     setIsLoginModalOpen,
     isRequiredEventDataValid,
@@ -103,8 +104,11 @@ export default function EditEvent() {
     }
 
     if (isRequiredEventDataValid(eventData)) {
-      const _image_id = await getPhotoBundlrId(acceptedFile)
-      const eventDataCopy = { ...eventData, image_id: _image_id }
+      const eventDataCopy = { ...eventData }
+      if (acceptedFile) {
+        const _image_id = await getPhotoBundlrId(acceptedFile)
+        eventDataCopy.image_id = _image_id
+      }
       console.log("handleUpdateEventClick() eventDataCopy", eventDataCopy)
       console.log("handleUpdateEventClick() eventData", eventData)
       await updateEvent(docId, eventDataCopy)
@@ -128,6 +132,13 @@ export default function EditEvent() {
     })
   }
 
+  const handleInputChangeNum = (e) => {
+    setEventData({
+      ...eventData,
+      [e.target.id]: parseInt(e.target.value),
+    })
+  }
+
   useEffect(() => {
     const _placeId = eventData?.location?.place_id
     console.log("useEffect eventData", eventData)
@@ -142,7 +153,7 @@ export default function EditEvent() {
   useEffect(() => {
     ;(async () => {
       if (initDB) {
-        const _event = await getEventWithDocId(docId)
+        const _event = await getEventByDocId(docId)
         if (!isNil(_event?.data)) {
           setEventData({
             ...eventData,
@@ -152,6 +163,7 @@ export default function EditEvent() {
             start_time: getDateTime(_event?.data?.start_time),
             end_time: getDateTime(_event?.data?.end_time),
             event_details: _event?.data?.event_details,
+            rsvp_limit: _event?.data?.rsvp_limit,
           })
           locationRef.current.value = _event?.data?.location?.name
           console.log("EditEvent _event", _event)
@@ -303,6 +315,19 @@ export default function EditEvent() {
                   onChange={handleInputChange}
                   borderColor="#98A2B3"
                 />
+              </FormControl>
+              <FormControl id="rsvp_limit">
+                <FormLabel>RSVP Limit</FormLabel>
+                <Tooltip label="Max # of attendees" placement="top">
+                  <Input
+                    value={eventData?.rsvp_limit || ""}
+                    placeholder="RSVP Limit"
+                    size="md"
+                    type="number"
+                    onChange={handleInputChangeNum}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
               </FormControl>
               <FormControl id="event_details">
                 <FormLabel>Details</FormLabel>

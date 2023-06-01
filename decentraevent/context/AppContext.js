@@ -14,6 +14,7 @@ export const AppContextProvider = ({ children }) => {
   const COLLECTION_EVENTS = "sample"
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_USERS = "users"
+  const COLLECTION_MESSAGES = "messages"
   const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
   const router = useRouter()
   const [db, setDb] = useState(null)
@@ -82,7 +83,7 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const login = async (wallet_address) => {
+  const login = async (wallet_address, onSuccess) => {
     console.log(">>login()", wallet_address)
 
     try {
@@ -95,7 +96,7 @@ export const AppContextProvider = ({ children }) => {
         ;({ tx, identity, err } = await db.createTempAddress(wallet_address))
         const linked = await db.getAddressLink(identity.address)
         if (isNil(linked)) {
-          alert("something went wrong")
+          toast("something went wrong")
           return
         }
       } else {
@@ -104,6 +105,7 @@ export const AppContextProvider = ({ children }) => {
           wallet: wallet_address,
           privateKey: identity.privateKey,
         })
+        onSuccess()
         return
       }
       if (!isNil(tx) && isNil(tx.err)) {
@@ -118,6 +120,7 @@ export const AppContextProvider = ({ children }) => {
           wallet: wallet_address,
           privateKey: identity.privateKey,
         })
+        onSuccess()
       }
     } catch (e) {
       console.error("login", e)
@@ -241,21 +244,21 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEventWithDocId = async (docId) => {
+  const getEventByDocId = async (docId) => {
     setIsLoading(true)
     try {
       const _event = await db.cget(COLLECTION_EVENTS, docId)
-      console.log("getEventWithDocId() _event", _event)
+      console.log("getEventByDocId() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
-      console.error("getEventWithDocId", e)
+      console.error("getEventByDocId", e)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const getEventWithEventId = async (eventId) => {
+  const getEventByEventId = async (eventId) => {
     setIsLoading(true)
     try {
       const _event = await db.cget(
@@ -263,11 +266,11 @@ export const AppContextProvider = ({ children }) => {
         ["event_id"],
         ["event_id", "==", eventId]
       )
-      console.log("getEventWithEventId() _event", _event)
+      console.log("getEventByEventId() _event", _event)
       return _event
     } catch (e) {
       toast(e.message)
-      console.error("getEventWithEventId", e)
+      console.error("getEventByEventId", e)
     } finally {
       setIsLoading(false)
     }
@@ -874,6 +877,55 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
+  const getMessages = async (eventId) => {
+    setIsLoading(true)
+
+    try {
+      const _messages = await db.cget(
+        COLLECTION_MESSAGES,
+        ["event_id", "==", eventId],
+        ["date", "desc"]
+      )
+      console.log("getMessages()", _messages)
+      return _messages
+    } catch (e) {
+      toast(e.message)
+      console.error(`getMessages() catch: ${e}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const setNewMessage = async (_msg, eventId, onSuccess) => {
+    if (isNil(user)) {
+      setIsLoginModalOpen(true)
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      const docId = nanoid()
+      const messageObj = {
+        user_address: db.signer(),
+        date: db.ts(),
+        event_id: eventId,
+        msg: _msg,
+      }
+
+      const tx = await db.upsert(messageObj, COLLECTION_MESSAGES, docId, user)
+      if (tx.error) {
+        throw new Error("Error! " + tx.error)
+      }
+      onSuccess()
+    } catch (e) {
+      toast(e.message)
+      console.error(`setNewMessage() catch: ${e}`)
+      return []
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     checkUser()
     setupWeaveDB()
@@ -912,8 +964,8 @@ export const AppContextProvider = ({ children }) => {
         contractTxId,
         isLoginModalOpen,
         setIsLoginModalOpen,
-        getEventWithDocId,
-        getEventWithEventId,
+        getEventByDocId,
+        getEventByEventId,
         getUserRsvpForEvent,
         updateEventsList,
         getDateString,
@@ -921,6 +973,8 @@ export const AppContextProvider = ({ children }) => {
         isRequiredEventDataValid,
         getPhotoBundlrId,
         getRsvpCount,
+        getMessages,
+        setNewMessage,
       }}
     >
       {children}

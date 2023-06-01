@@ -14,6 +14,8 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
 import RainbowWallet from "./RainbowWallet"
 import LogoSVG from "./Logo"
+import { useContext, useEffect } from "react"
+import { AppContext } from "@/context/AppContext"
 
 const Links = [{ name: "Events", url: "/show-events" }]
 
@@ -36,6 +38,14 @@ const NavLink = ({ children, to }) => (
 
 export default function NavbarTwo() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { user } = useContext(AppContext)
+
+  useEffect(() => {
+    const hasRSVP = Links.some((link) => link.name === "Timeline")
+    if (user && !hasRSVP) {
+      Links.push({ name: "Timeline", url: "/timeline" })
+    }
+  }, [user])
 
   return (
     <>

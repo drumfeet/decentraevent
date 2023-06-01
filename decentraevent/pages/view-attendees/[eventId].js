@@ -42,7 +42,7 @@ export default function ViewAttendees() {
   const {
     initDB,
     getEventAttendees,
-    getEventWithEventId,
+    getEventByEventId,
     getDateString,
     getTimeString,
   } = useContext(AppContext)
@@ -103,7 +103,7 @@ export default function ViewAttendees() {
     ;(async () => {
       try {
         if (initDB) {
-          const _eventData = await getEventWithEventId(eventId)
+          const _eventData = await getEventByEventId(eventId)
           console.log("view-attendees eventId", eventId)
           console.log("view-attendees _eventData", _eventData)
           setEventData(_eventData.shift())

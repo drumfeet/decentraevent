@@ -11,8 +11,15 @@ import {
   ModalFooter,
 } from "@chakra-ui/react"
 import { useContext } from "react"
+import { toast } from "react-toastify"
 
-export default function LoginOption({ isOpen, onClose, openConnectModal }) {
+export default function LoginOption({
+  isOpen,
+  onClose,
+  openConnectModal,
+  isConnected,
+  userSignedTx,
+}) {
   const { setIsLoginModalOpen, loginWithLens } = useContext(AppContext)
 
   return (
@@ -28,6 +35,9 @@ export default function LoginOption({ isOpen, onClose, openConnectModal }) {
                 onClick={() => {
                   setIsLoginModalOpen(false)
                   openConnectModal()
+                  if (isConnected && !userSignedTx) {
+                    toast("Sign Tx required for login")
+                  }
                 }}
               >
                 Polygon
