@@ -14,10 +14,10 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import "react-toastify/dist/ReactToastify.css"
 import RainbowWallet from "./RainbowWallet"
 import LogoSVG from "./Logo"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
 
-const Links = [{ name: "Events", url: "/show-events" }]
+const initialLinks = [{ name: "Events", url: "/show-events" }]
 
 const NavLink = ({ children, to }) => (
   <Link
@@ -39,11 +39,15 @@ const NavLink = ({ children, to }) => (
 export default function NavbarTwo() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useContext(AppContext)
+  const [links, setLinks] = useState(initialLinks)
 
   useEffect(() => {
-    const hasRSVP = Links.some((link) => link.name === "Timeline")
+    const hasRSVP = links.some((link) => link.name === "Timeline")
+
     if (user && !hasRSVP) {
-      Links.push({ name: "Timeline", url: "/timeline" })
+      setLinks([...links, { name: "Timeline", url: "/timeline" }])
+    } else if (!user && links.length > 1) {
+      setLinks(links.slice(0, links.length - 1))
     }
   }, [user])
 
@@ -82,7 +86,7 @@ export default function NavbarTwo() {
                 fontSize="24px"
                 fontWeight="400"
               >
-                {Links.map((link) => (
+                {links.map((link) => (
                   <NavLink key={link.name} to={link.url}>
                     {link.name}
                   </NavLink>
@@ -96,7 +100,7 @@ export default function NavbarTwo() {
           {isOpen ? (
             <Box pb={4} display={{ md: "none" }}>
               <Stack as={"nav"} spacing={4} fontSize="18px" fontWeight="400">
-                {Links.map((link) => (
+                {links.map((link) => (
                   <NavLink key={link.name} to={link.url}>
                     {link.name}
                   </NavLink>

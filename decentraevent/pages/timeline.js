@@ -25,7 +25,7 @@ const Timeline = () => {
     setIsLoading(true)
 
     try {
-      const userWalletAddress = user?.wallet?.toLowerCase()
+      const userWalletAddress = user.wallet.toLowerCase()
       const _timeline = await db.cget(
         "rsvp",
         ["user_address", "==", userWalletAddress],
