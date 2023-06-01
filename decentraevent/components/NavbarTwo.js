@@ -20,18 +20,7 @@ import { AppContext } from "@/context/AppContext"
 const initialLinks = [{ name: "Events", url: "/show-events" }]
 
 const NavLink = ({ children, to }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      borderColor: "black",
-      borderWidth: "1px",
-      boxShadow: "4px 4px 0px #000000",
-    }}
-    href={to}
-  >
+  <Link px={2} py={1} rounded={"md"} href={to}>
     {children}
   </Link>
 )
