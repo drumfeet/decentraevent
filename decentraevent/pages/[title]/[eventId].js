@@ -30,7 +30,6 @@ import {
   ChatIcon,
   DeleteIcon,
   EditIcon,
-  ExternalLinkIcon,
   TimeIcon,
   TriangleDownIcon,
 } from "@chakra-ui/icons"
@@ -38,6 +37,7 @@ import { GoLocation } from "react-icons/go"
 import Link from "next/link"
 import { toast } from "react-toastify"
 import { nanoid } from "nanoid"
+import { FaTwitter } from "react-icons/fa"
 
 export default function ViewEvent() {
   const COLLECTION_COMMENTS = "comments"
@@ -160,7 +160,10 @@ export default function ViewEvent() {
 
       const url = window.location.href
       navigator.clipboard.writeText(url)
-
+      const tweetUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        url
+      )}`
+      window.open(tweetUrl, "_blank")
       toast("URL copied to clipboard!")
     } catch (e) {
       console.error("Failed to copy URL: ", e)
@@ -428,7 +431,7 @@ export default function ViewEvent() {
                       </MenuButton>
                       <MenuList fontSize="18px" fontWeight="400">
                         <MenuItem
-                          icon={<ExternalLinkIcon />}
+                          icon={<FaTwitter />}
                           onClick={async () => {
                             handleShareClick()
                           }}
