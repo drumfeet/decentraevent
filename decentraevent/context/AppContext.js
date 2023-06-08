@@ -15,7 +15,7 @@ export const AppContextProvider = ({ children }) => {
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_USERS = "users"
   const COLLECTION_MESSAGES = "messages"
-  const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
+  const contractTxId = process.env.NEXT_PUBLIC_WEAVEDB_CONTRACT_TX_ID
   const router = useRouter()
   const [db, setDb] = useState(null)
   const [initDB, setInitDB] = useState(false)
