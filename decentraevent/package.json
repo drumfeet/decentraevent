@@ -33,6 +33,7 @@
     "react-icons": "^4.8.0",
     "react-toastify": "^9.1.1",
     "wagmi": "^0.12.2",
-    "weavedb-sdk": "^0.26.10"
+    "weavedb-sdk": "^0.26.10",
+    "weavedb-sdk-node": "^0.27.13"
   }
 }

@@ -227,6 +227,29 @@ const rules_rsvp = {
   },
 }
 
+const schema_rsvp_gated = {
+  "let create": {
+    nft_balance: {
+      var: "request.auth.extra",
+    },
+    "resource.newData.nft_balance": {
+      var: "nft_balance",
+    },
+  },
+  "allow create": {
+    and: [
+      {
+        ">": [
+          {
+            var: "nft_balance",
+          },
+          0,
+        ],
+      },
+    ],
+  },
+}
+
 const schema_users = {
   type: "object",
   required: ["user_address", "date", "lit"],
