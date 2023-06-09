@@ -156,7 +156,7 @@ const schema_rsvp = {
 }
 
 const rules_rsvp = {
-  "let create,update": {
+  "let create": {
     docId: [
       "join",
       "-",
@@ -169,9 +169,11 @@ const rules_rsvp = {
 
   "allow create": {
     and: [
+      //validate `resource.id` is a valid `docId` format: `user_address-event_id`
       {
         "==": [{ var: "resource.id" }, { var: "docId" }],
       },
+      //validate `user_address` field is the signer
       {
         "==": [
           { var: "request.auth.signer" },
@@ -189,12 +191,10 @@ const rules_rsvp = {
 
   "allow update": {
     and: [
+      //only the original creator of the doc can update their own data
       //signer is the original creator of the doc
       {
-        "==": [
-          { var: "request.auth.signer" },
-          { var: "resource.data.user_address" },
-        ],
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
       },
       //user_address field cannot be updated
       {
@@ -210,6 +210,13 @@ const rules_rsvp = {
           { var: "resource.newData.event_id" },
         ],
       },
+      //event_doc_id field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.event_doc_id" },
+          { var: "resource.newData.event_doc_id" },
+        ],
+      },
       {
         "==": [
           { var: "request.block.timestamp" },
@@ -220,9 +227,15 @@ const rules_rsvp = {
   },
 
   "allow delete": {
-    "==": [
-      { var: "request.auth.signer" },
-      { var: "resource.data.user_address" },
+    or: [
+      //original creator of the doc can delete their own data
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //contract owner can delete documents
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
+      },
     ],
   },
 }
@@ -296,9 +309,12 @@ const rules_rsvp_gated = {
       {
         "==": [{ var: "resource.id" }, { var: "docId" }],
       },
-      //signer is the creator of the doc
+      //validate `user_address` field is the signer
       {
-        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+        "==": [
+          { var: "request.auth.signer" },
+          { var: "resource.newData.user_address" },
+        ],
       },
       {
         "==": [
@@ -346,9 +362,11 @@ const rules_rsvp_gated = {
   },
   "allow delete": {
     or: [
+      //original creator of the doc can delete their own data
       {
         "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
       },
+      //contract owner can delete documents
       {
         "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
       },
