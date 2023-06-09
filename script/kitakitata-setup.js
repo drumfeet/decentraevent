@@ -228,7 +228,52 @@ const rules_rsvp = {
 }
 
 const schema_rsvp_gated = {
-  "let create": {
+  type: "object",
+  required: [
+    "event_doc_id",
+    "event_id",
+    "event_title",
+    "user_address",
+    "date",
+    "lit",
+  ],
+  properties: {
+    event_doc_id: {
+      type: "string",
+    },
+    event_id: {
+      type: "string",
+    },
+    event_title: {
+      type: "string",
+    },
+    user_address: {
+      type: "string",
+    },
+    date: {
+      type: "number",
+    },
+    nft_balance: {
+      type: "number",
+    },
+    lit: {
+      encryptedData: { type: "string" },
+      encryptedSymmetricKey: { type: "array", items: { type: "number" } },
+      evmContractConditions: { type: "object" },
+    },
+  },
+}
+
+const rules_rsvp_gated = {
+  "let create, update": {
+    docId: [
+      "join",
+      "-",
+      [
+        { var: "resource.newData.user_address" },
+        { var: "resource.newData.event_id" },
+      ],
+    ],
     nft_balance: {
       var: "request.auth.extra",
     },
@@ -238,6 +283,7 @@ const schema_rsvp_gated = {
   },
   "allow create": {
     and: [
+      //validate signer wallet address has at least 1 NFT from a specified ERC-721 collection
       {
         ">": [
           {
@@ -245,6 +291,66 @@ const schema_rsvp_gated = {
           },
           0,
         ],
+      },
+      //validate `resource.id` is a valid `docId` format: `user_address-event_id`
+      {
+        "==": [{ var: "resource.id" }, { var: "docId" }],
+      },
+      //signer is the creator of the doc
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+  "allow update": {
+    and: [
+      //only the original creator of the doc can update their own data
+      //signer is the original creator of the doc
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //user_address field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.user_address" },
+          { var: "resource.newData.user_address" },
+        ],
+      },
+      //event_id field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.event_id" },
+          { var: "resource.newData.event_id" },
+        ],
+      },
+      //event_doc_id field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.event_doc_id" },
+          { var: "resource.newData.event_doc_id" },
+        ],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+  "allow delete": {
+    or: [
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
       },
     ],
   },
