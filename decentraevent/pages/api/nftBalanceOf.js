@@ -6,8 +6,9 @@ const contractTxId = process.env.NEXT_PUBLIC_WEAVEDB_CONTRACT_TX_ID
 
 export default async (req, res) => {
   try {
-    const { params, nftContractAddr, chainId } = JSON.parse(req.body)
-    const signerAddress = params?.query[0]?.user_address
+    const { params, nftContractAddr, chainId, signerAddress } = JSON.parse(
+      req.body
+    )
 
     const provider = new ethers.providers.JsonRpcProvider(
       chainId === 80001
@@ -19,12 +20,12 @@ export default async (req, res) => {
         : process.env.ETH_RPC_URL
     )
 
-    const address = ethers.utils.getAddress(signerAddress)
+    const _signerAddress = ethers.utils.getAddress(signerAddress)
     const nftBalance = await new Contract(
       nftContractAddr,
       abi,
       provider
-    ).balanceOf(address)
+    ).balanceOf(_signerAddress)
 
     const sdk = new SDK_NODE({
       contractTxId: contractTxId,

@@ -46,6 +46,12 @@ const schema_events = {
     rsvp_limit: {
       type: "number",
     },
+    nft_contract: {
+      type: "string",
+    },
+    chain_id: {
+      type: "number",
+    },
   },
 }
 

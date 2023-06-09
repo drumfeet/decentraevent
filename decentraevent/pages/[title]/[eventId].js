@@ -84,7 +84,7 @@ export default function ViewEvent() {
         ["date", "desc"]
       )
       setComments(_comments)
-      console.log(_comments)
+      console.log("getComments()", _comments)
     } catch (e) {
       toast(e.message)
       console.error(`getComments() catch: ${e}`)
@@ -178,37 +178,6 @@ export default function ViewEvent() {
     toast("Feature coming soon!")
   }
 
-  const handleTestGatedRsvpClick = async () => {
-    console.log("handleTestGatedRsvpClick")
-    const docId = "4"
-
-    try {
-      const _signerAddress = user?.wallet?.toLowerCase()
-      const params = await db.sign(
-        "upsert",
-        { user_address: _signerAddress, date: db.ts() },
-        "rsvp_gated",
-        docId,
-        { jobID: "nft_balance" },
-      )
-
-      const nftContractAddr = "0x452b734E7283AA6687E6f301ee4B84dd4956B764"
-      const chainId = 80001
-      const response = await fetch("/api/nftBalanceOf", {
-        method: "POST",
-        body: JSON.stringify({ params, nftContractAddr, chainId }),
-      })
-      const responseJson = await response.json()
-      console.log("responseJson", responseJson)
-
-      if (responseJson.error) {
-        throw new Error(responseJson.error)
-      }
-    } catch (e) {
-      console.error("handleTestGatedRsvpClick", e)
-    }
-  }
-
   const Tabs = () => {
     return (
       <>
@@ -263,10 +232,33 @@ export default function ViewEvent() {
             <Text fontWeight="800">End Time</Text>
             <Text>{getTimeString(eventData?.data?.end_time)}</Text>
           </Box>
-          <Box>
-            <Text fontWeight="800">Details</Text>
-            <Text>{eventData?.data?.event_details}</Text>
-          </Box>
+
+          {eventData?.data?.nft_contract && (
+            <>
+              <Box>
+                <Text fontWeight="800">ERC-721 Contract Address</Text>
+                <Text>{eventData?.data?.nft_contract}</Text>
+              </Box>
+            </>
+          )}
+
+          {eventData?.data?.chain_id && (
+            <>
+              <Box>
+                <Text fontWeight="800">Chain ID</Text>
+                <Text>{eventData?.data?.chain_id}</Text>
+              </Box>
+            </>
+          )}
+
+          {eventData?.data?.event_details && (
+            <>
+              <Box>
+                <Text fontWeight="800">Details</Text>
+                <Text>{eventData?.data?.event_details}</Text>
+              </Box>
+            </>
+          )}
         </Stack>
       </>
     )
@@ -324,7 +316,8 @@ export default function ViewEvent() {
       if (initDB) {
         const _eventData = await getEventByEventId(eventId)
         console.log("ViewEvent _eventData", _eventData)
-        setEventData(_eventData.shift())
+        // setEventData(_eventData.shift())
+        setEventData(_eventData[0])
 
         const _rsvpCount = await getRsvpCount(eventId)
         console.log("ViewEvent _rsvpCount", _rsvpCount)
@@ -348,9 +341,14 @@ export default function ViewEvent() {
         console.log(`placeUrl: ${_placeUrl}`)
 
         if (user) {
+          const isRsvpGated =
+            eventData?.data?.nft_contract && eventData?.data?.chain_id
+              ? true
+              : false
           const _userRsvp = await getUserRsvpForEvent(
             user.wallet.toLowerCase(),
-            eventData?.data?.event_id
+            eventData?.data?.event_id,
+            isRsvpGated
           )
           console.log("ViewEvent _userRsvp", _userRsvp)
           setUserRsvpData(_userRsvp)
@@ -440,7 +438,6 @@ export default function ViewEvent() {
                         </Button>
                       </>
                     )}
-                    <Button onClick={handleTestGatedRsvpClick} hidden={true}>TestNFT</Button>
                     <Button
                       py="14px"
                       px="58px"
