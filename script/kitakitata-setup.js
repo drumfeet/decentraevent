@@ -69,9 +69,11 @@ const rules_events = {
 
   "allow create": {
     and: [
+      //validate `resource.id` is a valid `docId` format: `user_address-event_id`
       {
         "==": [{ var: "resource.id" }, { var: "docId" }],
       },
+      //validate `user_address` field is the signer
       {
         "==": [
           { var: "request.auth.signer" },
@@ -89,12 +91,10 @@ const rules_events = {
 
   "allow update": {
     and: [
+      //only the original creator of the doc can update their own data
       //signer is the original creator of the doc
       {
-        "==": [
-          { var: "request.auth.signer" },
-          { var: "resource.data.user_address" },
-        ],
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
       },
       //user_address field cannot be updated
       {
@@ -120,9 +120,15 @@ const rules_events = {
   },
 
   "allow delete": {
-    "==": [
-      { var: "request.auth.signer" },
-      { var: "resource.data.user_address" },
+    or: [
+      //original creator of the doc can delete their own data
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //contract owner can delete documents
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
+      },
     ],
   },
 }
@@ -404,6 +410,7 @@ const schema_users = {
 const rules_users = {
   "allow create": {
     and: [
+      //validate `user_address` field is the signer
       {
         "==": [
           { var: "request.auth.signer" },
@@ -418,14 +425,13 @@ const rules_users = {
       },
     ],
   },
+
   "allow update": {
     and: [
+      //only the original creator of the doc can update their own data
       //signer is the original creator of the doc
       {
-        "==": [
-          { var: "request.auth.signer" },
-          { var: "resource.data.user_address" },
-        ],
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
       },
       //user_address field cannot be updated
       {
@@ -439,6 +445,185 @@ const rules_users = {
           { var: "request.block.timestamp" },
           { var: "resource.newData.date" },
         ],
+      },
+    ],
+  },
+
+  "allow delete": {
+    or: [
+      //original creator of the doc can delete their own data
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //contract owner can delete documents
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
+      },
+    ],
+  },
+}
+
+const schema_comments = {
+  type: "object",
+  required: ["comment", "event_id", "user_address", "date"],
+  properties: {
+    comment: {
+      type: "string",
+    },
+    event_id: {
+      type: "string",
+    },
+    user_address: {
+      type: "string",
+    },
+    date: {
+      type: "number",
+    },
+  },
+}
+
+const rules_comments = {
+  "allow create": {
+    and: [
+      //validate `user_address` field is the signer
+      {
+        "==": [
+          { var: "request.auth.signer" },
+          { var: "resource.newData.user_address" },
+        ],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+
+  "allow update": {
+    and: [
+      //only the original creator of the doc can update their own data
+      //signer is the original creator of the doc
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //user_address field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.user_address" },
+          { var: "resource.newData.user_address" },
+        ],
+      },
+      //event_id field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.event_id" },
+          { var: "resource.newData.event_id" },
+        ],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+
+  "allow delete": {
+    or: [
+      //original creator of the doc can delete their own data
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //contract owner can delete documents
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
+      },
+    ],
+  },
+}
+
+//event_msgs
+const schema_messages = {
+  type: "object",
+  required: ["msg", "event_id", "user_address", "date"],
+  properties: {
+    msg: {
+      type: "string",
+    },
+    event_id: {
+      type: "string",
+    },
+    user_address: {
+      type: "string",
+    },
+    date: {
+      type: "number",
+    },
+  },
+}
+
+//event_msgs
+const rules_messages = {
+  "allow create": {
+    and: [
+      //validate `user_address` field is the signer
+      {
+        "==": [
+          { var: "request.auth.signer" },
+          { var: "resource.newData.user_address" },
+        ],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+
+  "allow update": {
+    and: [
+      //only the original creator of the doc can update their own data
+      //signer is the original creator of the doc
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //user_address field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.user_address" },
+          { var: "resource.newData.user_address" },
+        ],
+      },
+      //event_id field cannot be updated
+      {
+        "==": [
+          { var: "resource.data.event_id" },
+          { var: "resource.newData.event_id" },
+        ],
+      },
+      {
+        "==": [
+          { var: "request.block.timestamp" },
+          { var: "resource.newData.date" },
+        ],
+      },
+    ],
+  },
+
+  "allow delete": {
+    or: [
+      //original creator of the doc can delete their own data
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "resource.setter" }],
+      },
+      //contract owner can delete documents
+      {
+        "==": [{ var: "request.auth.signer" }, { var: "contract.owners" }],
       },
     ],
   },
