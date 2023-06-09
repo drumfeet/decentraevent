@@ -11,7 +11,7 @@ import LitJsSdk from "@lit-protocol/sdk-browser"
 export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-  const COLLECTION_EVENTS = "sample"
+  const COLLECTION_EVENTS = "sample" //"events"
   const COLLECTION_RSVP = "rsvp"
   const COLLECTION_RSVP_GATED = "rsvp_gated"
   const COLLECTION_USERS = "users"

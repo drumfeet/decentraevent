@@ -1,6 +1,13 @@
 const { initSetup, send, getArgv } = require("./utils")
 const argv = getArgv("wallet_name", "contractTxId")
 
+const COLLECTION_EVENTS = "sample" //"events"
+const COLLECTION_RSVP = "rsvp"
+const COLLECTION_RSVP_GATED = "rsvp_gated"
+const COLLECTION_USERS = "users"
+const COLLECTION_MESSAGES = "messages"
+const COLLECTION_COMMENTS = "comments"
+
 const schema_events = {
   type: "object",
   required: [
@@ -635,33 +642,63 @@ const setup = async () => {
   await send(sdk, wallet, [
     {
       func: "setSchema",
-      query: [schema_events, "events"],
-      msg: "events schema set!",
+      query: [schema_events, COLLECTION_EVENTS],
+      msg: `${COLLECTION_EVENTS} schema set!`,
     },
     {
       func: "setRules",
-      query: [rules_events, "events"],
-      msg: "events rules set!",
+      query: [rules_events, COLLECTION_EVENTS],
+      msg: `${COLLECTION_EVENTS} rules set!`,
     },
     {
       func: "setSchema",
-      query: [schema_rsvp, "rsvp"],
-      msg: "rsvp schema set!",
+      query: [schema_rsvp, COLLECTION_RSVP],
+      msg: `${COLLECTION_RSVP} schema set!`,
     },
     {
       func: "setRules",
-      query: [rules_rsvp, "rsvp"],
-      msg: "rsvp rules set!",
+      query: [rules_rsvp, COLLECTION_RSVP],
+      msg: `${COLLECTION_RSVP} rules set!`,
     },
     {
       func: "setSchema",
-      query: [schema_users, "users"],
-      msg: "users schema set!",
+      query: [schema_rsvp, COLLECTION_RSVP_GATED],
+      msg: `${COLLECTION_RSVP_GATED} schema set!`,
     },
     {
       func: "setRules",
-      query: [rules_users, "users"],
-      msg: "users rules set!",
+      query: [rules_rsvp, COLLECTION_RSVP_GATED],
+      msg: `${COLLECTION_RSVP_GATED} rules set!`,
+    },
+    {
+      func: "setSchema",
+      query: [schema_users, COLLECTION_USERS],
+      msg: `${COLLECTION_USERS} schema set!`,
+    },
+    {
+      func: "setRules",
+      query: [rules_users, COLLECTION_USERS],
+      msg: `${COLLECTION_USERS} rules set!`,
+    },
+    {
+      func: "setSchema",
+      query: [schema_users, COLLECTION_MESSAGES],
+      msg: `${COLLECTION_MESSAGES} schema set!`,
+    },
+    {
+      func: "setRules",
+      query: [rules_users, COLLECTION_MESSAGES],
+      msg: `${COLLECTION_MESSAGES} rules set!`,
+    },
+    {
+      func: "setSchema",
+      query: [schema_users, COLLECTION_COMMENTS],
+      msg: `${COLLECTION_COMMENTS} schema set!`,
+    },
+    {
+      func: "setRules",
+      query: [rules_users, COLLECTION_COMMENTS],
+      msg: `${COLLECTION_COMMENTS} rules set!`,
     },
   ])
   process.exit()
