@@ -84,7 +84,7 @@ export default function ViewEvent() {
         ["date", "desc"]
       )
       setComments(_comments)
-      console.log(_comments)
+      console.log("getComments()", _comments)
     } catch (e) {
       toast(e.message)
       console.error(`getComments() catch: ${e}`)
@@ -232,10 +232,33 @@ export default function ViewEvent() {
             <Text fontWeight="800">End Time</Text>
             <Text>{getTimeString(eventData?.data?.end_time)}</Text>
           </Box>
-          <Box>
-            <Text fontWeight="800">Details</Text>
-            <Text>{eventData?.data?.event_details}</Text>
-          </Box>
+
+          {eventData?.data?.nft_contract && (
+            <>
+              <Box>
+                <Text fontWeight="800">ERC-721 Contract Address</Text>
+                <Text>{eventData?.data?.nft_contract}</Text>
+              </Box>
+            </>
+          )}
+
+          {eventData?.data?.chain_id && (
+            <>
+              <Box>
+                <Text fontWeight="800">Chain ID</Text>
+                <Text>{eventData?.data?.chain_id}</Text>
+              </Box>
+            </>
+          )}
+
+          {eventData?.data?.event_details && (
+            <>
+              <Box>
+                <Text fontWeight="800">Details</Text>
+                <Text>{eventData?.data?.event_details}</Text>
+              </Box>
+            </>
+          )}
         </Stack>
       </>
     )
@@ -293,7 +316,8 @@ export default function ViewEvent() {
       if (initDB) {
         const _eventData = await getEventByEventId(eventId)
         console.log("ViewEvent _eventData", _eventData)
-        setEventData(_eventData.shift())
+        // setEventData(_eventData.shift())
+        setEventData(_eventData[0])
 
         const _rsvpCount = await getRsvpCount(eventId)
         console.log("ViewEvent _rsvpCount", _rsvpCount)
@@ -317,9 +341,14 @@ export default function ViewEvent() {
         console.log(`placeUrl: ${_placeUrl}`)
 
         if (user) {
+          const isRsvpGated =
+            eventData?.data?.nft_contract && eventData?.data?.chain_id
+              ? true
+              : false
           const _userRsvp = await getUserRsvpForEvent(
             user.wallet.toLowerCase(),
-            eventData?.data?.event_id
+            eventData?.data?.event_id,
+            isRsvpGated
           )
           console.log("ViewEvent _userRsvp", _userRsvp)
           setUserRsvpData(_userRsvp)

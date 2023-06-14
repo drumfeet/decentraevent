@@ -181,7 +181,9 @@ export default function CreateEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
-                <FormLabel>Event Title</FormLabel>
+                <FormLabel>
+                  Event Title <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Event Title"
                   onChange={handleInputChange}
@@ -190,7 +192,9 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
-                <FormLabel>Organizer</FormLabel>
+                <FormLabel>
+                  Organizer <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Organizer"
                   onChange={handleInputChange}
@@ -217,7 +221,9 @@ export default function CreateEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={!useGooglePlaces}
               >
-                <FormLabel>Google Location</FormLabel>
+                <FormLabel>
+                  Google Location <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <InputGroup>
                   <InputLeftElement>
                     <Search2Icon color="gray.500" />
@@ -240,7 +246,9 @@ export default function CreateEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={useGooglePlaces}
               >
-                <FormLabel>Location</FormLabel>
+                <FormLabel>
+                  Location <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Location"
                   borderColor="#98A2B3"
@@ -270,7 +278,9 @@ export default function CreateEvent() {
                 ) : null}
               </FormControl>
               <FormControl id="start_time">
-                <FormLabel>Local Start Time</FormLabel>
+                <FormLabel>
+                  Local Start Time <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Select Start Time"
                   size="md"
@@ -280,7 +290,9 @@ export default function CreateEvent() {
                 />
               </FormControl>
               <FormControl id="end_time">
-                <FormLabel>Local End Time</FormLabel>
+                <FormLabel>
+                  Local End Time <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Select End Time"
                   size="md"
@@ -294,6 +306,30 @@ export default function CreateEvent() {
                 <Tooltip label="Max # of attendees" placement="top">
                   <Input
                     placeholder="RSVP Limit"
+                    size="md"
+                    type="number"
+                    onChange={handleInputChangeNum}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
+              </FormControl>
+              <FormControl id="nft_contract">
+                <FormLabel>ERC-721 Contract Address</FormLabel>
+                <Tooltip label="Required for token gating" placement="top">
+                  <Input
+                    placeholder="0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+                    size="md"
+                    type="string"
+                    onChange={handleInputChange}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
+              </FormControl>
+              <FormControl id="chain_id">
+                <FormLabel>Chain ID</FormLabel>
+                <Tooltip label="Required for token gating" placement="top">
+                  <Input
+                    placeholder="1 (ETH) or 137 (MATIC)"
                     size="md"
                     type="number"
                     onChange={handleInputChangeNum}

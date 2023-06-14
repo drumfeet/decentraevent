@@ -106,9 +106,14 @@ export default function ViewAttendees() {
           const _eventData = await getEventByEventId(eventId)
           console.log("view-attendees eventId", eventId)
           console.log("view-attendees _eventData", _eventData)
-          setEventData(_eventData.shift())
+          // setEventData(_eventData.shift())
+          setEventData(_eventData[0])
+          const isRsvpGated =
+            _eventData[0]?.data?.nft_contract && _eventData[0]?.data?.chain_id
+              ? true
+              : false
 
-          const _eventAttendees = await getEventAttendees(eventId)
+          const _eventAttendees = await getEventAttendees(eventId, isRsvpGated)
           console.log("view-attendees _eventAttendees", _eventAttendees)
           setEventAttendees(_eventAttendees)
         }

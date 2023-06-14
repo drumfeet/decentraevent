@@ -164,6 +164,8 @@ export default function EditEvent() {
             end_time: getDateTime(_event?.data?.end_time),
             event_details: _event?.data?.event_details,
             rsvp_limit: _event?.data?.rsvp_limit,
+            nft_contract: _event?.data?.nft_contract,
+            chain_id: _event?.data?.chain_id,
           })
           locationRef.current.value = _event?.data?.location?.name
           console.log("EditEvent _event", _event)
@@ -200,7 +202,9 @@ export default function EditEvent() {
             <Divider borderColor="black" />
             <Stack spacing="24px" p="32px">
               <FormControl id="title">
-                <FormLabel>Event Title</FormLabel>
+                <FormLabel>
+                  Event Title <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   value={eventData?.title}
                   placeholder="Event Title"
@@ -210,7 +214,9 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="organizer">
-                <FormLabel>Organizer</FormLabel>
+                <FormLabel>
+                  Organizer <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   value={eventData?.organizer}
                   placeholder="Organizer"
@@ -242,7 +248,9 @@ export default function EditEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={!useGooglePlaces}
               >
-                <FormLabel>Google Location</FormLabel>
+                <FormLabel>
+                  Google Location <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <InputGroup>
                   <InputLeftElement>
                     <Search2Icon color="gray.500" />
@@ -265,7 +273,9 @@ export default function EditEvent() {
                 style={{ marginTop: "0px" }}
                 hidden={useGooglePlaces}
               >
-                <FormLabel>Location</FormLabel>
+                <FormLabel>
+                  Location <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   placeholder="Location"
                   borderColor="#98A2B3"
@@ -295,7 +305,9 @@ export default function EditEvent() {
                 ) : null}
               </FormControl>
               <FormControl id="start_time">
-                <FormLabel>Local Start Time</FormLabel>
+                <FormLabel>
+                  Local Start Time <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   value={eventData?.start_time}
                   placeholder="Select Start Time"
@@ -306,7 +318,9 @@ export default function EditEvent() {
                 />
               </FormControl>
               <FormControl id="end_time">
-                <FormLabel>Local End Time</FormLabel>
+                <FormLabel>
+                  Local End Time <span style={{ color: "red" }}>*</span>
+                </FormLabel>
                 <Input
                   value={eventData?.end_time}
                   placeholder="Select End Time"
@@ -322,6 +336,32 @@ export default function EditEvent() {
                   <Input
                     value={eventData?.rsvp_limit || ""}
                     placeholder="RSVP Limit"
+                    size="md"
+                    type="number"
+                    onChange={handleInputChangeNum}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
+              </FormControl>
+              <FormControl id="nft_contract">
+                <FormLabel>ERC-721 Contract Address</FormLabel>
+                <Tooltip label="Required for token gating" placement="top">
+                  <Input
+                    value={eventData?.nft_contract}
+                    placeholder="0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"
+                    size="md"
+                    type="string"
+                    onChange={handleInputChange}
+                    borderColor="#98A2B3"
+                  />
+                </Tooltip>
+              </FormControl>
+              <FormControl id="chain_id">
+                <FormLabel>Chain ID</FormLabel>
+                <Tooltip label="Required for token gating" placement="top">
+                  <Input
+                    value={eventData?.chain_id || ""}
+                    placeholder="1 (ETH) or 137 (MATIC)"
                     size="md"
                     type="number"
                     onChange={handleInputChangeNum}

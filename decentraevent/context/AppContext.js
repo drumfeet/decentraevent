@@ -11,11 +11,13 @@ import LitJsSdk from "@lit-protocol/sdk-browser"
 export const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-  const COLLECTION_EVENTS = "sample"
+  const COLLECTION_EVENTS = "sample" //"events"
   const COLLECTION_RSVP = "rsvp"
+  const COLLECTION_RSVP_GATED = "rsvp_gated"
   const COLLECTION_USERS = "users"
   const COLLECTION_MESSAGES = "messages"
-  const contractTxId = "plxPveypGZ4g__TaFzQd8D70WtrGAOVIiWAa_wgUi0Y"
+  const RELAYER_JOB_ID = "nft_balance"
+  const contractTxId = process.env.NEXT_PUBLIC_WEAVEDB_CONTRACT_TX_ID
   const router = useRouter()
   const [db, setDb] = useState(null)
   const [initDB, setInitDB] = useState(false)
@@ -276,13 +278,13 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getEventAttendees = async (eventId) => {
+  const getEventAttendees = async (eventId, isRsvpGated) => {
     setIsLoading(true)
     try {
       console.log("getEventAttendees() eventId", eventId)
 
       const _eventAttendees = await db.cget(
-        COLLECTION_RSVP,
+        isRsvpGated ? COLLECTION_RSVP_GATED : COLLECTION_RSVP,
         ["event_id", "==", eventId],
         ["date", "desc"]
       )
@@ -368,7 +370,11 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const getUserRsvpForEvent = async (userWalletAddress, eventId) => {
+  const getUserRsvpForEvent = async (
+    userWalletAddress,
+    eventId,
+    isRsvpGated
+  ) => {
     setIsLoading(true)
     let jsonData
     try {
@@ -377,7 +383,10 @@ export const AppContextProvider = ({ children }) => {
       const rsvpDocId = join("-", [userWalletAddress, eventId])
       console.log("getUserRsvpForEvent() rsvpDocId", rsvpDocId)
 
-      const _userRsvp = await db.cget(COLLECTION_RSVP, rsvpDocId)
+      const _userRsvp = await db.cget(
+        isRsvpGated ? COLLECTION_RSVP_GATED : COLLECTION_RSVP,
+        rsvpDocId
+      )
       console.log("getUserRsvpForEvent() _userRsvp", _userRsvp)
 
       if (!isNil(_userRsvp) && !isNil(_userRsvp?.data.lit)) {
@@ -478,7 +487,7 @@ export const AppContextProvider = ({ children }) => {
       }
     } catch (e) {
       console.log(e)
-      toast(e)
+      toast(e.message)
     }
   }
 
@@ -565,13 +574,47 @@ export const AppContextProvider = ({ children }) => {
       },
     }
 
-    const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
-    if (tx.error) {
-      throw new Error("Error! " + tx.error)
-    }
+    try {
+      const nftContractAddress = metadata?.data?.nft_contract
+      const chainId = metadata?.data?.chain_id
+      if (nftContractAddress && chainId) {
+        const params = await db.sign(
+          "upsert",
+          rsvpData,
+          COLLECTION_RSVP_GATED,
+          docId,
+          { jobID: RELAYER_JOB_ID }
+        )
 
-    sendEmail(email, metadata)
-    toast("Event attendance confirmed")
+        const signerAddress = user.wallet.toLowerCase()
+        const response = await fetch("/api/nftBalanceOf", {
+          method: "POST",
+          body: JSON.stringify({
+            params,
+            nftContractAddress,
+            chainId,
+            signerAddress,
+          }),
+        })
+        const responseJson = await response.json()
+        console.log("handleUserGoing() responseJson", responseJson)
+
+        if (responseJson.error) {
+          throw new Error(responseJson.error)
+        }
+      } else {
+        const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
+        if (tx.error) {
+          throw new Error("Error! " + tx.error)
+        }
+      }
+
+      sendEmail(email, metadata)
+      toast("Event attendance confirmed")
+    } catch (e) {
+      console.error("handleUserGoing", e)
+      toast(e.message)
+    }
   }
 
   const handleUserNotGoing = async (docId) => {
@@ -851,7 +894,7 @@ export const AppContextProvider = ({ children }) => {
       }
     } catch (e) {
       console.log(e)
-      toast(e)
+      toast(e.message)
       return null
     }
   }
