@@ -7,6 +7,7 @@ import {
   Avatar,
   Box,
   Button,
+  Center,
   Container,
   Flex,
   HStack,
@@ -31,7 +32,6 @@ import {
   DeleteIcon,
   EditIcon,
   TimeIcon,
-  TriangleDownIcon,
 } from "@chakra-ui/icons"
 import { GoLocation } from "react-icons/go"
 import Link from "next/link"
@@ -455,8 +455,32 @@ export default function ViewEvent() {
                         _loading={{ pointerEvents: "none" }}
                         isLoading={isLoading}
                         as={IconButton}
+                        bg="white"
+                        color="black"
+                        _hover={{
+                          borderColor: "white",
+                          borderWidth: "1px",
+                          boxShadow: "4px 4px 0px #000000",
+                          bg: "black",
+                          color: "white",
+                        }}
                       >
-                        <TriangleDownIcon />
+                        <Center>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                            />
+                          </svg>
+                        </Center>
                       </MenuButton>
                       <MenuList fontSize="18px" fontWeight="400">
                         <MenuItem
