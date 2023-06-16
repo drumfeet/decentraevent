@@ -583,7 +583,7 @@ export const AppContextProvider = ({ children }) => {
           rsvpData,
           COLLECTION_RSVP_GATED,
           docId,
-          { jobID: RELAYER_JOB_ID }
+          { ...user, jobID: RELAYER_JOB_ID }
         )
 
         const signerAddress = user.wallet.toLowerCase()
@@ -597,11 +597,11 @@ export const AppContextProvider = ({ children }) => {
           }),
         })
         const responseJson = await response.json()
-        console.log("handleUserGoing() responseJson", responseJson)
-
         if (responseJson.error) {
+          console.error("handleUserGoing() responseJson", responseJson)
           throw new Error(responseJson.error)
         }
+        console.log("handleUserGoing() responseJson", responseJson)
       } else {
         const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
         if (tx.error) {
