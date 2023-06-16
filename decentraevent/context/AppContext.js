@@ -452,7 +452,7 @@ export const AppContextProvider = ({ children }) => {
       if (isUserGoing) {
         await handleUserGoing(docId, metadata, userAddress, isUserGoing)
       } else {
-        await handleUserNotGoing(docId)
+        await handleUserNotGoing(docId, metadata)
       }
     } catch (e) {
       toast(e.message)
@@ -617,8 +617,16 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const handleUserNotGoing = async (docId) => {
-    const tx = await db.delete(COLLECTION_RSVP, docId, user)
+  const handleUserNotGoing = async (docId, metadata) => {
+    const nftContractAddress = metadata?.data?.nft_contract
+    const chainId = metadata?.data?.chain_id
+    const isRsvpGated = nftContractAddress && chainId
+
+    const tx = await db.delete(
+      isRsvpGated ? COLLECTION_RSVP_GATED : COLLECTION_RSVP,
+      docId,
+      user
+    )
     if (tx.error) {
       throw new Error("Error! " + tx.error)
     }
