@@ -452,7 +452,7 @@ export const AppContextProvider = ({ children }) => {
       if (isUserGoing) {
         await handleUserGoing(docId, metadata, userAddress, isUserGoing)
       } else {
-        await handleUserNotGoing(docId)
+        await handleUserNotGoing(docId, metadata)
       }
     } catch (e) {
       toast(e.message)
@@ -583,7 +583,7 @@ export const AppContextProvider = ({ children }) => {
           rsvpData,
           COLLECTION_RSVP_GATED,
           docId,
-          { jobID: RELAYER_JOB_ID }
+          { ...user, jobID: RELAYER_JOB_ID }
         )
 
         const signerAddress = user.wallet.toLowerCase()
@@ -597,11 +597,11 @@ export const AppContextProvider = ({ children }) => {
           }),
         })
         const responseJson = await response.json()
-        console.log("handleUserGoing() responseJson", responseJson)
-
         if (responseJson.error) {
+          console.error("handleUserGoing() responseJson", responseJson)
           throw new Error(responseJson.error)
         }
+        console.log("handleUserGoing() responseJson", responseJson)
       } else {
         const tx = await db.upsert(rsvpData, COLLECTION_RSVP, docId, user)
         if (tx.error) {
@@ -617,8 +617,16 @@ export const AppContextProvider = ({ children }) => {
     }
   }
 
-  const handleUserNotGoing = async (docId) => {
-    const tx = await db.delete(COLLECTION_RSVP, docId, user)
+  const handleUserNotGoing = async (docId, metadata) => {
+    const nftContractAddress = metadata?.data?.nft_contract
+    const chainId = metadata?.data?.chain_id
+    const isRsvpGated = nftContractAddress && chainId
+
+    const tx = await db.delete(
+      isRsvpGated ? COLLECTION_RSVP_GATED : COLLECTION_RSVP,
+      docId,
+      user
+    )
     if (tx.error) {
       throw new Error("Error! " + tx.error)
     }

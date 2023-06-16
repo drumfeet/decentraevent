@@ -6,7 +6,7 @@ const contractTxId = process.env.NEXT_PUBLIC_WEAVEDB_CONTRACT_TX_ID
 
 export default async (req, res) => {
   try {
-    const { params, nftContractAddr, chainId, signerAddress } = JSON.parse(
+    const { params, nftContractAddress, chainId, signerAddress } = JSON.parse(
       req.body
     )
 
@@ -22,7 +22,7 @@ export default async (req, res) => {
 
     const _signerAddress = ethers.utils.getAddress(signerAddress)
     const nftBalance = await new Contract(
-      nftContractAddr,
+      nftContractAddress,
       abi,
       provider
     ).balanceOf(_signerAddress)
